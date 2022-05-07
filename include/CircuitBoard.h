@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Object.h"
+#include "Button.h"
 
 class CircuitBoard
 {

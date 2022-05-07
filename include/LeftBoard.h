@@ -6,26 +6,23 @@
 #define FRONTEND_LEFTBOARD_H
 
 #include <SFML/Graphics.hpp>
+#include "Button.h"
 
 class LeftBoard
 {
 public:
     sf::RectangleShape backGround;
 
-    //
-    std::array<sf::Texture,9> sampleTextures;
-    std::array<sf::Sprite,9> sampleSprites;
-    //
+    Button buttons[9];
 
     sf::RenderWindow* window;
     //getter/setter
     explicit LeftBoard(sf::RenderWindow* w);
     void setBackGround();
-    void setSampleTextures();
-    void setSampleSprites();
+    void setButtons();
     void Draw() const;
     bool contains(sf::Vector2f mp) const;
-    void handleClick(sf::Vector2f mp) const;
+    buttonType handleClick(sf::Vector2f mp) const;
 };
 
 

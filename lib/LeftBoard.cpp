@@ -12,11 +12,18 @@
 #include <iostream>
 
 LeftBoard::LeftBoard(sf::RenderWindow* w):
-    window(w)
+        window(w), buttons{AndGate,
+                            OrGate,
+                            XorGate,
+                            NotGate,
+                            DFlipFlop,
+                            Logic0,
+                            Logic1,
+                            Clock,
+                            LED}
 {
     setBackGround();
-    setSampleTextures();
-    setSampleSprites();
+    setButtons();
 }
 
 void LeftBoard::setBackGround()
@@ -25,45 +32,22 @@ void LeftBoard::setBackGround()
     backGround.setFillColor(sf::Color(150,150,150));
 }
 
-void LeftBoard::setSampleTextures()
+void LeftBoard::setButtons()
 {
-    std::array<std::string,9> arr =
-            {
-                    "../assets/AND.png",
-                    "../assets/OR.png",
-                    "../assets/XOR.png",
-                    "../assets/NOT.png",
-                    "../assets/DFF.png",
-                    "../assets/GND.png",
-                    "../assets/VDD.png",
-                    "../assets/CLOCK.png",
-                    "../assets/LEDOFF.png"
-            };
-    for (int i = 0; i<9; i++)
+    for (int i = 0; i < 9; i++)
     {
-        if (!this->sampleTextures[i].loadFromFile(arr[i]))
-        {
-            std::cout << "Failed to load asset: "<< arr[i] << std::endl;
-        }
+        buttons[i].sprite.setPosition(25.f, 25.f + i*60);
     }
 }
 
-void LeftBoard::setSampleSprites()
-{
-    for (int i=0; i< 9; i++)
-    {
-        sampleSprites[i].setTexture(sampleTextures[i]);
-        sampleSprites[i].setScale(0.5f, 0.5f);
-        sampleSprites[i].setPosition(25.f, 25.f + i*60);
-    }
-}
+
 
 void LeftBoard::Draw() const
 {
     window->draw(backGround);
     for (int i = 0; i < 9; i++)
     {
-        window->draw(sampleSprites[i]);
+        buttons[i].draw(window);
     }
 }
 
@@ -82,8 +66,18 @@ bool LeftBoard::contains(sf::Vector2f mp) const
 }
 
 
-void LeftBoard::handleClick(sf::Vector2f mp) const
+buttonType LeftBoard::handleClick(sf::Vector2f mp) const
 {
     std::cout<< "LeftBoard clicked!" << std::endl;
+    buttonType temp = NoButton;
+    for (const auto b: buttons)
+    {
+        if (b.isClicked(mp))
+        {
+            temp = b.handleClick();
+            break;
+        }
+    }
+    return temp;
 }
 

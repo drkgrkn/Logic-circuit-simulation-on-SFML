@@ -5,7 +5,7 @@
 #include "../include/Simulator.h"
 
 Simulator::Simulator(sf::RenderWindow* w):
-    window(w)
+    window(w), objPtr(nullptr)
 {
     circuitBoard = new CircuitBoard(window);
     topBoard = new TopBoard(window);
@@ -38,12 +38,29 @@ void Simulator::handleClick(sf::Vector2f mp)
 {
     if (leftBoard->contains(mp))
     {
-        leftBoard->handleClick(mp);
+        buttonType b = leftBoard->handleClick(mp);
+        createObject(b);
     } else if (topBoard->contains(mp))
     {
-        topBoard->handleClick(mp);
+        buttonType b = topBoard->handleClick(mp);
+        switch (b)
+        {
+            case NoButton:
+                break;
+            case Play:
+                break;
+            case Stop:
+                break;
+        }
     } else if (circuitBoard->contains(mp))
     {
         circuitBoard->handleClick(mp);
     }
+}
+
+void Simulator::createObject(buttonType b)
+{
+    if (b == NoButton)
+        return;
+    std::cout << "Create Object" << b << std::endl;
 }
