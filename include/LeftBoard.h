@@ -10,7 +10,6 @@
 class LeftBoard
 {
 public:
-    sf::Rect<float> box;
     sf::RectangleShape backGround;
 
     //
@@ -22,7 +21,6 @@ public:
     //getter/setter
     explicit LeftBoard(sf::RenderWindow* w);
     void setBackGround();
-    void setBox();
     void setSampleTextures();
     void setSampleSprites();
     void Draw() const;

@@ -15,7 +15,6 @@ LeftBoard::LeftBoard(sf::RenderWindow* w):
     window(w)
 {
     setBackGround();
-    setBox();
     setSampleTextures();
     setSampleSprites();
 }
@@ -24,14 +23,6 @@ void LeftBoard::setBackGround()
 {
     backGround.setSize(sf::Vector2f(100,600));
     backGround.setFillColor(sf::Color(150,150,150));
-}
-
-void LeftBoard::setBox()
-{
-    box.left = backGround.getPosition().x;
-    box.top = backGround.getPosition().y;
-    box.width = 100;
-    box.height = 600;
 }
 
 void LeftBoard::setSampleTextures()
@@ -78,22 +69,21 @@ void LeftBoard::Draw() const
 
 bool LeftBoard::contains(sf::Vector2f mp) const
 {
-    return box.contains(mp);
+    float x_size = backGround.getSize().x;
+    float y_size = backGround.getSize().y;
+    float x_pos = backGround.getPosition().x;
+    float y_pos = backGround.getPosition().y;
+
+    return
+            (mp.x <= x_pos + x_size) &&
+            (mp.x >= x_pos) &&
+            (mp.y <= y_pos + y_size) &&
+            (mp.y >= y_pos);
 }
 
 
 void LeftBoard::handleClick(sf::Vector2f mp) const
 {
     std::cout<< "LeftBoard clicked!" << std::endl;
-        int index;
-        for (int i = 0; i < 9; i++)
-        {
-            if (buttons[i]->isClicked(mp))
-            {
-                index = i;
-            }
-        }
-
-
 }
 

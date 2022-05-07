@@ -52,3 +52,22 @@ void TopBoard::Draw()
         window->draw(buttonSprites[i]);
     }
 }
+
+bool TopBoard::contains(sf::Vector2f mp) const
+{
+    float x_size = backGround.getSize().x;
+    float y_size = backGround.getSize().y;
+    float x_pos = backGround.getPosition().x;
+    float y_pos = backGround.getPosition().y;
+
+    return
+            (mp.x <= x_pos + x_size) &&
+            (mp.x >= x_pos) &&
+            (mp.y <= y_pos + y_size) &&
+            (mp.y >= y_pos);
+}
+
+void TopBoard::handleClick(sf::Vector2f mp) const
+{
+    std::cout<< "TopBoard clicked!" << std::endl;
+}

@@ -19,6 +19,8 @@ class CircuitBoard
 public:
     explicit CircuitBoard(sf::RenderWindow* w);
     void Draw() const;
+    bool contains(sf::Vector2f mp) const;
+    void handleClick(sf::Vector2f mp);
 };
 
 

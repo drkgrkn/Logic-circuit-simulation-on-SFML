@@ -19,6 +19,8 @@ class TopBoard {
 public:
     explicit TopBoard(sf::RenderWindow* w);
     void Draw();
+    bool contains(sf::Vector2f mp) const;
+    void handleClick(sf::Vector2f mp) const;
 };
 
 

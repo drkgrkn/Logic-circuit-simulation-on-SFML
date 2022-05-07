@@ -39,5 +39,11 @@ void Simulator::handleClick(sf::Vector2f mp)
     if (leftBoard->contains(mp))
     {
         leftBoard->handleClick(mp);
+    } else if (topBoard->contains(mp))
+    {
+        topBoard->handleClick(mp);
+    } else if (circuitBoard->contains(mp))
+    {
+        circuitBoard->handleClick(mp);
     }
 }
