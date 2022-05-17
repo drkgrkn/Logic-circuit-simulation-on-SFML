@@ -1,4 +1,4 @@
-#Object Oriented Programming project
+**Object Oriented Programming project**
 
 A Logic simulation written in C++ using the SFML Library
 
