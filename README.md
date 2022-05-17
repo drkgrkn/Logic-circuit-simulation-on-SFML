@@ -1,4 +1,4 @@
-**Object Oriented Programming project**
+**Object Oriented Programming Project**
 
 A Logic circuit simulator written in C++ using the SFML Library
 
