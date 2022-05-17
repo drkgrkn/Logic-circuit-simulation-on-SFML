@@ -7,11 +7,13 @@
 class Entity: public Object
 {
 public:
+	sf::RectangleShape selectionIndicator;
 	Entity* next;
 	Entity* prev;
 
 	bool state;
 	bool selected;
+	bool grabbed;
 
 	Entity(sf::RenderWindow* w, buttonType b, Entity* ePtr);
 	bool isInside(sf::Vector2f mp);

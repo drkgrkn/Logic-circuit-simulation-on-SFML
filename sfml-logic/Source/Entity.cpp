@@ -2,8 +2,8 @@
 
 Entity::Entity(sf::RenderWindow* w, buttonType b, Entity* ePtr) :
     Object(w), prev(ePtr),
-    next(nullptr), selected(true),
-    state(false)
+    next(nullptr), selected(false),
+    state(false), grabbed(true)
 {
     switch (b)
     {
@@ -60,10 +60,21 @@ Entity::Entity(sf::RenderWindow* w, buttonType b, Entity* ePtr) :
         {
             std::cout << "Failed to load asset: LEDOFF.png" << std::endl;
         }
+        if (!textures[1].loadFromFile("assets/LEDON.png"))
+        {
+            std::cout << "Failed to load asset: LEDON.png" << std::endl;
+        }
         break;
     }
     sprite.setTexture(textures[0]);
     sprite.setScale(0.5f, 0.5f);
+
+    float x_size = sprite.getTexture()->getSize().x * sprite.getScale().x;
+    float y_size = sprite.getTexture()->getSize().y * sprite.getScale().y;
+
+    selectionIndicator.setOutlineColor(sf::Color::Red);
+    selectionIndicator.setOutlineThickness(4);
+    selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
 
 bool Entity::isInside(sf::Vector2f mp)
@@ -83,12 +94,17 @@ bool Entity::isInside(sf::Vector2f mp)
 
 void Entity::draw()
 {
-    if (selected)
+    if (grabbed)
     {
         sf::Vector2f mp = sf::Vector2f(sf::Mouse::getPosition(*window));
         float x = sprite.getTexture()->getSize().x /4;
         float y = sprite.getTexture()->getSize().y /4;
         sprite.setPosition(sf::Vector2f(mp.x - x, mp.y - y));
+    }
+    if (selected)
+    {
+        selectionIndicator.setPosition(sprite.getPosition());
+        window->draw(selectionIndicator);
     }
     window->draw(sprite);
 }

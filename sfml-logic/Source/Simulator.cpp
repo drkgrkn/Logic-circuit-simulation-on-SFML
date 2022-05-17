@@ -20,8 +20,9 @@ void Simulator::close()
 	window->close();
 }
 
-void Simulator::draw() {
-	window->clear();
+void Simulator::draw()
+{
+	window->clear(sf::Color(200,200,200));
 	topBoard->draw();
 	leftBoard->draw();
 	circuitBoard->draw();
@@ -86,6 +87,11 @@ void Simulator::handleScroll(sf::Vector2f mp, sf::Event scroll)
 void Simulator::handleDelete()
 {
 	circuitBoard->handleDelete();
+}
+
+void Simulator::handleRelease(sf::Vector2f mp)
+{
+	circuitBoard->handleRelease(mp);
 }
 
 void Simulator::simulate()

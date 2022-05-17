@@ -5,7 +5,7 @@ CircuitBoard::CircuitBoard(sf::RenderWindow* w) :
 {
 	setBackGround(sf::Vector2f(100, 100),
 				sf::Vector2f(1180, 620),
-				200);
+				250);
 
 }
 
@@ -16,7 +16,6 @@ void CircuitBoard::draw() const
 	{
 		for (Entity* temp = entities; temp != nullptr;temp = temp->next)
 		{
-			std::cout << temp << std::endl;
 			temp->draw();
 		}
 	}
@@ -24,24 +23,60 @@ void CircuitBoard::draw() const
 
 void CircuitBoard::handleClick(sf::Vector2f mp)
 {
-	Entity* grabbed = nullptr;
-
-	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+	Entity* selected = nullptr;
+	Entity* clicked = nullptr;
+	for (Entity* temp = entities; temp != nullptr;temp = temp->next)
 	{
-		if (!temp->selected && temp->isInside(mp))
+		if (temp->selected)
 		{
-			temp->selected = true;
-			grabbed = temp;
+			selected = temp;
+		}
+		if (temp->isInside(mp))
+		{
+			clicked = temp;
 		}
 	}
-	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+	/*with both selected and clicked
+	there are 4 situations
+							clicked == nullptr | clicked != nullptr
+	selected == nullptr				1					2
+	selected != nullptr				3					4			*/
+
+	/*situation 1 & 3:
+		nothing is clicked thus everything should be unselected*/
+	if (!clicked)
 	{
-		if (temp->selected && temp != grabbed)
+		if (selected)
 		{
-			temp->selected = false;
+			selected->selected = false;
+			return;
 		}
 	}
-
+	/*situation 2:
+	something is clicked but nothing is selected
+	-> something becomes selected*/
+	else if (clicked && !selected)
+	{
+		clicked->selected = true;
+	}
+	/*situation 4:
+	something is clicked and something is selected:
+	possibility 1:
+		-> they are same, it becomes grabbed
+	possibility 2:
+		-> they are different, selected becomes unselected, clicked becomes selected*/
+	else
+	{
+		if (clicked == selected)
+		{
+			clicked->grabbed = true;
+		}
+		else
+		{
+			selected->selected = false;
+			clicked->selected = true;
+		}
+	}
 }
 
 void CircuitBoard::addEntity(sf::RenderWindow* w, buttonType b)
@@ -58,24 +93,77 @@ void CircuitBoard::addEntity(sf::RenderWindow* w, buttonType b)
 			if (temp->next == nullptr)
 			{
 				temp->next = new Entity(window, b, temp);
-				std::cout << "hey " << std::endl;
 				break;
 			}
 		}
 	}
 }
 
-void CircuitBoard::handleDelete()
+void CircuitBoard::deleteEntity()
 {
-	for(Entity* temp = entities;temp->next != nullptr; temp = temp->next)
+	Entity* e = nullptr;
+	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		if (temp->selected)
 		{
-			if (temp->prev != nullptr)
-				temp->prev->next = temp->next;
-			if (temp->next != nullptr)
-				temp->next->prev = temp->prev;
-			delete temp;
+			e = temp;
+		}
+	}
+	if (e == nullptr)
+	{
+		return;
+	}
+	else
+	{
+		bool isLast = false;
+		bool isFirst = false;
+		if (e->prev == nullptr)
+		{
+			isFirst = true;
+		}
+		if (e->next == nullptr)
+		{
+			isLast = true;
+		}
+
+		if (!isLast)
+		{
+			e->next->prev = e->prev;
+		}
+		if (!isFirst)
+		{
+			e->prev->next = e->next;
+		}
+		else
+		{
+			entities = e->next;
+		}
+	}
+}
+
+void CircuitBoard::handleDelete()
+{
+	deleteEntity();
+}
+
+void CircuitBoard::handleRelease(sf::Vector2f mp)
+{
+	/*if entity is dropped outside
+	  destroy that entity*/
+	if (!isInside(mp))
+	{
+		deleteEntity();
+	}
+	/* else ungrab the entity*/
+	else
+	{
+		for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+		{
+			if (temp->grabbed)
+			{
+				temp->grabbed = false;
+				temp->selected = false;
+			}
 		}
 	}
 }

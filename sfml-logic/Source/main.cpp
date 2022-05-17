@@ -30,17 +30,31 @@ int main()
 			switch (event.type)
 			{
 			case sf::Event::Closed:
+			{
 				simulator.close();
+			}
 			//FOR GRAPH ZOOMING
 			case sf::Event::KeyPressed:
-				if (event.KeyPressed == sf::Keyboard::Delete)
+			{
+				if (event.key.code == sf::Keyboard::Delete)
+				{
 					simulator.handleDelete();
 					break;
+				}
+			}
 			case sf::Event::MouseWheelScrolled:
+			{
 				simulator.handleScroll(mp, event);
 				break;
+			}
+			case sf::Event::MouseButtonReleased:
+			{
+				simulator.handleRelease(mp);
+				break;
+			}
 			//FOR NEARLY EVERYTHING
 			case sf::Event::MouseButtonPressed:
+			{
 				/*this if statement is here so
 				simulator doesn't instantly
 				simulate the first state after
@@ -50,6 +64,7 @@ int main()
 
 				sf::Vector2f mp = sf::Vector2f(sf::Mouse::getPosition(window));
 				simulator.handleClick(mp);
+			}
 			}
 		}
 		simulator.draw();

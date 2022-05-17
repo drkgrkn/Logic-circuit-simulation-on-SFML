@@ -22,6 +22,7 @@ public:
 	void handleClick(sf::Vector2f mp);
 	void handleScroll(sf::Vector2f mp, sf::Event scroll);
 	void handleDelete();
+	void handleRelease(sf::Vector2f mp);
 	void simulate();
 };
 
