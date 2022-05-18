@@ -116,7 +116,8 @@ void Plot::draw() const
 //Are these functions too far?
 void Plot::increaseDisplayLength()
 {
-	display_len++;
+	if (display_len < 499)
+		display_len++;
 	makePlot();
 }
 

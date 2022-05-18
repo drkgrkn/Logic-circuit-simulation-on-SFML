@@ -67,12 +67,13 @@ Entity::Entity(sf::RenderWindow* w, buttonType b, Entity* ePtr) :
         break;
     }
     sprite.setTexture(textures[0]);
-    sprite.setScale(0.5f, 0.5f);
+    sprite.setScale(0.6f, 0.6f);
 
     float x_size = sprite.getTexture()->getSize().x * sprite.getScale().x;
     float y_size = sprite.getTexture()->getSize().y * sprite.getScale().y;
 
     selectionIndicator.setOutlineColor(sf::Color::Red);
+    selectionIndicator.setFillColor((sf::Color(255, 255, 255, 0)));
     selectionIndicator.setOutlineThickness(4);
     selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
@@ -83,6 +84,7 @@ bool Entity::isInside(sf::Vector2f mp)
     float y_size = sprite.getTexture()->getSize().y * sprite.getScale().y;
     float x_pos = sprite.getPosition().x;
     float y_pos = sprite.getPosition().y;
+
 
     return (
         (mp.x <= x_pos + x_size) &&
@@ -96,6 +98,7 @@ void Entity::draw()
 {
     if (grabbed)
     {
+        sprite.setColor(sf::Color(255, 255, 255, 128));
         sf::Vector2f mp = sf::Vector2f(sf::Mouse::getPosition(*window));
         float x = sprite.getTexture()->getSize().x /4;
         float y = sprite.getTexture()->getSize().y /4;
@@ -107,4 +110,5 @@ void Entity::draw()
         window->draw(selectionIndicator);
     }
     window->draw(sprite);
+    sprite.setColor(sf::Color(255, 255, 255, 255));
 }

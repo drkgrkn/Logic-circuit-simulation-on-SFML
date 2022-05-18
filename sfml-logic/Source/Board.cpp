@@ -5,12 +5,11 @@ Board::Board(sf::RenderWindow* w) :
 {
 }
 
-void Board::setBackGround(sf::Vector2f p, sf::Vector2f s,
-							int color)
+void Board::setBackGround(sf::Vector2f p, sf::Vector2f s, sf::Color color)
 {
 	backGround.setSize(s);
 	backGround.setPosition(p);
-	backGround.setFillColor(sf::Color(color, color, color));
+	backGround.setFillColor(color);
 }
 
 bool Board::isInside(sf::Vector2f mp) const

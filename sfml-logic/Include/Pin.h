@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Object.h"
+#include "Entity.h"
 
 #define MAX_CONNECTIONS 1
 
@@ -12,15 +12,17 @@ public:
 	enum class pinState { HIGHZ, LOW, HIGH};
 
 	int index;
+	int numConnections;
 
 	pinType type;
-	bool isSrc[MAX_CONNECTIONS];
+	pinState state;
 
+	bool isSrc[MAX_CONNECTIONS];
 	Pin* connectedTo[MAX_CONNECTIONS];
-	Object* wires[MAX_CONNECTIONS];
-	int numConnections;
+	Entity* wires[MAX_CONNECTIONS];
+
 	sf::Vector2f pos;
-	sf::CircleShape shape;
+	//sf::CircleShape pinshape;
 	sf::RenderWindow* window;
 	//FUNCS
 	Pin(sf::RenderWindow* w);

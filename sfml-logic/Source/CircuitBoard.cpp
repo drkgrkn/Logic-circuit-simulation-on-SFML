@@ -4,8 +4,8 @@ CircuitBoard::CircuitBoard(sf::RenderWindow* w) :
 	Board(w), entities(nullptr)
 {
 	setBackGround(sf::Vector2f(100, 100),
-				sf::Vector2f(1180, 620),
-				250);
+		sf::Vector2f(1180, 620),
+		sf::Color(255, 255, 235));
 
 }
 

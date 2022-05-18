@@ -8,7 +8,7 @@ const int timer = 1;
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "Logic Simulator");
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "Logic Simulator", sf::Style::Close);
 	Simulator simulator(&window);
 
 	time_t last_time = time(0);

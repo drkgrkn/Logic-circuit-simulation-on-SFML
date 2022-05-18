@@ -32,4 +32,3 @@ public:
 	void draw() const;
 	bool isInside(sf::Vector2f mp) const;
 };
-

@@ -13,6 +13,6 @@ public:
 //functions
 	Object(sf::RenderWindow* w);
 	virtual void draw() const;
-	void setTexture(std::string str);
+	//void setTexture(std::string str);
 };
 

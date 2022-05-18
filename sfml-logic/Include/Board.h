@@ -11,7 +11,7 @@ public:
 
 	Board(sf::RenderWindow* w);
 	void setBackGround(sf::Vector2f p, sf::Vector2f s,
-								int color);
+								sf::Color color);
 	virtual void draw() const;
 	bool isInside(sf::Vector2f mp) const;
 };
