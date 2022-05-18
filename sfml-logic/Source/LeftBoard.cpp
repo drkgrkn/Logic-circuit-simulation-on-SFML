@@ -17,7 +17,9 @@ LeftBoard::LeftBoard(sf::RenderWindow* w) :
 		sf::Color(155, 155, 155));
     for (int i = 0; i < 9; i++)
     {
-        buttons[i].sprite.setPosition(25.f, 25.f + i * 60);
+        float x = buttons[i].sprite.getTexture()->getSize().x / 4;      // align sprites located on the leftboard
+        float y = buttons[i].sprite.getTexture()->getSize().y / 4;      // according to their sizes
+        buttons[i].sprite.setPosition(45.f - x, 125.f + i * 60 - y);
     }
 }
 

@@ -73,7 +73,7 @@ Button::Button(sf::RenderWindow* w, buttonType bt):
         break;
     }
     sprite.setTexture(textures[0]);
-    sprite.setScale(0.5f, 0.5f);
+    sprite.setScale(0.6f, 0.6f);
 }
 
 bool Button::isClicked(sf::Vector2f mp) const

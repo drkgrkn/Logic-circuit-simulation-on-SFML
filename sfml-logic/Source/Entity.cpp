@@ -67,7 +67,7 @@ Entity::Entity(sf::RenderWindow* w, buttonType b, Entity* ePtr) :
         break;
     }
     sprite.setTexture(textures[0]);
-    sprite.setScale(0.7f, 0.7f);
+    sprite.setScale(0.6f, 0.6f);
 
     float x_size = sprite.getTexture()->getSize().x * sprite.getScale().x;
     float y_size = sprite.getTexture()->getSize().y * sprite.getScale().y;
