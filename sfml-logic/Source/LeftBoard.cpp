@@ -14,7 +14,7 @@ LeftBoard::LeftBoard(sf::RenderWindow* w) :
 {
 	setBackGround(sf::Vector2f(0, 0),
 		sf::Vector2f(100, 720),
-		150);
+		sf::Color(155, 155, 155));
     for (int i = 0; i < 9; i++)
     {
         buttons[i].sprite.setPosition(25.f, 25.f + i * 60);

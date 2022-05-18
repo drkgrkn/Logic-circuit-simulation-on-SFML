@@ -118,6 +118,9 @@
     <Image Include="Assets\XOR.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\LEDOFF1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.md" />

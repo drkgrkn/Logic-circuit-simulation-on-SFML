@@ -9,7 +9,7 @@ TopBoard::TopBoard(sf::RenderWindow* w):
 	plot = new Plot(w);
 	setBackGround(sf::Vector2f(100, 0),
 		sf::Vector2f(1180, 100),
-		150);
+		sf::Color(155, 155, 155));
 	for (int i = 0; i < 2; i++)
 	{
 		buttons[i].sprite.setPosition(120.f + 80.f * i, 20);
