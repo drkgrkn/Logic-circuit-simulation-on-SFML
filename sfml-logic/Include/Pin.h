@@ -21,9 +21,10 @@ public:
 	Pin* connectedTo[MAX_CONNECTIONS];
 	Entity* wires[MAX_CONNECTIONS];
 
-	sf::Vector2f pos;
-	//sf::CircleShape pinshape;
+	sf::CircleShape pinShape;
 	sf::RenderWindow* window;
 	//FUNCS
-	Pin(sf::RenderWindow* w);
+	Pin(sf::RenderWindow* w, Pin::pinType type, int idx);
+	void setPosition(sf::Vector2f v);
+	bool isInside(sf::Vector2f mp);
 };

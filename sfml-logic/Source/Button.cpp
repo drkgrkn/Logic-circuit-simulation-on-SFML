@@ -3,76 +3,43 @@
 Button::Button(sf::RenderWindow* w, buttonType bt):
 	Object(w), type(bt)
 {
+    //ELLERINDEN OPER MERT
     switch (type)
     {
     case buttonType::AndGate:
-        if (!textures[0].loadFromFile("assets/AND.png"))
-        {
-            std::cout << "Failed to load asset: AND.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[0]);
         break;
     case buttonType::OrGate:
-        if (!textures[0].loadFromFile("assets/OR.png"))
-        {
-            std::cout << "Failed to load asset: OR.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[1]);
         break;
     case buttonType::XorGate:
-        if (!textures[0].loadFromFile("assets/XOR.png"))
-        {
-            std::cout << "Failed to load asset: XOR.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[2]);
         break;
     case buttonType::NotGate:
-        if (!textures[0].loadFromFile("assets/NOT.png"))
-        {
-            std::cout << "Failed to load asset: NOT.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[3]);
         break;
     case buttonType::DFlipFlop:
-        if (!textures[0].loadFromFile("assets/DFF.png"))
-        {
-            std::cout << "Failed to load asset: DFF.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[4]);
         break;
     case buttonType::Logic0:
-        if (!textures[0].loadFromFile("assets/GND.png"))
-        {
-            std::cout << "Failed to load asset: GND.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[5]);
         break;
     case buttonType::Logic1:
-        if (!textures[0].loadFromFile("assets/VDD.png"))
-        {
-            std::cout << "Failed to load asset: VDD.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[6]);
         break;
     case buttonType::Clock:
-        if (!textures[0].loadFromFile("assets/CLOCK.png"))
-        {
-            std::cout << "Failed to load asset: CLOCK.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[7]);
         break;
     case buttonType::LED:
-        if (!textures[0].loadFromFile("assets/LEDOFF.png"))
-        {
-            std::cout << "Failed to load asset: LEDOFF.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[8]);
         break;
     case buttonType::Play:
-        if (!textures[0].loadFromFile("assets/PLAY.png"))
-        {
-            std::cout << "Failed to load asset: PLAY.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[9]);
         break;
     case buttonType::Stop:
-        if (!textures[0].loadFromFile("assets/STOP.png"))
-        {
-            std::cout << "Failed to load asset: STOP.png" << std::endl;
-        }
+        sprite.setTexture(textures.textures[10]);
         break;
     }
-    sprite.setTexture(textures[0]);
     sprite.setScale(0.6f, 0.6f);
 }
 

@@ -5,7 +5,7 @@ CircuitBoard::CircuitBoard(sf::RenderWindow* w) :
 {
 	setBackGround(sf::Vector2f(100, 100),
 		sf::Vector2f(1180, 620),
-		sf::Color(255, 255, 235));
+		sf::Color(255,255,240));
 
 }
 
@@ -82,17 +82,39 @@ void CircuitBoard::handleClick(sf::Vector2f mp)
 void CircuitBoard::addEntity(sf::RenderWindow* w, buttonType b)
 {
 	Entity* temp = entities;
+	//if no entity exists, create first
 	if (temp == nullptr)
 	{
-		entities = new Entity(w, b, nullptr);
+		switch (b)
+		{
+		case buttonType::AndGate:
+			entities = new AndGate(w, nullptr);
+		default:
+			entities = new Entity(w, nullptr);
+		}
 	}
+	//if entity exists add to the end of linked list
 	else
 	{
 		for (; temp != nullptr; temp = temp->next)
 		{
 			if (temp->next == nullptr)
 			{
-				temp->next = new Entity(window, b, temp);
+				switch (b)
+				{
+				case buttonType::AndGate:
+					entities = new AndGate(w, temp);
+				default:
+					entities = new Entity(w, temp);
+				}
+				//unselect if selected exists
+				for (Entity* temp2 = entities; temp2 != nullptr;temp2 = temp2->next)
+				{
+					if (temp2->selected)
+					{
+						temp2->selected = false;
+					}
+				}
 				break;
 			}
 		}
@@ -138,6 +160,7 @@ void CircuitBoard::deleteEntity()
 		{
 			entities = e->next;
 		}
+		delete e;
 	}
 }
 
@@ -150,7 +173,15 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 {
 	/*if entity is dropped outside
 	  destroy that entity*/
-	if (!isInside(mp))
+	bool flag = false;
+	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		if (temp->grabbed)
+		{
+			flag = true;
+		}
+	}
+	if (!isInside(mp) && flag)
 	{
 		deleteEntity();
 	}

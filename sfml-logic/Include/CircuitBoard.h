@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "Board.h"
+#include "AndGate.h"
 
 class CircuitBoard: public Board
 {

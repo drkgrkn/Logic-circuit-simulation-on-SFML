@@ -114,14 +114,14 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>STATIC_SFML;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/include;C:\Users\merth\Documents\C++ Libraries\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/include;D:\dev\SFML-2.5.1-windows-vc14-64-bit\SFML-2.5.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\merth\Documents\C++ Libraries\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\dev\SFML-2.5.1-windows-vc14-64-bit\SFML-2.5.1\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-main-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AndGate.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Pin.cpp" />
     <ClCompile Include="Source\Plot.cpp" />
@@ -152,9 +153,13 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\Simulator.cpp" />
+    <ClCompile Include="Source\LogicElement.cpp" />
     <ClCompile Include="Source\TopBoard.cpp" />
+    <ClCompile Include="Source\Textures.cpp" />
+    <ClCompile Include="Source\Wire.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\AndGate.h" />
     <ClInclude Include="Include\Entity.h" />
     <ClInclude Include="Include\Board.h" />
     <ClInclude Include="Include\Button.h" />
@@ -166,6 +171,8 @@
     <ClInclude Include="Include\TopBoard.h" />
     <ClInclude Include="Include\Plot.h" />
     <ClInclude Include="Include\Pin.h" />
+    <ClInclude Include="Include\Textures.h" />
+    <ClInclude Include="Include\Wire.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\AND.png" />
@@ -173,7 +180,6 @@
     <Image Include="Assets\DFF.png" />
     <Image Include="Assets\GND.png" />
     <Image Include="Assets\LEDOFF.png" />
-    <Image Include="Assets\LEDOFF1.png" />
     <Image Include="Assets\LEDON.png" />
     <Image Include="Assets\NOT.png" />
     <Image Include="Assets\OR.png" />

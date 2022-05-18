@@ -2,14 +2,14 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Textures.h"
 
 class Object
 {
 public:
-	sf::Texture textures[2];
 	sf::Sprite sprite;
 	sf::RenderWindow* window;
-
+	static Textures textures;
 //functions
 	Object(sf::RenderWindow* w);
 	virtual void draw() const;

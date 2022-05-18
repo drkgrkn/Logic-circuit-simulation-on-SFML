@@ -7,7 +7,9 @@
 class LogicElement : public Entity
 {
 public:
-	Pin pins[4];	
+	Pin* pins;	
 	int numPins;
 
+	//FUNCS
+	LogicElement(sf::RenderWindow* w, int numPins, Entity* ePtr);
 };
