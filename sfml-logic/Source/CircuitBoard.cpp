@@ -92,6 +92,14 @@ void CircuitBoard::addEntity(sf::RenderWindow* w, buttonType b)
 		{
 			if (temp->next == nullptr)
 			{
+				//unselect if selected exists
+				for (Entity* temp2 = entities; temp2 != nullptr;temp2 = temp2->next)
+				{
+					if (temp2->selected)
+					{
+						temp2->selected = false;
+					}
+				}
 				temp->next = new Entity(window, b, temp);
 				break;
 			}
@@ -138,6 +146,7 @@ void CircuitBoard::deleteEntity()
 		{
 			entities = e->next;
 		}
+		delete e;
 	}
 }
 
@@ -150,7 +159,17 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 {
 	/*if entity is dropped outside
 	  destroy that entity*/
-	if (!isInside(mp))
+	  /*if entity is dropped outside
+		destroy that entity*/
+	bool flag = false;
+	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		if (temp->grabbed)
+		{
+			flag = true;
+		}
+	}
+	if (!isInside(mp) && flag)
 	{
 		deleteEntity();
 	}
@@ -162,7 +181,7 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 			if (temp->grabbed)
 			{
 				temp->grabbed = false;
-				temp->selected = false;
+				//temp->selected = false;
 			}
 		}
 	}

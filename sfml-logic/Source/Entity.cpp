@@ -2,7 +2,7 @@
 
 Entity::Entity(sf::RenderWindow* w, buttonType b, Entity* ePtr) :
     Object(w), prev(ePtr),
-    next(nullptr), selected(false),
+    next(nullptr), selected(true),
     state(false), grabbed(true)
 {
     switch (b)
