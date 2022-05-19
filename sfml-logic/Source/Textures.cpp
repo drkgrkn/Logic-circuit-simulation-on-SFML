@@ -4,15 +4,11 @@
 
 Textures::Textures()
 {
-    std::cout << textures << std::endl;
-    std::cout << textures[0] << std::endl;
     int i = 0;
     for (int j = 0; j < 12; j++)
     {
         textures[j] = new sf::Texture;
-        std::cout << textures[j] << std::endl;
     }
-    std::cin.get();
     if (!textures[i++]->loadFromFile("assets/AND.png"))
     {
         std::cout << "Failed to load asset: AND.png" << std::endl;

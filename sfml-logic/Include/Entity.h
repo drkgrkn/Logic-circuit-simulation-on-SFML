@@ -10,8 +10,6 @@ public:
 	sf::RectangleShape selectionIndicator;
 	Entity* next;
 	Entity* prev;
-
-	bool state;
 	bool selected;
 	bool grabbed;
 
