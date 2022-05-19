@@ -1,6 +1,6 @@
 #include "AndGate.h"
 
-AndGate::AndGate(sf::RenderWindow* w, Entity* ePtr):
+AndGate::AndGate(sf::RenderWindow* w, LogicElement* ePtr):
 	LogicElement(w, ePtr)
 {
 	pins = new Pin[3]{	Pin(window, Pin::pinType::INPUT),

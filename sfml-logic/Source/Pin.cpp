@@ -1,10 +1,15 @@
 #include "Pin.h"
 
+
+
 Pin::Pin(sf::RenderWindow* w, Pin::pinType t)
 {
 	window = w;
 	state = pinState::LOW;
 	type = t;
+
+	numConnections = 0;
+
 	setShape();
 }
 
@@ -39,5 +44,34 @@ bool Pin::isInside(sf::Vector2f mp)
 
 void Pin::handleClick()
 {
-	std::cout << "CLICKED" << std::endl;
+	if (numConnections < MAX_CONNECTIONS)
+	{
+		wires[numConnections] = new Wire(window, this);
+		numConnections++;
+	}
+}
+
+void Pin::embedWire(sf::Vector2f mp, Wire* wPtr)
+{
+	if (numConnections < MAX_CONNECTIONS)
+	{
+		wires[numConnections] = wPtr;
+		numConnections++;
+		wPtr->embedToPin(mp, this);
+	}
+}
+
+void Pin::unembedWire(Wire* wPtr)
+{
+	for (int i = 0; i < MAX_CONNECTIONS; i++)
+	{
+		if (wires[i] == wPtr)
+		{
+			wires[i] = nullptr;
+			numConnections--;
+			connectedTo[i] = nullptr;
+			delete wPtr;
+			wPtr = nullptr;
+		}
+	}
 }

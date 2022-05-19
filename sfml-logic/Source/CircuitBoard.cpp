@@ -14,7 +14,7 @@ void CircuitBoard::draw() const
 	window->draw(backGround);
 	if (entities != nullptr)
 	{
-		for (Entity* temp = entities; temp != nullptr;temp = temp->next)
+		for (LogicElement* temp = entities; temp != nullptr;temp = temp->next)
 		{
 			temp->draw();
 		}
@@ -23,26 +23,55 @@ void CircuitBoard::draw() const
 
 void CircuitBoard::handleClick(sf::Vector2f mp)
 {
-	for (Entity* temp = entities; temp != nullptr;temp = temp->next)
+	//Checking if a wire is selected
+	Wire* grabbed_wire = nullptr;
+	for (LogicElement* temp = entities; temp!= nullptr; temp = temp->next)
+	{
+		for (int i = 0; i < temp->numPins; i++)
+		{
+			for (int j = 0; j < temp->pins[i].numConnections; j++)
+			{														//ADDRESS OF SELECTED WIRE
+				std::cout << temp->pins[i].wires[j] << std::endl;
+				grabbed_wire = (temp->pins[i].wires[j]->grabbed) ? (temp->pins[i].wires[j]) : nullptr;
+				break;
+			}
+			if (grabbed_wire != nullptr) break;
+		}
+		if (grabbed_wire != nullptr) break;
+	}
+	for (LogicElement* temp = entities; temp != nullptr;temp = temp->next)
 	{
 		if (temp->isInside(mp))
 		{
-			temp->handleClick(mp);
+			/*IF THERE EXISTS A SELECTED WIRE
+			  WE APPLY DIFFERENT LOGIC*/
+			if (grabbed_wire != nullptr)
+			{
+				temp->embedWire(mp, grabbed_wire);
+			}
+			else
+			{
+				temp->handleClick(mp);
+			}
+			break;
 		}
 		else
 		{
+			if (grabbed_wire != nullptr)
+			{
+				grabbed_wire->pins[0]->unembedWire(grabbed_wire);
+			}
 			temp->selected = false;
 		}
 	}
-	
 }
 
-void CircuitBoard::addEntity(sf::RenderWindow* w, Object::objectType b)
+void CircuitBoard::addLogic(sf::RenderWindow* w, Object::objectType b)
 {
-	Entity* temp = entities;
+	LogicElement* temp = entities;
 	if (temp == nullptr)
 	{
-		entities = chooseEntity(b);
+		entities = chooseLogic(b);
 	}
 	else
 	{
@@ -51,7 +80,7 @@ void CircuitBoard::addEntity(sf::RenderWindow* w, Object::objectType b)
 			if (temp->next == nullptr)
 			{
 				//unselect if selected exists
-				for (Entity* temp2 = entities; temp2 != nullptr;temp2 = temp2->next)
+				for (LogicElement* temp2 = entities; temp2 != nullptr;temp2 = temp2->next)
 				{
 					if (temp2->selected)
 					{
@@ -59,17 +88,17 @@ void CircuitBoard::addEntity(sf::RenderWindow* w, Object::objectType b)
 					}
 				}
 				//add new entity which is selected
-				temp->next = chooseEntity(b);
+				temp->next = chooseLogic(b);
 				break;
 			}
 		}
 	}
 }
 
-void CircuitBoard::deleteEntity()
+void CircuitBoard::deleteLogic()
 {
-	Entity* e = nullptr;
-	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+	LogicElement* e = nullptr;
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		if (temp->selected)
 		{
@@ -111,7 +140,7 @@ void CircuitBoard::deleteEntity()
 
 void CircuitBoard::handleDelete()
 {
-	deleteEntity();
+	deleteLogic();
 }
 
 void CircuitBoard::handleRelease(sf::Vector2f mp)
@@ -121,7 +150,7 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 	  /*if entity is dropped outside
 		destroy that entity*/
 	bool flag = false;
-	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		if (temp->grabbed)
 		{
@@ -130,12 +159,12 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 	}
 	if (!isInside(mp) && flag)
 	{
-		deleteEntity();
+		deleteLogic();
 	}
 	/* else ungrab the entity*/
 	else
 	{
-		for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 		{
 			if (temp->grabbed)
 			{
@@ -151,10 +180,10 @@ void CircuitBoard::simulate()
 	std::cout << "Simulate" << std::endl;
 }
 
-Entity* CircuitBoard::chooseEntity(Object::objectType obj)
+LogicElement* CircuitBoard::chooseLogic(Object::objectType obj)
 {
-	Entity* lastPtr = entities;
-	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+	LogicElement* lastPtr = entities;
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		lastPtr = temp;
 	}

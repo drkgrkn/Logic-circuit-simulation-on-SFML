@@ -7,7 +7,7 @@ class AndGate: public LogicElement
 public:
 
 	//FUNcs
-	AndGate(sf::RenderWindow* w, Entity* ePtr);
+	AndGate(sf::RenderWindow* w, LogicElement* ePtr);
 	~AndGate();
 	void setSprite();
 };

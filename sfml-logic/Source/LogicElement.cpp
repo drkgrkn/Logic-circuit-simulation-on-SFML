@@ -1,8 +1,10 @@
 #include "LogicElement.h"
 
-LogicElement::LogicElement(sf::RenderWindow* w, Entity* ePtr) :
-	Entity(w, ePtr)
+LogicElement::LogicElement(sf::RenderWindow* w, LogicElement* ePtr) :
+	Entity(w), prev(ePtr),
+	next(nullptr)
 {
+	type = Entity::entityType::LOGIC;
 	//PINS AND numPins depend on gate type, thus
 	//will be set in higher class (AndGate, OrGate)
 	dIdx = 0;
@@ -61,6 +63,10 @@ void LogicElement::draw()
 	{	
 		pins[i].setPosition(sprite.getPosition() + pinsPos[i]);
 		pins[i].draw();
+		for (int j = 0; j < pins[i].numConnections; j++)
+		{
+			pins[i].wires[j]->draw();
+		}
 	}
 }
 
@@ -68,7 +74,7 @@ void LogicElement::handleClick(sf::Vector2f mp)
 {
 	for (int i = 0; i < numPins; i++)
 	{
-		if (pins[i].isInside(mp))
+		if (pins[i].isInside(mp) && selected)
 		{
 			pins[i].handleClick();
 			return;
@@ -81,5 +87,18 @@ void LogicElement::handleClick(sf::Vector2f mp)
 	else
 	{
 		selected = true;
+	}
+}
+
+void LogicElement::embedWire(sf::Vector2f mp, Wire* wPtr)
+{
+	for (int i = 0; i < numPins; i++)
+	{
+		if (pins[i].isInside(mp))
+		{
+			pins[i].embedWire(mp, wPtr);
+			selected = false;
+			return;
+		}
 	}
 }

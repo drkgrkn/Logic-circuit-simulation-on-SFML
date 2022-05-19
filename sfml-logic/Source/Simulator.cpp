@@ -35,7 +35,7 @@ void Simulator::handleClick(sf::Vector2f mp)
 	{
 		Object::objectType b = leftBoard->handleClick(mp);
 		if (b != Object::objectType::NoButton)
-			circuitBoard->addEntity(window, b);
+			circuitBoard->addLogic(window, b);
 	}
 	else if (topBoard->isInside(mp))
 	{

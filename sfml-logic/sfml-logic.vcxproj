@@ -156,6 +156,7 @@
     <ClCompile Include="Source\Simulator.cpp" />
     <ClCompile Include="Source\TopBoard.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
+    <ClCompile Include="Source\Wire.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\AndGate.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Include\Pin.h" />
     <ClInclude Include="Include\Textures.h" />
     <ClInclude Include="Include\LogicElement.h" />
+    <ClInclude Include="Include\Wire.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\AND.png" />

@@ -1,8 +1,7 @@
 #include "Entity.h"
 
-Entity::Entity(sf::RenderWindow* w, Entity* ePtr) :
-    Object(w), prev(ePtr),
-    next(nullptr), selected(true), grabbed(true)
+Entity::Entity(sf::RenderWindow* w) :
+    Object(w), selected(true), grabbed(true)
 {
     
 }

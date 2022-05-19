@@ -4,19 +4,24 @@
 #include "Board.h"
 #include "AndGate.h"
 
+class Wire;
+
 class CircuitBoard: public Board
 {
 public:
-	Entity* entities;
+	LogicElement* entities;
 
 	CircuitBoard(sf::RenderWindow* w);
 	void draw() const override;
 	void handleClick(sf::Vector2f mp);
 	void handleDelete();
 	void handleRelease(sf::Vector2f mp);
-	void addEntity(sf::RenderWindow* w, Object::objectType b);
-	void deleteEntity();
+	void addLogic(sf::RenderWindow* w, Object::objectType b);
+	void deleteLogic();
 	void simulate();
-	Entity* chooseEntity(Object::objectType obj);
+	LogicElement* chooseLogic(Object::objectType obj);
+
+	//Wire stuff
+
 };
 
