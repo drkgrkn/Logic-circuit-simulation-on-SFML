@@ -51,6 +51,12 @@
     <ClCompile Include="Source\Textures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LogicElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AndGate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Object.h">
@@ -83,10 +89,13 @@
     <ClInclude Include="Include\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Textures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Include\LogicElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Textures.h">
+    <ClInclude Include="Include\AndGate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

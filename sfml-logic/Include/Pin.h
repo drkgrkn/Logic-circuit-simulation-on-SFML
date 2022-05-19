@@ -9,16 +9,22 @@ class Pin
 {
 public:
 	enum class pinType { INPUT, OUTPUT};
-	enum class pinState { HIGHZ, LOW, HIGH};
-
+	enum class pinState { LOW, HIGH};
+	sf::RenderWindow* window;
 	pinState state;
-	Pin();
+	pinType type;
+	sf::RectangleShape shape;
 
-	//int index;
+
+
+	//FUNCS
+	Pin(sf::RenderWindow* w, Pin::pinType t);
+	void setShape();
+	void setPosition(sf::Vector2f v);
+	void draw();
+	bool isInside(sf::Vector2f mp);
+	void handleClick();
 	//int numConnections;
-
-	//pinType type;
-	//pinState state;
 
 	//bool isSrc[MAX_CONNECTIONS];
 	//Pin* connectedTo[MAX_CONNECTIONS];

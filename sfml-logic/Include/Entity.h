@@ -13,8 +13,9 @@ public:
 	bool selected;
 	bool grabbed;
 
-	Entity(sf::RenderWindow* w, Object::objectType b, Entity* ePtr);
+	Entity(sf::RenderWindow* w, Entity* ePtr);
 	bool isInside(sf::Vector2f mp);
-	void draw();
+	virtual void draw();
+	virtual void handleClick(sf::Vector2f mp);
 };
 

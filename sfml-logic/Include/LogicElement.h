@@ -1,13 +1,24 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "Entity.h"
-#include "Pin.h"
+#include <Entity.h>
+#include <Pin.h>
 
-class LogicElement : public Entity
+class LogicElement: public Entity
 {
 public:
-	Pin pins[4];	
+	Pin* pins;
 	int numPins;
+	int* data;
+	int dataLength;
+	int dIdx;
+	sf::Vector2f* pinsPos;
 
+	//FUNCS
+	LogicElement(sf::RenderWindow* w, Entity* ePtr);
+	~LogicElement();
+	void updateData(Pin::pinState ps);
+	virtual void setSprite();
+	void draw() override;
+	void handleClick(sf::Vector2f mp) override;
 };
+

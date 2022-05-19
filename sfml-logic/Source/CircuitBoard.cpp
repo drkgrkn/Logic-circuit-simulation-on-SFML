@@ -23,60 +23,18 @@ void CircuitBoard::draw() const
 
 void CircuitBoard::handleClick(sf::Vector2f mp)
 {
-	Entity* selected = nullptr;
-	Entity* clicked = nullptr;
 	for (Entity* temp = entities; temp != nullptr;temp = temp->next)
 	{
-		if (temp->selected)
-		{
-			selected = temp;
-		}
 		if (temp->isInside(mp))
 		{
-			clicked = temp;
-		}
-	}
-	/*with both selected and clicked
-	there are 4 situations
-							clicked == nullptr | clicked != nullptr
-	selected == nullptr				1					2
-	selected != nullptr				3					4			*/
-
-	/*situation 1 & 3:
-		nothing is clicked thus everything should be unselected*/
-	if (!clicked)
-	{
-		if (selected)
-		{
-			selected->selected = false;
-			return;
-		}
-	}
-	/*situation 2:
-	something is clicked but nothing is selected
-	-> something becomes selected*/
-	else if (clicked && !selected)
-	{
-		clicked->selected = true;
-	}
-	/*situation 4:
-	something is clicked and something is selected:
-	possibility 1:
-		-> they are same, it becomes grabbed
-	possibility 2:
-		-> they are different, selected becomes unselected, clicked becomes selected*/
-	else
-	{
-		if (clicked == selected)
-		{
-			clicked->grabbed = true;
+			temp->handleClick(mp);
 		}
 		else
 		{
-			selected->selected = false;
-			clicked->selected = true;
+			temp->selected = false;
 		}
 	}
+	
 }
 
 void CircuitBoard::addEntity(sf::RenderWindow* w, Object::objectType b)
@@ -84,7 +42,7 @@ void CircuitBoard::addEntity(sf::RenderWindow* w, Object::objectType b)
 	Entity* temp = entities;
 	if (temp == nullptr)
 	{
-		entities = new Entity(w, b, nullptr);
+		entities = chooseEntity(b);
 	}
 	else
 	{
@@ -101,7 +59,7 @@ void CircuitBoard::addEntity(sf::RenderWindow* w, Object::objectType b)
 					}
 				}
 				//add new entity which is selected
-				temp->next = new Entity(window, b, temp);
+				temp->next = chooseEntity(b);
 				break;
 			}
 		}
@@ -191,4 +149,19 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 void CircuitBoard::simulate()
 {
 	std::cout << "Simulate" << std::endl;
+}
+
+Entity* CircuitBoard::chooseEntity(Object::objectType obj)
+{
+	Entity* lastPtr = entities;
+	for (Entity* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		lastPtr = temp;
+	}
+
+	switch (obj)
+	{
+	case Object::objectType::AndGate:
+		return new AndGate(window, lastPtr);
+	}
 }

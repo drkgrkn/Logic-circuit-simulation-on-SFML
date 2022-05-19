@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Entity.h"
+#include "LogicElement.h"
 #include "Board.h"
+#include "AndGate.h"
 
 class CircuitBoard: public Board
 {
@@ -16,5 +17,6 @@ public:
 	void addEntity(sf::RenderWindow* w, Object::objectType b);
 	void deleteEntity();
 	void simulate();
+	Entity* chooseEntity(Object::objectType obj);
 };
 

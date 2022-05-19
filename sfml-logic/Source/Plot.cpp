@@ -53,6 +53,7 @@ void Plot::setText()
   just pass the array and it's length, it should work*/
 void Plot::makePlot()
 {
+	data = new int[500];
 	if (hists)
 		delete[display_len] hists;
 	float w = backGround.getSize().x / display_len;
@@ -60,21 +61,20 @@ void Plot::makePlot()
 	float px = backGround.getPosition().x;
 	float py = backGround.getPosition().y;
 	hists = new sf::RectangleShape[display_len];
-	std::cout << w << std::endl;
-	if (data.size() > display_len)
+	if (500 > display_len)
 	{
 		for (int i = 0; i < display_len; i++)
 		{
 			hists[i].setFillColor(sf::Color::Green);
-			hists[i].setPosition(px + (display_len - 1 - i) * w, py + h - 4 * h * (data[data.size()-1 -i] - 1));
-			hists[i].setSize(sf::Vector2f(w, h * (1 + 4 * data[data.size()-1-i])));
+			hists[i].setPosition(px + (display_len - 1 - i) * w, py + h - 4 * h * (data[500-1 -i] - 1));
+			hists[i].setSize(sf::Vector2f(w, h * (1 + 4 * data[500-1-i])));
 		}
 	}
 	else
 	{
 		delete[display_len] hists;
-		hists = new sf::RectangleShape[data.size()];
-		for (int i = data.size() - 1; i >= 0; i--)
+		hists = new sf::RectangleShape[500];
+		for (int i = 500 - 1; i >= 0; i--)
 		{
 			hists[i].setFillColor(sf::Color::Green);
 			hists[i].setPosition(px + i * w / display_len, py + h - 4 * h * (data[i] - 1));
@@ -86,7 +86,7 @@ void Plot::makePlot()
 		time[i].setFont(font);
 		time[i].setFillColor(sf::Color::Black);
 		time[i].setCharacterSize(18);
-		time[i].setString(std::to_string(data.size() - i*display_len));
+		time[i].setString(std::to_string(500 - i*display_len));
 		time[i].setPosition(sf::Vector2f(px + (1-i) * w * display_len, py + h * 6));
 	}
 }

@@ -13,7 +13,7 @@ public:
 	sf::RenderWindow* window;
 	sf::RectangleShape backGround;
 	sf::RectangleShape* hists;
-	std::array<int, 500> data;
+	int* data;
 	int display_len;
 	bool show_plot;
 	sf::Font font;

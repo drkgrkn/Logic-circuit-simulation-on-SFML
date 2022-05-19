@@ -8,7 +8,7 @@
 class TopBoard: public Board
 {
 public:
-	Plot* plot;
+	//Plot* plot;
 	Button buttons[2];
 	//Funcs
 	TopBoard(sf::RenderWindow* w);
