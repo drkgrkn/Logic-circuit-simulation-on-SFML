@@ -1,78 +1,45 @@
 #include "Button.h"
 
-Button::Button(sf::RenderWindow* w, buttonType bt):
+Button::Button(sf::RenderWindow* w, Object::objectType bt):
 	Object(w), type(bt)
 {
     switch (type)
     {
-    case buttonType::AndGate:
-        if (!textures[0].loadFromFile("assets/AND.png"))
-        {
-            std::cout << "Failed to load asset: AND.png" << std::endl;
-        }
+    case Object::objectType::AndGate:
+        sprite.setTexture(*(textures->textures[0]));
         break;
-    case buttonType::OrGate:
-        if (!textures[0].loadFromFile("assets/OR.png"))
-        {
-            std::cout << "Failed to load asset: OR.png" << std::endl;
-        }
+    case Object::objectType::OrGate:
+        sprite.setTexture(*(textures->textures[1]));
         break;
-    case buttonType::XorGate:
-        if (!textures[0].loadFromFile("assets/XOR.png"))
-        {
-            std::cout << "Failed to load asset: XOR.png" << std::endl;
-        }
+    case Object::objectType::XorGate:
+        sprite.setTexture(*(textures->textures[2]));
         break;
-    case buttonType::NotGate:
-        if (!textures[0].loadFromFile("assets/NOT.png"))
-        {
-            std::cout << "Failed to load asset: NOT.png" << std::endl;
-        }
+    case Object::objectType::NotGate:
+        sprite.setTexture(*(textures->textures[3]));
         break;
-    case buttonType::DFlipFlop:
-        if (!textures[0].loadFromFile("assets/DFF.png"))
-        {
-            std::cout << "Failed to load asset: DFF.png" << std::endl;
-        }
+    case Object::objectType::DFlipFlop:
+        sprite.setTexture(*(textures->textures[4]));
         break;
-    case buttonType::Logic0:
-        if (!textures[0].loadFromFile("assets/GND.png"))
-        {
-            std::cout << "Failed to load asset: GND.png" << std::endl;
-        }
+    case Object::objectType::Logic0:
+        sprite.setTexture(*(textures->textures[5]));
         break;
-    case buttonType::Logic1:
-        if (!textures[0].loadFromFile("assets/VDD.png"))
-        {
-            std::cout << "Failed to load asset: VDD.png" << std::endl;
-        }
+    case Object::objectType::Logic1:
+        sprite.setTexture(*(textures->textures[6]));
         break;
-    case buttonType::Clock:
-        if (!textures[0].loadFromFile("assets/CLOCK.png"))
-        {
-            std::cout << "Failed to load asset: CLOCK.png" << std::endl;
-        }
+    case Object::objectType::Clock:
+        sprite.setTexture(*(textures->textures[7]));
         break;
-    case buttonType::LED:
-        if (!textures[0].loadFromFile("assets/LEDOFF.png"))
-        {
-            std::cout << "Failed to load asset: LEDOFF.png" << std::endl;
-        }
+    case Object::objectType::LED:
+        sprite.setTexture(*(textures->textures[8]));
         break;
-    case buttonType::Play:
-        if (!textures[0].loadFromFile("assets/PLAY.png"))
-        {
-            std::cout << "Failed to load asset: PLAY.png" << std::endl;
-        }
+    case Object::objectType::Play:
+        sprite.setTexture(*(textures->textures[10]));
         break;
-    case buttonType::Stop:
-        if (!textures[0].loadFromFile("assets/STOP.png"))
-        {
-            std::cout << "Failed to load asset: STOP.png" << std::endl;
-        }
+    case Object::objectType::Stop:
+        sprite.setTexture(*(textures->textures[11]));
         break;
     }
-    sprite.setTexture(textures[0]);
+    
     sprite.setScale(0.6f, 0.6f);
 }
 
@@ -91,12 +58,7 @@ bool Button::isClicked(sf::Vector2f mp) const
         );
 }
 
-buttonType Button::handleClick() const
+Object::objectType Button::handleClick() const
 {
 	return type;
-}
-
-void buttonfuncs::print(buttonType b)
-{
-    std::cout << static_cast<std::underlying_type<buttonType>::type>(b) << std::endl;
 }

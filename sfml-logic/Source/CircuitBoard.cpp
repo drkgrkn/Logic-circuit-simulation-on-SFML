@@ -79,7 +79,7 @@ void CircuitBoard::handleClick(sf::Vector2f mp)
 	}
 }
 
-void CircuitBoard::addEntity(sf::RenderWindow* w, buttonType b)
+void CircuitBoard::addEntity(sf::RenderWindow* w, Object::objectType b)
 {
 	Entity* temp = entities;
 	if (temp == nullptr)
@@ -100,6 +100,7 @@ void CircuitBoard::addEntity(sf::RenderWindow* w, buttonType b)
 						temp2->selected = false;
 					}
 				}
+				//add new entity which is selected
 				temp->next = new Entity(window, b, temp);
 				break;
 			}

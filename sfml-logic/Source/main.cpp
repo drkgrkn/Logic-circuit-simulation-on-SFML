@@ -2,15 +2,18 @@
 #include <time.h>
 #include <SFML/Graphics.hpp>
 #include "Simulator.h"
+#include "Object.h"
+#include "Textures.h"
 
 //HOW OFTEN THE SIMULATION WILL CALCULATE
 const int timer = 1;
 
 int main()
 {
+	Textures  textures = Textures();
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Logic Simulator", sf::Style::Close);
+	Object::textures = &textures;
 	Simulator simulator(&window);
-
 	time_t last_time = time(0);
 	while (window.isOpen())
 	{

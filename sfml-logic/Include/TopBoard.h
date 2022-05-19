@@ -14,7 +14,7 @@ public:
 	TopBoard(sf::RenderWindow* w);
 	~TopBoard();
 	void draw() const override;
-	buttonType handleClick(sf::Vector2f mp) const;
+	Object::objectType handleClick(sf::Vector2f mp) const;
 	void handleScroll(sf::Vector2f mp, sf::Event scroll);
 };
 

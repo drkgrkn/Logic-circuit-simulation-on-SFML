@@ -2,8 +2,8 @@
 
 TopBoard::TopBoard(sf::RenderWindow* w):
 	Board(w), buttons{
-					{w, buttonType::Play},
-					{w, buttonType::Stop}
+					{w, Object::objectType::Play},
+					{w, Object::objectType::Stop}
 				}
 {
 	plot = new Plot(w);
@@ -31,9 +31,9 @@ void TopBoard::draw() const
 	plot->draw();
 }
 
-buttonType TopBoard::handleClick(sf::Vector2f mp) const
+Object::objectType TopBoard::handleClick(sf::Vector2f mp) const
 {
-	buttonType bt = buttonType::NoButton;
+	Object::objectType bt = Object::objectType::NoButton;
 	for (const auto b : buttons)
 	{
 		if (b.isClicked(mp))

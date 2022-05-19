@@ -2,15 +2,15 @@
 #include "LeftBoard.h"
 
 LeftBoard::LeftBoard(sf::RenderWindow* w) :
-    Board(w), buttons{ {w, buttonType::AndGate},
-                    {w, buttonType::OrGate},
-                    {w, buttonType::XorGate},
-                    {w, buttonType::NotGate},
-                    {w, buttonType::DFlipFlop},
-                    {w, buttonType::Logic0},
-                    {w, buttonType::Logic1},
-                    {w, buttonType::Clock},
-                    {w, buttonType::LED}}
+    Board(w), buttons{ {w, Object::objectType::AndGate},
+                    {w, Object::objectType::OrGate},
+                    {w, Object::objectType::XorGate},
+                    {w, Object::objectType::NotGate},
+                    {w, Object::objectType::DFlipFlop},
+                    {w, Object::objectType::Logic0},
+                    {w, Object::objectType::Logic1},
+                    {w, Object::objectType::Clock},
+                    {w, Object::objectType::LED}}
 {
 	setBackGround(sf::Vector2f(0, 0),
 		sf::Vector2f(100, 720),
@@ -32,9 +32,9 @@ void LeftBoard::draw() const
     }
 }
 
-buttonType LeftBoard::handleClick(sf::Vector2f mp) const
+Object::objectType LeftBoard::handleClick(sf::Vector2f mp) const
 {
-    buttonType temp = buttonType::NoButton;
+    Object::objectType temp = Object::objectType::NoButton;
     for (const auto b : buttons)
     {
         if (b.isClicked(mp))

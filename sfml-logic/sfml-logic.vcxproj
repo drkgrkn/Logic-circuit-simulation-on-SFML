@@ -153,6 +153,7 @@
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\Simulator.cpp" />
     <ClCompile Include="Source\TopBoard.cpp" />
+    <ClCompile Include="Source\Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Entity.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Include\TopBoard.h" />
     <ClInclude Include="Include\Plot.h" />
     <ClInclude Include="Include\Pin.h" />
+    <ClInclude Include="Include\Textures.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\AND.png" />

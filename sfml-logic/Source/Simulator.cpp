@@ -33,24 +33,23 @@ void Simulator::handleClick(sf::Vector2f mp)
 {
 	if (leftBoard->isInside(mp) && state == false)
 	{
-		buttonType b = leftBoard->handleClick(mp);
-		if (b != buttonType::NoButton)
+		Object::objectType b = leftBoard->handleClick(mp);
+		if (b != Object::objectType::NoButton)
 			circuitBoard->addEntity(window, b);
 	}
 	else if (topBoard->isInside(mp))
 	{
-		buttonType b = topBoard->handleClick(mp);
-		buttonfuncs::print(b);
+		Object::objectType b = topBoard->handleClick(mp);
 
 		switch (b)
 		{
-		case buttonType::Play:
+		case Object::objectType::Play:
 			state = 1;
 			break;
-		case buttonType::Stop:
+		case Object::objectType::Stop:
 			state = 0;
 			break;
-		case buttonType::NoButton:
+		case Object::objectType::NoButton:
 			break;
 		}
 	}

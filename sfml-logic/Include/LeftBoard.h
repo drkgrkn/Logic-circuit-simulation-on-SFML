@@ -12,6 +12,6 @@ public:
 
 	LeftBoard(sf::RenderWindow* w);
 	void draw() const override;
-	buttonType handleClick(sf::Vector2f mp) const;
+	Object::objectType handleClick(sf::Vector2f mp) const;
 };
 

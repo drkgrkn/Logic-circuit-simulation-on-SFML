@@ -13,7 +13,7 @@ public:
 	void handleClick(sf::Vector2f mp);
 	void handleDelete();
 	void handleRelease(sf::Vector2f mp);
-	void addEntity(sf::RenderWindow* w, buttonType b);
+	void addEntity(sf::RenderWindow* w, Object::objectType b);
 	void deleteEntity();
 	void simulate();
 };

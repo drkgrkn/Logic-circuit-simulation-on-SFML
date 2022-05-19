@@ -2,14 +2,29 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Textures.h"
 
 class Object
 {
 public:
-	sf::Texture textures[2];
+	enum class objectType {
+		AndGate,
+		OrGate,
+		XorGate,
+		NotGate,
+		DFlipFlop,
+		Logic0,
+		Logic1,
+		Clock,
+		LED,
+		Play,
+		Stop,
+		NoButton
+	};
+
 	sf::Sprite sprite;
 	sf::RenderWindow* window;
-
+	static Textures* textures;
 //functions
 	Object(sf::RenderWindow* w);
 	virtual void draw() const;
