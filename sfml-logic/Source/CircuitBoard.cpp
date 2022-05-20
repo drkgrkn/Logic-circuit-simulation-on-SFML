@@ -23,46 +23,58 @@ void CircuitBoard::draw() const
 
 void CircuitBoard::handleClick(sf::Vector2f mp)
 {
-	//Checking if a wire is selected
-	Wire* grabbed_wire = nullptr;
-	for (LogicElement* temp = entities; temp!= nullptr; temp = temp->next)
-	{
-		for (int i = 0; i < temp->numPins; i++)
-		{
-			for (int j = 0; j < temp->pins[i].numConnections; j++)
-			{														//ADDRESS OF SELECTED WIRE
-				std::cout << temp->pins[i].wires[j] << std::endl;
-				grabbed_wire = (temp->pins[i].wires[j]->grabbed) ? (temp->pins[i].wires[j]) : nullptr;
-				break;
-			}
-			if (grabbed_wire != nullptr) break;
-		}
-		if (grabbed_wire != nullptr) break;
-	}
-	for (LogicElement* temp = entities; temp != nullptr;temp = temp->next)
+	Entity* clickedEntity = nullptr;
+	Entity* selectedEntity = nullptr;
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		if (temp->isInside(mp))
 		{
-			/*IF THERE EXISTS A SELECTED WIRE
-			  WE APPLY DIFFERENT LOGIC*/
-			if (grabbed_wire != nullptr)
+			clickedEntity = temp;
+		}
+		if (temp->selected)
+		{
+			selectedEntity = temp;
+		}
+		for (int p = 0; p < temp->numPins; p++)
+		{
+			for (int w = 0; w < temp->pins[p].numConnections; w++)
 			{
-				temp->embedWire(mp, grabbed_wire);
+				if (temp->pins[p].wires[w]->isInside(mp))
+				{
+					clickedEntity = temp->pins[p].wires[w];
+				}
+				if (temp->pins[p].wires[w]->selected)
+				{
+					selectedEntity = temp->pins[p].wires[w];
+				}
 			}
-			else
-			{
-				temp->handleClick(mp);
-			}
-			break;
+		}
+	}
+	if (clickedEntity == nullptr)
+	{
+		if (selectedEntity != nullptr)
+		{
+			selectedEntity->selected = false;
+			return;
 		}
 		else
 		{
-			if (grabbed_wire != nullptr)
-			{
-				grabbed_wire->pins[0]->unembedWire(grabbed_wire);
-			}
-			temp->selected = false;
+			return;
 		}
+	}
+
+	if (clickedEntity != selectedEntity)
+	{
+		clickedEntity->selected = true;
+		if (selectedEntity != nullptr)
+			selectedEntity->selected = false;
+		return;
+	}
+
+	if (clickedEntity == selectedEntity)
+	{
+		clickedEntity->handleClick(mp);
+		return;
 	}
 }
 
@@ -147,31 +159,71 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 {
 	/*if entity is dropped outside
 	  destroy that entity*/
-	  /*if entity is dropped outside
-		destroy that entity*/
-	bool flag = false;
+	//GRABBED ENTITY
+	Entity* ge = nullptr;
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		if (temp->grabbed)
 		{
-			flag = true;
+			ge = temp;
 		}
-	}
-	if (!isInside(mp) && flag)
-	{
-		deleteLogic();
-	}
-	/* else ungrab the entity*/
-	else
-	{
-		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+		for (int p = 0; p < temp->numPins; p++)
 		{
-			if (temp->grabbed)
+			for (int w = 0; w < temp->pins[p].numConnections; w++)
 			{
-				temp->grabbed = false;
-				//temp->selected = false;
+				if (temp->pins[p].wires[w]->grabbed)
+				{
+					ge = temp->pins[p].wires[w];
+				}
 			}
 		}
+	}
+
+	if (ge == nullptr)
+	{
+		return;
+	}
+	else if (ge->type == Entity::entityType::LOGIC)
+	{
+		LogicElement* e = (LogicElement*)ge;
+		if (!isInside(mp))
+		{
+			deleteLogic();
+			return;
+		}
+		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+		{
+			if (temp == e)
+			{
+				continue;
+			}
+			else if (temp->isColliding(e))
+			{
+				deleteLogic();
+				e = nullptr;
+				return;
+			}
+		}
+		if (e != nullptr)
+		{
+			e->grabbed = false;
+		}
+	}
+	else if (ge->type == Entity::entityType::WIRE)
+	{
+		Wire* w = (Wire*)ge;
+		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+		{
+			for (int p = 0; p < temp->numPins; p++)
+			{
+				if (temp->pins[p].isInside(mp))
+				{
+					w->embedToPin(mp, &temp->pins[p]);
+					return;
+				}
+			}
+		}
+		deleteWire();
 	}
 }
 
@@ -193,4 +245,24 @@ LogicElement* CircuitBoard::chooseLogic(Object::objectType obj)
 	case Object::objectType::AndGate:
 		return new AndGate(window, lastPtr);
 	}
+}
+
+void CircuitBoard::deleteWire()
+{
+	Wire* wire = nullptr;
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		for (int p = 0; p < temp->numPins; p++)
+		{
+			for (int w = 0; p < temp->pins[p].numConnections; w++)
+			{
+				if (temp->pins[p].wires[w]->grabbed)
+				{
+					wire = temp->pins[p].wires[w];
+				}
+			}
+		}
+	}
+
+	delete wire;
 }

@@ -51,18 +51,29 @@ void Pin::handleClick()
 	}
 }
 
-void Pin::embedWire(sf::Vector2f mp, Wire* wPtr)
+bool Pin::embedWire(sf::Vector2f mp, Wire* wPtr)
 {
+	std::cout << "Hey";
+	if (this == wPtr->pins[0])
+	{
+		return false;
+	}
 	if (numConnections < MAX_CONNECTIONS)
 	{
 		wires[numConnections] = wPtr;
 		numConnections++;
 		wPtr->embedToPin(mp, this);
+		return true;
 	}
+	return false;
 }
 
 void Pin::unembedWire(Wire* wPtr)
 {
+	for (int i = 0; i < MAX_CONNECTIONS; i++)
+	{
+		std::cout << wires[i] << std::endl;
+	}
 	for (int i = 0; i < MAX_CONNECTIONS; i++)
 	{
 		if (wires[i] == wPtr)
@@ -71,7 +82,7 @@ void Pin::unembedWire(Wire* wPtr)
 			numConnections--;
 			connectedTo[i] = nullptr;
 			delete wPtr;
-			wPtr = nullptr;
+			break;
 		}
 	}
 }

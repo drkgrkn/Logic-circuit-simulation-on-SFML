@@ -65,7 +65,10 @@ void LogicElement::draw()
 		pins[i].draw();
 		for (int j = 0; j < pins[i].numConnections; j++)
 		{
-			pins[i].wires[j]->draw();
+			if (pins[i].wires[j] != nullptr)
+			{
+				pins[i].wires[j]->draw();
+			}
 		}
 	}
 }
@@ -81,24 +84,38 @@ void LogicElement::handleClick(sf::Vector2f mp)
 		}
 	}
 	if (selected)
-	{
 		grabbed = true;
-	}
-	else
-	{
-		selected = true;
-	}
+	return;
 }
 
-void LogicElement::embedWire(sf::Vector2f mp, Wire* wPtr)
+bool LogicElement::embedWire(sf::Vector2f mp, Wire* wPtr)
 {
+	bool success = false;
 	for (int i = 0; i < numPins; i++)
 	{
 		if (pins[i].isInside(mp))
 		{
-			pins[i].embedWire(mp, wPtr);
+			success = pins[i].embedWire(mp, wPtr);
 			selected = false;
-			return;
 		}
 	}
+	return success;
+}
+
+bool LogicElement::isColliding(Entity* le)
+{
+	float px1 = this->sprite.getPosition().x;
+	float py1 = this->sprite.getPosition().y;
+	float sx1 = this->sprite.getTexture()->getSize().x * this->sprite.getScale().x;
+	float sy1 = this->sprite.getTexture()->getSize().x * this->sprite.getScale().y;
+
+	float px2 = le->sprite.getPosition().x;
+	float py2 = le->sprite.getPosition().y;
+	float sx2 = le->sprite.getTexture()->getSize().x * le->sprite.getScale().x;
+	float sy2 = le->sprite.getTexture()->getSize().y * le->sprite.getScale().y;
+
+	bool collisionX = px1 + sx1 >= px2 && px2 + sx2 >= px1;
+	bool collisionY = py1 + sy1 >= py2 && py2 + sy2 >= py1;
+
+	return collisionX && collisionY;
 }

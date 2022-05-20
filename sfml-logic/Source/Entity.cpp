@@ -31,3 +31,9 @@ void Entity::handleClick(sf::Vector2f mp)
 {
     std::cout << "Empty Entity Clicked" << std::endl;
 }
+
+void Entity::place()
+{
+    grabbed = false;
+    selected = false;
+}

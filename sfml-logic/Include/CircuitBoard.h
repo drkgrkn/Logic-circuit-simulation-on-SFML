@@ -10,6 +10,7 @@ class CircuitBoard: public Board
 {
 public:
 	LogicElement* entities;
+	Entity* selected;
 
 	CircuitBoard(sf::RenderWindow* w);
 	void draw() const override;
@@ -22,6 +23,6 @@ public:
 	LogicElement* chooseLogic(Object::objectType obj);
 
 	//Wire stuff
-
+	void deleteWire();
 };
 

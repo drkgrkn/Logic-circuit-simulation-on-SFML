@@ -7,15 +7,16 @@
 class Entity: public Object
 {
 public:
-	enum class entityType {WIRE, LOGIC};
+	enum class entityType {WIRE, LOGIC, NOTHING};
 	
 	entityType type;
 	bool selected;
 	bool grabbed;
 
 	Entity(sf::RenderWindow* w);
-	bool isInside(sf::Vector2f mp);
+	virtual bool isInside(sf::Vector2f mp);
 	virtual void draw();
 	virtual void handleClick(sf::Vector2f mp);
+	void place();
 };
 

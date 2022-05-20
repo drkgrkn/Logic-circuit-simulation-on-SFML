@@ -34,6 +34,7 @@ public:
 	void draw();
 	bool isInside(sf::Vector2f mp);
 	void handleClick();
-	void embedWire(sf::Vector2f mp, Wire* wPtr);
+	//Return ture if succeeded at embedding
+	bool embedWire(sf::Vector2f mp, Wire* wPtr);
 	void unembedWire(Wire* wPtr);
 };
