@@ -36,16 +36,16 @@ void Clock::setSprite()
 void Clock::simulate() {
 
 
-	if (pins[0].state == Pin::pinState::LOW || pins[0].state == Pin::pinState::HIGHZ) {
+	if (pins[0].state == Pin::pinState::HIGH || pins[0].state == Pin::pinState::HIGHZ) {
 
-		pins[0].state = Pin::pinState::HIGH;
+		pins[0].state = Pin::pinState::LOW;
 		return;
 
 	}
 	
-	if (pins[0].state == Pin::pinState::HIGH || pins[0].state == Pin::pinState::HIGHZ) {
+	if (pins[0].state == Pin::pinState::LOW || pins[0].state == Pin::pinState::HIGHZ) {
 
-		pins[0].state = Pin::pinState::LOW;
+		pins[0].state = Pin::pinState::HIGH;
 		return;
 
 	}
