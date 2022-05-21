@@ -51,6 +51,20 @@ void LogicElement::draw()
 		float x = sprite.getTexture()->getSize().x / 4;
 		float y = sprite.getTexture()->getSize().y / 4;
 		sprite.setPosition(sf::Vector2f(mp.x - x, mp.y - y));
+		for (int p = 0; p < numPins; p++)
+		{
+			for (int w = 0; w < pins[p].MAX_CONNECTIONS; w++)
+			{
+				if (pins[p].wires[w] != nullptr)
+				{
+					pins[p].wires[w]->moveRoot(pins[p].shape.getPosition());
+				}
+			}
+		}
+	}
+	else
+	{
+		sprite.setColor(sf::Color(255, 255, 255, 255));
 	}
 	if (selected)
 	{
@@ -58,18 +72,10 @@ void LogicElement::draw()
 		window->draw(selectionIndicator);
 	}
 	window->draw(sprite);
-	sprite.setColor(sf::Color(255, 255, 255, 255));
 	for (int i = 0; i < numPins; i++)
 	{	
 		pins[i].setPosition(sprite.getPosition() + pinsPos[i]);
 		pins[i].draw();
-		for (int j = 0; j < pins[i].numConnections; j++)
-		{
-			if (pins[i].wires[j] != nullptr)
-			{
-				pins[i].wires[j]->draw();
-			}
-		}
 	}
 }
 

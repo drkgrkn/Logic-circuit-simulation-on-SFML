@@ -6,6 +6,7 @@ Wire::Wire(sf::RenderWindow* w, Pin* p) :
 	std::cout << w << std::endl;
 	type = Entity::entityType::WIRE;
     pins[0] = p;
+	pins[1] = nullptr;
 	vertices[0] = pins[0]->shape.getPosition();
 }
 
@@ -67,6 +68,12 @@ void Wire::setBody()			// wire seperated into 5 body parts
 	body[4].setFillColor(sf::Color::Black);
 }
 
+void Wire::moveRoot(sf::Vector2f v)
+{
+	vertices[0] = v;
+	setBody();
+}
+
 bool Wire::isInside(sf::Vector2f mp)
 {
 	return false;
@@ -74,6 +81,13 @@ bool Wire::isInside(sf::Vector2f mp)
 
 void Wire::embed(Pin* p)
 {
+	if (p->type == pins[0]->type)
+	{
+		delete this;
+		return;
+	}
+	selected = false;
+	grabbed = false;
 	pins[1] = p;
 	pins[0]->connect(this, pins[1]);
 	pins[1]->embedWire(this, pins[0]);

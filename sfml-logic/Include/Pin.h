@@ -27,6 +27,7 @@ public:
 
 	//FUNCS
 	Pin(sf::RenderWindow* w, Pin::pinType t);
+	~Pin();
 	void setShape();
 	void setPosition(sf::Vector2f v);
 	void draw();

@@ -22,6 +22,7 @@ public:
 	~Wire();
 	void draw();
 	void setBody();
+	void moveRoot(sf::Vector2f v);
 	bool isInside(sf::Vector2f mp) override;
 	void embed(Pin* p);
 };

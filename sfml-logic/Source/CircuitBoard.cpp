@@ -240,11 +240,14 @@ Entity* CircuitBoard::getClicked(sf::Vector2f mp)
 			}
 			for (int p = 0; p < temp->numPins; p++)
 			{
-				for (int w = 0; w < temp->pins[p].numConnections; w++)
+				for (int w = 0; w < temp->pins[p].MAX_CONNECTIONS; w++)
 				{
-					if (temp->pins[p].wires[w]->isInside(mp))
+					if (temp->pins[p].wires[w] != nullptr)
 					{
-						clickedEntity = temp->pins[p].wires[w];
+						if (temp->pins[p].wires[w]->isInside(mp))
+						{
+							clickedEntity = temp->pins[p].wires[w];
+						}
 					}
 				}
 			}
@@ -266,11 +269,14 @@ Entity* CircuitBoard::getSelected()
 			}
 			for (int p = 0; p < temp->numPins; p++)
 			{
-				for (int w = 0; w < temp->pins[p].numConnections; w++)
+				for (int w = 0; w < temp->pins[p].MAX_CONNECTIONS; w++)
 				{
-					if (temp->pins[p].wires[w]->selected)
+					if (temp->pins[p].wires[w] != nullptr)
 					{
-						selectedEntity = temp->pins[p].wires[w];
+						if (temp->pins[p].wires[w]->selected)
+						{
+							selectedEntity = temp->pins[p].wires[w];
+						}
 					}
 				}
 			}

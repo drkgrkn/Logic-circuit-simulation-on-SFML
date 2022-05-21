@@ -15,10 +15,16 @@ Pin::Pin(sf::RenderWindow* w, Pin::pinType t):
 	for (int i = 0; i < MAX_CONNECTIONS; i++)
 	{
 		wires[i] = nullptr;
-		connectedTo = nullptr;
+		connectedTo[i] = nullptr;
 	}
 
 	setShape();
+}
+
+Pin::~Pin()
+{
+	delete[] wires;
+	delete[] connectedTo;
 }
 
 void Pin::setShape()
@@ -35,6 +41,13 @@ void Pin::setPosition(sf::Vector2f v)
 void Pin::draw()
 {
 	window->draw(shape);
+	for (int idx = 0; idx < MAX_CONNECTIONS; idx++)
+	{
+		if (wires[idx] != nullptr)
+		{
+			wires[idx]->draw();
+		}
+	}
 }
 
 bool Pin::isInside(sf::Vector2f mp)
@@ -88,7 +101,7 @@ void Pin::embedWire(Wire* w, Pin* p)
 
 void Pin::unembedWire(Wire* w)
 {
-	for (int idx = 0; idx < numConnections; )
+	for (int idx = 0; idx < numConnections; idx++)
 	{
 		if (w == wires[idx])
 		{
@@ -102,7 +115,7 @@ void Pin::unembedWire(Wire* w)
 
 void Pin::connect(Wire* w,Pin* p)
 {
-	for (int idx = 0; idx < numConnections; )
+	for (int idx = 0; idx < numConnections; idx++)
 	{
 		if (w == wires[idx])
 		{
