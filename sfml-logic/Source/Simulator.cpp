@@ -47,6 +47,7 @@ void Simulator::handleClick(sf::Vector2f mp)
 			state = 1;
 			break;
 		case Object::objectType::Stop:
+			circuitBoard->reset();
 			state = 0;
 			break;
 		case Object::objectType::NoButton:
@@ -85,7 +86,14 @@ void Simulator::handleScroll(sf::Vector2f mp, sf::Event scroll)
 
 void Simulator::handleDelete()
 {
-	circuitBoard->handleDelete();
+	if (state == 0)
+	{
+		circuitBoard->handleDelete();
+	}
+	else
+	{
+		return;
+	}
 }
 
 void Simulator::handleRelease(sf::Vector2f mp)

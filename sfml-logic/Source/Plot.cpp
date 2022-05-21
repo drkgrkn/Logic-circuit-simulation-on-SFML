@@ -93,7 +93,7 @@ void Plot::makePlot()
 
 void Plot::deletePlot()
 {
-	delete[display_len] hists;
+	delete[] hists;
 	hists = nullptr;
 }
 

@@ -304,6 +304,14 @@ LogicElement* CircuitBoard::chooseLogic(Object::objectType obj)
 	}
 }
 
+void CircuitBoard::reset()
+{
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		temp->reset();
+	}
+}
+
 void CircuitBoard::deleteWire()
 {
 	Entity* e = getSelected();

@@ -36,4 +36,5 @@ public:
 	void embedWire(Wire* w, Pin* p);
 	void unembedWire(Wire* w);
 	void connect(Wire* w, Pin* p);
+	void reset();
 };

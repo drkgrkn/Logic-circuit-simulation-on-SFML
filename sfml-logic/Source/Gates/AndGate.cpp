@@ -39,17 +39,30 @@ void AndGate::setSprite()
 
 void AndGate::simulate()
 {
+	//INPUT UPDATE
 	if (pins[0].connectedTo[0] != nullptr)
 	{
 		pins[0].state = pins[0].connectedTo[0]->state;
+	}
+	else
+	{
+		pins[0].state = Pin::pinState::HIGHZ;
 	}
 	if (pins[1].connectedTo[0] != nullptr)
 	{
 		pins[1].state = pins[1].connectedTo[0]->state;
 	}
+	else
+	{
+		pins[1].state = Pin::pinState::HIGHZ;
+	}
 
-
-	if (pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::HIGH)
+	//OUTPUT UPDATE
+	if (pins[0].state == Pin::pinState::HIGHZ || pins[1].state == Pin::pinState::HIGHZ)
+	{
+		pins[2].state = Pin::pinState::HIGHZ;
+	}
+	else if (pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::HIGH)
 	{
 		pins[2].state = Pin::pinState::HIGH;
 	}
