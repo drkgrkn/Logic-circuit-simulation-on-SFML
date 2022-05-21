@@ -22,6 +22,8 @@ AndGate::~AndGate()
 	delete[] pins;
 }
 
+
+
 void AndGate::setSprite()
 {
 	sprite.setTexture(*(textures->textures[0]));
@@ -38,5 +40,17 @@ void AndGate::setSprite()
 
 void AndGate::Simulate()
 {
+
+	if (pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::HIGH) {
+
+		pins[2].state = Pin::pinState::HIGH;
+
+	}
+
+	else {
+
+		pins[2].state = Pin::pinState::LOW;
+	}
+
 	
 }
