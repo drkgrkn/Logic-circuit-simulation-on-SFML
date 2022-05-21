@@ -51,13 +51,13 @@ void LED::setSprite(int index) {
 
 void LED::simulate() {
 
-	if (pins[0].state == Pin::pinState::HIGH) {
+	if (pins[0].state == Pin::pinState::LOW) {
 
 		setSprite(0);
 
 	}
 
-	if (pins[0].state == Pin::pinState::LOW) {
+	if (pins[0].state == Pin::pinState::HIGH) {
 
 		setSprite(1);
 
