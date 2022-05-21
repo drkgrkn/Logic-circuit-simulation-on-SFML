@@ -11,6 +11,13 @@ Pin::Pin(sf::RenderWindow* w, Pin::pinType t):
 	numConnections = 0;
 	wires = new Wire*[MAX_CONNECTIONS];
 	connectedTo = new Pin*[MAX_CONNECTIONS];
+
+	for (int i = 0; i < MAX_CONNECTIONS; i++)
+	{
+		wires[i] = nullptr;
+		connectedTo = nullptr;
+	}
+
 	setShape();
 }
 
