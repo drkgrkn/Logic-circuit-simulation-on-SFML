@@ -32,3 +32,24 @@ void Clock::setSprite()
 	selectionIndicator.setOutlineThickness(4);
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
+
+void Clock::simulate() {
+
+
+	if (pins[0].state == Pin::pinState::LOW || pins[0].state == Pin::pinState::HIGHZ) {
+
+		pins[0].state = Pin::pinState::HIGH;
+		return;
+
+	}
+	
+	if (pins[0].state == Pin::pinState::HIGH || pins[0].state == Pin::pinState::HIGHZ) {
+
+		pins[0].state = Pin::pinState::LOW;
+		return;
+
+	}
+
+
+
+}
