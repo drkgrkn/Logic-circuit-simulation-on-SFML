@@ -11,6 +11,7 @@ public:
 	LogicElement* next;
 	LogicElement* prev;
 	Pin* pins;
+	Object::objectType logicType;
 	int numPins;
 	int* data;
 	int dataLength;

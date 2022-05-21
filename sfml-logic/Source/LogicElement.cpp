@@ -20,8 +20,7 @@ LogicElement::~LogicElement()
 		{
 			if (pins[p].wires[w] != nullptr)
 			{
-				std::cout << "Deconstructed ???" << std::endl;
-				delete &pins[p].wires[w];
+				delete pins[p].wires[w];
 			}
 		}
 	}

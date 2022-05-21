@@ -7,18 +7,18 @@ AndGate::AndGate(sf::RenderWindow* w, LogicElement* ePtr):
 						Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::OUTPUT) };
 	numPins = 3;
-	dataLength = 500;
-	data = new int[dataLength];
 	dIdx = 0;
 	pinsPos = new sf::Vector2f[3]{ sf::Vector2f(-2,5),
 								sf::Vector2f(-2,22),
 								sf::Vector2f(51,14)
 								};
+	logicType = Object::objectType::AndGate;
 	setSprite();
 }
 
 AndGate::~AndGate()
 {
+	std::cout << "AG DESSTRUCTED! " << std::endl;
 	delete[] pins;
 }
 
