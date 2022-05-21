@@ -12,7 +12,7 @@ public:
 	//SELF
 	enum class pinType { INPUT, OUTPUT };
 	const int MAX_CONNECTIONS;
-	enum class pinState { LOW, HIGH };
+	enum class pinState { HIGHZ, LOW, HIGH };
 	sf::RenderWindow* window;
 	pinState state;
 	pinType type;

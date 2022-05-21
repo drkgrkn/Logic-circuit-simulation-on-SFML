@@ -247,6 +247,10 @@ void CircuitBoard::simulate()
 			temp->simulate();
 		}
 	}
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		temp->updateData();
+	}
 	//ACTUAL SIMULATION ENDS
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
@@ -313,6 +317,9 @@ void CircuitBoard::deleteWire()
 
 Entity* CircuitBoard::getClicked(sf::Vector2f mp)
 {
+	/*FOR LOGIC ELEMENTS TO HAVE PRECEDENCE
+	INSTEAD OF 1 FOR LOOP ITERATING OVER EVERYTHING
+	WE ITERATE OVER ONLY LOGIC ELEMENTS FIRST*/
 	Entity* clickedEntity = nullptr;
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
@@ -323,6 +330,11 @@ Entity* CircuitBoard::getClicked(sf::Vector2f mp)
 				clickedEntity = temp;
 				goto getClickend;
 			}
+		}
+	}
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		{
 			for (int p = 0; p < temp->numPins; p++)
 			{
 				for (int w = 0; w < temp->pins[p].MAX_CONNECTIONS; w++)

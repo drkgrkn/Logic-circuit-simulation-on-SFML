@@ -17,8 +17,20 @@ LogicElement::~LogicElement()
 	delete[] data;
 }
 
-void LogicElement::updateData(Pin::pinState ps)
+void LogicElement::updateData()
 {
+	int idx = 0;
+	switch (logicType)
+	{
+	case (Object::objectType::Logic0):
+	case (Object::objectType::Logic1):
+	case (Object::objectType::LED):
+		idx = 0;
+		break;
+	default:
+		idx = 2;
+		break;
+	}
 	if (dIdx >= dataLength)
 	{
 		dataLength += 500;
@@ -27,13 +39,17 @@ void LogicElement::updateData(Pin::pinState ps)
 		delete[] data;
 		data = arr;
 	}
-	if (ps == Pin::pinState::HIGH)
+	if (pins[idx].state == Pin::pinState::HIGH)
 	{
 		data[dIdx++] = Pin::pinState::HIGH;
 	}
 	else
 	{
 		data[dIdx++] = Pin::pinState::LOW;
+	}
+	if (Object::objectType::AndGate == logicType)
+	{
+		std::cout << (Pin::pinState::HIGH == data[dIdx - 1]) << std::endl; 
 	}
 }
 

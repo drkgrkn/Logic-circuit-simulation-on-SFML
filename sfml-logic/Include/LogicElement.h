@@ -21,7 +21,7 @@ public:
 	//FUNCS
 	LogicElement(sf::RenderWindow* w, LogicElement* ePtr);
 	~LogicElement();
-	void updateData(Pin::pinState ps);
+	void updateData();
 	virtual void setSprite();
 	void draw() override;
 	void handleClick(sf::Vector2f mp) override;
