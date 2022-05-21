@@ -13,7 +13,7 @@ public:
 	Pin* pins;
 	Object::objectType logicType;
 	int numPins;
-	int* data;
+	Pin::pinState* data;
 	int dataLength;
 	int dIdx;
 	sf::Vector2f* pinsPos;
