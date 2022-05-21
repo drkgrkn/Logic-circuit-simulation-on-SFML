@@ -10,4 +10,5 @@ public:
 	DFlipFlop(sf::RenderWindow* w, LogicElement* ePtr);
 	~DFlipFlop();
 	void setSprite();
+	void simulate() override;
 };

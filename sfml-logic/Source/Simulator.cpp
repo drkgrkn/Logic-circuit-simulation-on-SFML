@@ -86,7 +86,14 @@ void Simulator::handleScroll(sf::Vector2f mp, sf::Event scroll)
 
 void Simulator::handleDelete()
 {
-	circuitBoard->handleDelete();
+	if (state == 0)
+	{
+		circuitBoard->handleDelete();
+	}
+	else
+	{
+		return;
+	}
 }
 
 void Simulator::handleRelease(sf::Vector2f mp)
