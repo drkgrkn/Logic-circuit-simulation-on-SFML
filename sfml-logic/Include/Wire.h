@@ -14,7 +14,7 @@ public:
 		selected
 		grabbed*/
 	sf::Vector2f vertices[4];
-	sf::RectangleShape body[3];
+	sf::RectangleShape body[5];
 	Pin* pins[2];
 
 	//FUNCS
