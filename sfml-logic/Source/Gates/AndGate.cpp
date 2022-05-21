@@ -44,9 +44,9 @@ void AndGate::simulate()
 	{
 		pins[2].state = Pin::pinState::HIGH;
 	}
-
 	else
 	{
 		pins[2].state = Pin::pinState::LOW;
 	}
+	updateData(pins[2].state);
 }

@@ -120,7 +120,7 @@ bool Wire::isInside(sf::Vector2f mp)
 
 void Wire::embed(Pin* p)
 {
-	if (p->type == pins[0]->type)
+	if (p->type == pins[0]->type || p->numConnections == p->MAX_CONNECTIONS)
 	{
 		delete this;
 		return;
