@@ -23,6 +23,13 @@ Pin::Pin(sf::RenderWindow* w, Pin::pinType t):
 
 Pin::~Pin()
 {
+	for (int i = 0; i < MAX_CONNECTIONS; i++)
+	{
+		if (wires[i] != nullptr)
+		{
+			delete wires[i];
+		}
+	}
 	delete[] wires;
 	delete[] connectedTo;
 }
