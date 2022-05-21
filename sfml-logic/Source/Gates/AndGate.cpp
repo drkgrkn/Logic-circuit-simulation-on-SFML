@@ -38,19 +38,16 @@ void AndGate::setSprite()
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
 
-void AndGate::Simulate()
+void AndGate::simulate()
 {
 
-	if (pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::HIGH) {
-
+	if (pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::HIGH)
+	{
 		pins[2].state = Pin::pinState::HIGH;
-
 	}
 
-	else {
-
+	else
+	{
 		pins[2].state = Pin::pinState::LOW;
 	}
-
-	
 }
