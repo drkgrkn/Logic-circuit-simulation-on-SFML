@@ -1,30 +1,30 @@
-#include "AndGate.h"
+#include "Gates/XorGate.h"
 
-AndGate::AndGate(sf::RenderWindow* w, LogicElement* ePtr):
+XorGate::XorGate(sf::RenderWindow* w, LogicElement* ePtr) :
 	LogicElement(w, ePtr)
 {
-	pins = new Pin[3]{	Pin(window, Pin::pinType::INPUT),
+	pins = new Pin[3]{ Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::OUTPUT) };
 	numPins = 3;
 	dataLength = 500;
 	data = new int[dataLength];
 	dIdx = 0;
-	pinsPos = new sf::Vector2f[3]{ sf::Vector2f(0,5),
-								sf::Vector2f(0,22),
-								sf::Vector2f(50,13)
-								};
+	pinsPos = new sf::Vector2f[3]{ sf::Vector2f(-3,5),
+								sf::Vector2f(-3,22),
+								sf::Vector2f(50,14)
+	};
 	setSprite();
 }
 
-AndGate::~AndGate()
+XorGate::~XorGate()
 {
 	delete[] pins;
 }
 
-void AndGate::setSprite()
+void XorGate::setSprite()
 {
-	sprite.setTexture(*(textures->textures[0]));
+	sprite.setTexture(*(textures->textures[2]));
 	sprite.scale(0.6f, 0.6f);
 
 	float x_size = sprite.getTexture()->getSize().x * sprite.getScale().x;

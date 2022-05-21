@@ -116,12 +116,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/include;D:\dev\SFML-2.5.1-windows-vc14-64-bit\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/include;D:\Microsoft Visual Studio\C++ Libraries\SFML-2.5.1\include;D:\dev\SFML-2.5.1-windows-vc14-64-bit\SFML-2.5.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\dev\SFML-2.5.1-windows-vc14-64-bit\SFML-2.5.1\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Microsoft Visual Studio\C++ Libraries\SFML-2.5.1\lib;D:\dev\SFML-2.5.1-windows-vc14-64-bit\SFML-2.5.1\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-main-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -142,7 +142,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\AndGate.cpp" />
+    <ClCompile Include="Source\Gates\AndGate.cpp" />
+    <ClCompile Include="Source\Gates\Clock.cpp" />
+    <ClCompile Include="Source\Gates\DFlipFlop.cpp" />
+    <ClCompile Include="Source\Gates\LED.cpp" />
+    <ClCompile Include="Source\Gates\Logic0.cpp" />
+    <ClCompile Include="Source\Gates\Logic1.cpp" />
+    <ClCompile Include="Source\Gates\NotGate.cpp" />
+    <ClCompile Include="Source\Gates\OrGate.cpp" />
+    <ClCompile Include="Source\Gates\XorGate.cpp" />
     <ClCompile Include="Source\LogicElement.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Pin.cpp" />
@@ -159,11 +167,19 @@
     <ClCompile Include="Source\Wire.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\AndGate.h" />
     <ClInclude Include="Include\Entity.h" />
     <ClInclude Include="Include\Board.h" />
     <ClInclude Include="Include\Button.h" />
     <ClInclude Include="Include\CircuitBoard.h" />
+    <ClInclude Include="Include\Gates\AndGate.h" />
+    <ClInclude Include="Include\Gates\Clock.h" />
+    <ClInclude Include="Include\Gates\DFlipFlop.h" />
+    <ClInclude Include="Include\Gates\LED.h" />
+    <ClInclude Include="Include\Gates\Logic0.h" />
+    <ClInclude Include="Include\Gates\Logic1.h" />
+    <ClInclude Include="Include\Gates\NotGate.h" />
+    <ClInclude Include="Include\Gates\OrGate.h" />
+    <ClInclude Include="Include\Gates\XorGate.h" />
     <ClInclude Include="Include\LeftBoard.h" />
     <ClInclude Include="Include\Object.h" />
     <ClInclude Include="Include\Simulator.h" />

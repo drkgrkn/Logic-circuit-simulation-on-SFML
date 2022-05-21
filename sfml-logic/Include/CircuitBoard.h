@@ -2,7 +2,15 @@
 
 #include "LogicElement.h"
 #include "Board.h"
-#include "AndGate.h"
+#include "Gates/AndGate.h"
+#include "Gates/OrGate.h"
+#include "Gates/XorGate.h"
+#include "Gates/NotGate.h"
+#include "Gates/DFlipFlop.h"
+#include "Gates/Logic0.h"
+#include "Gates/Logic1.h"
+#include "Gates/Clock.h"
+#include "Gates/LED.h"
 
 class Wire;
 
