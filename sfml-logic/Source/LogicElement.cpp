@@ -9,7 +9,7 @@ LogicElement::LogicElement(sf::RenderWindow* w, LogicElement* ePtr) :
 	//will be set in higher class (AndGate, OrGate)
 	dIdx = 0;
 	dataLength = 500;
-	data = new Pin::pinState[dataLength];
+	data = new Pin::pinState[dataLength]{Pin::pinState::HIGHZ};
 }
 
 LogicElement::~LogicElement()
@@ -24,6 +24,7 @@ void LogicElement::updateData()
 	{
 	case (Object::objectType::Logic0):
 	case (Object::objectType::Logic1):
+	case(Object::objectType::Clock):
 	case (Object::objectType::LED):
 		idx = 0;
 		break;
@@ -43,13 +44,13 @@ void LogicElement::updateData()
 	{
 		data[dIdx++] = Pin::pinState::HIGH;
 	}
-	else
+	else if (pins[idx].state == Pin::pinState::LOW)
 	{
 		data[dIdx++] = Pin::pinState::LOW;
 	}
-	if (Object::objectType::AndGate == logicType)
+	else
 	{
-		std::cout << (Pin::pinState::HIGH == data[dIdx - 1]) << std::endl; 
+		data[dIdx++] = Pin::pinState::HIGHZ;
 	}
 }
 

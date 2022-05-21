@@ -63,6 +63,11 @@ void Simulator::handleClick(sf::Vector2f mp)
 		}
 		else if (state == true)
 		{
+			Pin::pinState* data = circuitBoard->plot(mp);
+			if (data != nullptr)
+			{
+				topBoard->plotData(data);
+			}
 			/*Object stores its own history?
 			retrieve it's history
 			feed to plot object calculateGraph()
@@ -104,4 +109,5 @@ void Simulator::handleRelease(sf::Vector2f mp)
 void Simulator::simulate()
 {
 	circuitBoard->simulate();
+	topBoard->updatePlot();
 }

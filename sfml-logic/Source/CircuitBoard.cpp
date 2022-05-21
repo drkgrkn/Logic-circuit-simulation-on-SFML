@@ -331,6 +331,24 @@ void CircuitBoard::deleteWire()
 	}
 }
 
+Pin::pinState* CircuitBoard::plot(sf::Vector2f mp)
+{
+	Entity* e = getClicked(mp);
+	if (e == nullptr)
+	{
+		return nullptr;
+	}
+	else if (e->type == Entity::entityType::LOGIC)
+	{
+		LogicElement* le = (LogicElement*)e;
+		return le->data;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
 Entity* CircuitBoard::getClicked(sf::Vector2f mp)
 {
 	/*FOR LOGIC ELEMENTS TO HAVE PRECEDENCE

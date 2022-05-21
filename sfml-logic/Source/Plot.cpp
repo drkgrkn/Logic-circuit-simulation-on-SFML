@@ -6,18 +6,15 @@ Plot::Plot(sf::RenderWindow* w) :
 {
 	setBackGround();
 	setText();
-	for (int i = 0; i < 500; i++)
-	{
-		data[i] = i % 2;
-	}
-	makePlot();
+
 	show_plot = true;
 
 }
 
 Plot::~Plot()
 {
-	delete[display_len] hists;
+	delete[] hists;
+	delete[] data;
 }
 
 void Plot::setBackGround()
@@ -53,41 +50,27 @@ void Plot::setText()
   just pass the array and it's length, it should work*/
 void Plot::makePlot()
 {
-	data = new int[500];
 	if (hists)
-		delete[display_len] hists;
+		delete[] hists;
 	float w = backGround.getSize().x / display_len;
 	float h = backGround.getSize().y / 6;
 	float px = backGround.getPosition().x;
 	float py = backGround.getPosition().y;
 	hists = new sf::RectangleShape[display_len];
-	if (500 > display_len)
+	for (int i = 0; i < display_len; i++)
 	{
-		for (int i = 0; i < display_len; i++)
-		{
-			hists[i].setFillColor(sf::Color::Green);
-			hists[i].setPosition(px + (display_len - 1 - i) * w, py + h - 4 * h * (data[500-1 -i] - 1));
-			hists[i].setSize(sf::Vector2f(w, h * (1 + 4 * data[500-1-i])));
-		}
-	}
-	else
-	{
-		delete[display_len] hists;
-		hists = new sf::RectangleShape[500];
-		for (int i = 500 - 1; i >= 0; i--)
-		{
-			hists[i].setFillColor(sf::Color::Green);
-			hists[i].setPosition(px + i * w / display_len, py + h - 4 * h * (data[i] - 1));
-			hists[i].setSize(sf::Vector2f(w / display_len, h * (1 + 4 * data[i])));
-		}
+		std::cout << i << " " << display_len << " " << data << " " << hists << std::endl;
+		hists[i].setFillColor(sf::Color::Green);
+		hists[i].setPosition(px + (i) * w, py + h - 4 * h * (data[i] - 1));
+		hists[i].setSize(sf::Vector2f(w, h * (1 + 4 * data[i])));
 	}
 	for (int i = 0; i < 2; i++)
 	{
 		time[i].setFont(font);
 		time[i].setFillColor(sf::Color::Black);
 		time[i].setCharacterSize(18);
-		time[i].setString(std::to_string(500 - i*display_len));
-		time[i].setPosition(sf::Vector2f(px + (1-i) * w * display_len, py + h * 6));
+		time[i].setString(std::to_string(0 + i*display_len));
+		time[i].setPosition(sf::Vector2f(px + (i) * w * display_len, py + h * 6));
 	}
 }
 
@@ -102,7 +85,7 @@ void Plot::draw() const
 	window->draw(backGround);
 	window->draw(text[0]);
 	window->draw(text[1]);
-	if (display_len >= 1 && show_plot)
+	if (display_len >= 1 && show_plot && hists != nullptr)
 	{
 		for (int i = 0; i < display_len; i++)
 		{
@@ -147,4 +130,45 @@ void Plot::handleScroll(sf::Event scroll)
 		increaseDisplayLength();
 	else
 		decreaseDisplayLength();
+}
+
+void Plot::plot(Pin::pinState* pData)
+{
+	dataPtr = pData;
+	display_len = 0;
+	for (; pData[display_len] != Pin::pinState::HIGHZ; display_len++)
+	{
+	}
+	if (data != nullptr)
+	{
+		delete[] data;
+	}
+	parseData(pData);
+	makePlot();
+}
+
+void Plot::updatePlot()
+{
+	parseData(dataPtr);
+	makePlot();
+}
+
+void Plot::parseData(Pin::pinState* pData)
+{
+	if (data != nullptr)
+	{
+		delete[] data;
+	}
+	data = new int[display_len];
+	for (int i = 0; i < display_len; i++)
+	{
+		if (pData[i] == Pin::pinState::LOW || pData[i] == Pin::pinState::HIGHZ)
+		{
+			data[i] = 0;
+		}
+		else
+		{
+			data[i] = 1;
+		}
+	}
 }

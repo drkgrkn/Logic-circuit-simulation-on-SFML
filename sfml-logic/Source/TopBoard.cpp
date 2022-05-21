@@ -6,7 +6,7 @@ TopBoard::TopBoard(sf::RenderWindow* w):
 					{w, Object::objectType::Stop}
 				}
 {
-	//plot = new Plot(w);
+	plot = new Plot(w);
 	setBackGround(sf::Vector2f(100, 0),
 		sf::Vector2f(1180, 100),
 		sf::Color(155, 155, 155));
@@ -18,7 +18,7 @@ TopBoard::TopBoard(sf::RenderWindow* w):
 
 TopBoard::~TopBoard()
 {
-	//delete plot;
+	delete plot;
 }
 
 void TopBoard::draw() const
@@ -28,7 +28,7 @@ void TopBoard::draw() const
 	{
 		b.draw();
 	}
-	//plot->draw();
+	plot->draw();
 }
 
 Object::objectType TopBoard::handleClick(sf::Vector2f mp) const
@@ -47,8 +47,19 @@ Object::objectType TopBoard::handleClick(sf::Vector2f mp) const
 
 void TopBoard::handleScroll(sf::Vector2f mp, sf::Event scroll)
 {
-	//if (plot->isInside(mp))
+	if (plot->isInside(mp))
 	{
-	//	plot->handleScroll(scroll);
+		plot->handleScroll(scroll);
 	}
+}
+
+void TopBoard::plotData(Pin::pinState* data)
+{
+	plot->plot(data);
+}
+
+void TopBoard::updatePlot()
+{
+	if (plot->dataPtr != nullptr)
+		plot->updatePlot();
 }
