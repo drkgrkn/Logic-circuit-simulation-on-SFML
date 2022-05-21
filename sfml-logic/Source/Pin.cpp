@@ -131,3 +131,8 @@ void Pin::connect(Wire* w,Pin* p)
 		}
 	}
 }
+
+void Pin::reset()
+{
+	state = Pin::pinState::HIGHZ;
+}

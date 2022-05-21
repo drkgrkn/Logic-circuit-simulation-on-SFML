@@ -33,7 +33,7 @@ public:
 	void deleteLogic();
 	void simulate();
 	LogicElement* chooseLogic(Object::objectType obj);
-
+	void reset();
 	//Wire stuff
 	void deleteWire();
 

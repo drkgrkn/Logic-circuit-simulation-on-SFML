@@ -12,5 +12,5 @@ public:
 	void setSprite();
 	void setSprite(int);
 	void simulate();
-	
+	void reset() override;
 };

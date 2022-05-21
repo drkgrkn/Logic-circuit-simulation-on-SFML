@@ -141,11 +141,15 @@ bool LogicElement::isColliding(Entity* le)
 	return collisionX && collisionY;
 }
 
-void LogicElement::resetData()
+void LogicElement::reset()
 {
 	delete[] data;
 	dataLength = 500;
 	data = new Pin::pinState[dataLength];
 	for (int i = 0; i < dataLength; i++)
 		data[i] = Pin::pinState::HIGHZ;
+	for (int p = 0; p < numPins; p++)
+	{
+		pins[p].reset();
+	}
 }
