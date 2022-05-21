@@ -52,6 +52,7 @@ void Wire::draw()
 
 void Wire::setBody()			// wire seperated into 5 body parts
 {
+	
 	float x = (vertices[0].x + vertices[3].x) / 2;
 	vertices[1] = sf::Vector2f(x, vertices[0].y);
 	vertices[2] = sf::Vector2f(x, vertices[3].y);
@@ -93,7 +94,27 @@ void Wire::moveTip(Pin* p, sf::Vector2f v)
 
 bool Wire::isInside(sf::Vector2f mp)
 {
-	return false;
+	bool flag;
+
+	for (int i = 0; i < 5; i++) {
+
+
+		float x_size = body[i].getSize().x;
+		float y_size = body[i].getSize().y;
+		float x_pos = body[i].getPosition().x;
+		float y_pos = body[i].getPosition().y;
+
+	 flag = (mp.x <= x_pos + x_size) &&
+			(mp.x >= x_pos) &&
+			(mp.y <= y_pos + y_size) &&
+			(mp.y >= y_pos);
+	 
+	 if (flag) {
+
+		 return flag;
+	 }
+	 }
+	return flag;
 }
 
 void Wire::embed(Pin* p)
@@ -108,4 +129,28 @@ void Wire::embed(Pin* p)
 	pins[1] = p;
 	pins[0]->connect(this, pins[1]);
 	pins[1]->embedWire(this, pins[0]);
+}
+
+void Wire::simulate()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		if (pins[i]->type == Pin::pinType::OUTPUT)
+		{
+			if (pins[i]->state == Pin::pinState::HIGH)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					body[j].setFillColor(sf::Color::Red);
+				}
+			}
+			else if (pins[i]->state == Pin::pinState::LOW)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					body[j].setFillColor(sf::Color::Black);
+				}
+			}
+		}
+	}
 }

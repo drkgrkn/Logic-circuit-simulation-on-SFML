@@ -50,6 +50,8 @@ void CircuitBoard::handleClick(sf::Vector2f mp)
 	if (clickedEntity == selectedEntity)
 	{
 		clickedEntity->handleClick(mp);
+		
+		
 		return;
 	}
 }
@@ -175,6 +177,31 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 void CircuitBoard::simulate()
 {
 	std::cout << "Simulate" << std::endl;
+
+	int length = 0;
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		length++;
+	}
+	for (int i = 0; i < length; i++)
+	{
+		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+		{
+			temp->simulate();
+		}
+	}
+	//ACTUAL SIMULATION ENDS
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		for (int p = 0; p < temp->numPins; p++)
+		{
+			for (int w = 0; w < temp->pins[p].numConnections; w++)
+			{
+				temp->pins[p].wires[w]->simulate();
+			}
+		}
+	}
+
 }
 
 LogicElement* CircuitBoard::chooseLogic(Object::objectType obj)
@@ -246,6 +273,7 @@ Entity* CircuitBoard::getClicked(sf::Vector2f mp)
 					{
 						if (temp->pins[p].wires[w]->isInside(mp))
 						{
+							std::cout << "wire clicked";
 							clickedEntity = temp->pins[p].wires[w];
 						}
 					}
