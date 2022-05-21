@@ -10,5 +10,7 @@ public:
 	AndGate(sf::RenderWindow* w, LogicElement* ePtr);
 	~AndGate();
 	void setSprite();
+	
+
 };
 
