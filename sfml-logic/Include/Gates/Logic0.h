@@ -10,4 +10,5 @@ public:
 	Logic0(sf::RenderWindow* w, LogicElement* ePtr);
 	~Logic0();
 	void setSprite();
+	void simulate();
 };

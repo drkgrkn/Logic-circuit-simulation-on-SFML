@@ -33,3 +33,9 @@ void Logic0::setSprite()
 	selectionIndicator.setOutlineThickness(4);
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
+
+void Logic0::simulate() {
+
+	pins[0].state = Pin::pinState::LOW;
+
+}

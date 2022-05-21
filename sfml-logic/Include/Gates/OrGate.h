@@ -11,5 +11,8 @@ public:
 	OrGate(sf::RenderWindow* w, LogicElement* ePtr);
 	~OrGate();
 	void setSprite();
+	void simulate();
 };
+
+
 
