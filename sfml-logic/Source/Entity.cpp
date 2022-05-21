@@ -40,4 +40,5 @@ void Entity::place()
 
 void Entity::simulate()
 {
+
 }

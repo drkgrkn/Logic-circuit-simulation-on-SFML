@@ -18,6 +18,6 @@ public:
 	virtual void draw();
 	virtual void handleClick(sf::Vector2f mp);
 	void place();
-	virtual void simulate();
+	virtual void Simulate();
 };
 
