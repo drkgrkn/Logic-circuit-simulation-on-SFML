@@ -108,7 +108,7 @@ void Pin::embedWire(Wire* w, Pin* p)
 
 void Pin::unembedWire(Wire* w)
 {
-	for (int idx = 0; idx < numConnections; idx++)
+	for (int idx = 0; idx < MAX_CONNECTIONS; idx++)
 	{
 		if (w == wires[idx])
 		{
