@@ -32,3 +32,9 @@ void LED::setSprite()
 	selectionIndicator.setOutlineThickness(4);
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
+
+void LED::simulate() {
+
+	
+
+}

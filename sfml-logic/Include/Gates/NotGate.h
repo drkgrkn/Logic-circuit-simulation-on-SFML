@@ -11,5 +11,6 @@ public:
 	NotGate(sf::RenderWindow* w, LogicElement* ePtr);
 	~NotGate();
 	void setSprite();
+	void simulate();
 };
 

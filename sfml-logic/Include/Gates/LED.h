@@ -10,4 +10,5 @@ public:
 	LED(sf::RenderWindow* w, LogicElement* ePtr);
 	~LED();
 	void setSprite();
+	void simulate();
 };
