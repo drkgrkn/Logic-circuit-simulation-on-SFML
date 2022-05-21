@@ -80,7 +80,9 @@ void LED::reset()
 	dataLength = 500;
 	data = new Pin::pinState[dataLength];
 	for (int i = 0; i < dataLength; i++)
+	{
 		data[i] = Pin::pinState::HIGHZ;
+	}
 	for (int p = 0; p < numPins; p++)
 	{
 		pins[p].reset();
