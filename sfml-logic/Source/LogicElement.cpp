@@ -88,18 +88,17 @@ void LogicElement::handleClick(sf::Vector2f mp)
 	return;
 }
 
-bool LogicElement::embedWire(sf::Vector2f mp, Wire* wPtr)
+void LogicElement::embedWire(sf::Vector2f mp, Wire* wPtr)
 {
 	bool success = false;
 	for (int i = 0; i < numPins; i++)
 	{
 		if (pins[i].isInside(mp))
 		{
-			success = pins[i].embedWire(mp, wPtr);
+			pins[i].embedWire(wPtr, &pins[i]);
 			selected = false;
 		}
 	}
-	return success;
 }
 
 bool LogicElement::isColliding(Entity* le)

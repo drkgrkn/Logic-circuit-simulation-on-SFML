@@ -41,20 +41,8 @@ void Wire::draw()
 	}
 }
 
-void Wire::place(sf::Vector2f mp)
-{
-	vertices[3] = mp;
-	grabbed = false;
-	selected = false;
-}
 
-void Wire::embedToPin(sf::Vector2f mp, Pin* p)
-{
-	std::cout << window << std::endl;
 
-	pins[1] = p;
-	place(mp);
-}
 
 void Wire::setBody()
 {
@@ -74,4 +62,11 @@ void Wire::setBody()
 bool Wire::isInside(sf::Vector2f mp)
 {
 	return false;
+}
+
+void Wire::embed(Pin* p)
+{
+	pins[1] = p;
+	pins[0]->connect(this, pins[1]);
+	pins[1]->embedWire(this, pins[0]);
 }

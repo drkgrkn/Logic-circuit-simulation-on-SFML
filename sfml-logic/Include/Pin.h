@@ -5,14 +5,13 @@
 #include "Wire.h"
 
 class Wire;
-#define MAX_CONNECTIONS 5
-
 
 class Pin
 {
 public:
 	//SELF
 	enum class pinType { INPUT, OUTPUT };
+	const int MAX_CONNECTIONS;
 	enum class pinState { LOW, HIGH };
 	sf::RenderWindow* window;
 	pinState state;
@@ -21,9 +20,8 @@ public:
 
 	//Other objects
 	int numConnections;
-	bool isSrc[MAX_CONNECTIONS];
-	Pin* connectedTo[MAX_CONNECTIONS];
-	Wire* wires[MAX_CONNECTIONS];
+	Pin** connectedTo;
+	Wire** wires;
 
 
 
@@ -34,7 +32,7 @@ public:
 	void draw();
 	bool isInside(sf::Vector2f mp);
 	void handleClick();
-	//Return ture if succeeded at embedding
-	bool embedWire(sf::Vector2f mp, Wire* wPtr);
-	void unembedWire(Wire* wPtr);
+	void embedWire(Wire* w, Pin* p);
+	void unembedWire(Wire* w);
+	void connect(Wire* w, Pin* p);
 };

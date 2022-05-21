@@ -1,15 +1,16 @@
 #include "Pin.h"
 
 
-
-Pin::Pin(sf::RenderWindow* w, Pin::pinType t)
+Pin::Pin(sf::RenderWindow* w, Pin::pinType t):
+	MAX_CONNECTIONS((t == Pin::pinType::OUTPUT) ? 5 : 1)
 {
 	window = w;
 	state = pinState::LOW;
 	type = t;
 
 	numConnections = 0;
-
+	wires = new Wire*[MAX_CONNECTIONS];
+	connectedTo = new Pin*[MAX_CONNECTIONS];
 	setShape();
 }
 
@@ -44,44 +45,61 @@ bool Pin::isInside(sf::Vector2f mp)
 
 void Pin::handleClick()
 {
-	if (numConnections < MAX_CONNECTIONS)
+	if (numConnections == MAX_CONNECTIONS)
 	{
-		wires[numConnections] = new Wire(window, this);
-		numConnections++;
+		return;
 	}
-}
+	else
+	{
+		std::cout << MAX_CONNECTIONS << std::endl;
 
-bool Pin::embedWire(sf::Vector2f mp, Wire* wPtr)
-{
-	std::cout << "Hey";
-	if (this == wPtr->pins[0])
-	{
-		return false;
-	}
-	if (numConnections < MAX_CONNECTIONS)
-	{
-		wires[numConnections] = wPtr;
-		numConnections++;
-		wPtr->embedToPin(mp, this);
-		return true;
-	}
-	return false;
-}
-
-void Pin::unembedWire(Wire* wPtr)
-{
-	for (int i = 0; i < MAX_CONNECTIONS; i++)
-	{
-		std::cout << wires[i] << std::endl;
-	}
-	for (int i = 0; i < MAX_CONNECTIONS; i++)
-	{
-		if (wires[i] == wPtr)
+		for (int idx = 0; idx < MAX_CONNECTIONS; idx++)
 		{
-			wires[i] = nullptr;
+			if (wires[idx] == nullptr)
+			{
+				wires[idx] = new Wire(window, this);
+				numConnections++;
+				break;
+			}
+		}
+	}
+}
+
+void Pin::embedWire(Wire* w, Pin* p)
+{
+	for (int idx = 0; idx < MAX_CONNECTIONS; idx++)
+	{
+		if (wires[idx] == nullptr)
+		{
+			wires[idx] = w;
+			connectedTo[idx] = p;
+			numConnections++;
+			break;
+		}
+	}
+}
+
+void Pin::unembedWire(Wire* w)
+{
+	for (int idx = 0; idx < numConnections; )
+	{
+		if (w == wires[idx])
+		{
+			wires[idx] = nullptr;
+			connectedTo[idx] = nullptr;
 			numConnections--;
-			connectedTo[i] = nullptr;
-			delete wPtr;
+			break;
+		}
+	}
+}
+
+void Pin::connect(Wire* w,Pin* p)
+{
+	for (int idx = 0; idx < numConnections; )
+	{
+		if (w == wires[idx])
+		{
+			connectedTo[idx] = p;
 			break;
 		}
 	}

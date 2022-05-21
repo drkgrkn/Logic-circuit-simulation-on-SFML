@@ -24,7 +24,7 @@ public:
 	virtual void setSprite();
 	void draw() override;
 	void handleClick(sf::Vector2f mp) override;
-	bool embedWire(sf::Vector2f mp, Wire* wPtr);
+	void embedWire(sf::Vector2f mp, Wire* wPtr);
 	bool isColliding(Entity* le);
 };
 

@@ -122,24 +122,7 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 	/*if entity is dropped outside
 	  destroy that entity*/
 	//GRABBED ENTITY
-	Entity* ge = nullptr;
-	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
-	{
-		if (temp->grabbed)
-		{
-			ge = temp;
-		}
-		for (int p = 0; p < temp->numPins; p++)
-		{
-			for (int w = 0; w < temp->pins[p].numConnections; w++)
-			{
-				if (temp->pins[p].wires[w]->grabbed)
-				{
-					ge = temp->pins[p].wires[w];
-				}
-			}
-		}
-	}
+	Entity* ge = getGrabbed();
 
 	if (ge == nullptr)
 	{
@@ -180,7 +163,7 @@ void CircuitBoard::handleRelease(sf::Vector2f mp)
 			{
 				if (temp->pins[p].isInside(mp))
 				{
-					w->embedToPin(mp, &temp->pins[p]);
+					w->embed( &temp->pins[p]);
 					return;
 				}
 			}
