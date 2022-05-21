@@ -18,7 +18,6 @@ AndGate::AndGate(sf::RenderWindow* w, LogicElement* ePtr):
 
 AndGate::~AndGate()
 {
-	std::cout << "AG DESSTRUCTED! " << std::endl;
 	delete[] pins;
 }
 

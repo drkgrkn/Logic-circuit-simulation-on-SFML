@@ -110,7 +110,63 @@ void CircuitBoard::deleteLogic()
 		{
 			entities = le->next;
 		}
-		delete le;
+		switch (le->logicType)
+		{
+		case Object::objectType::AndGate:
+		{
+			AndGate* g = (AndGate*)le;
+			delete g;
+			break;
+		}
+		case Object::objectType::OrGate:
+		{
+			OrGate* g = (OrGate*)le;
+			delete g;
+			break;
+		}
+		case Object::objectType::XorGate:
+		{
+			XorGate* g = (XorGate*)le;
+			delete g;
+			break;
+		}
+		case Object::objectType::NotGate:
+		{
+			NotGate* g = (NotGate*)le;
+			delete g;
+			break;
+		}
+		case Object::objectType::DFlipFlop:
+		{
+			DFlipFlop* g = (DFlipFlop*)le;
+			delete g;
+			break;
+		}
+		case Object::objectType::Logic0:
+		{
+			Logic0* g = (Logic0*)le;
+			delete g;
+			break;
+		}
+		case Object::objectType::Logic1:
+		{
+			Logic1* g = (Logic1*)le;
+			delete g;
+			break;
+		}
+		case Object::objectType::Clock:
+		{
+			Clock* g = (Clock*)le;
+			delete g;
+			break;
+		}
+		case Object::objectType::LED:
+		{
+			LED* g = (LED*)le;
+			delete g;
+			break;
+		}
+		}
 
 	}
 }
