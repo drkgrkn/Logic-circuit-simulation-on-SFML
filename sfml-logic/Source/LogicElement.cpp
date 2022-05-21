@@ -106,7 +106,7 @@ bool LogicElement::isColliding(Entity* le)
 	float px1 = this->sprite.getPosition().x;
 	float py1 = this->sprite.getPosition().y;
 	float sx1 = this->sprite.getTexture()->getSize().x * this->sprite.getScale().x;
-	float sy1 = this->sprite.getTexture()->getSize().x * this->sprite.getScale().y;
+	float sy1 = this->sprite.getTexture()->getSize().y * this->sprite.getScale().y;
 
 	float px2 = le->sprite.getPosition().x;
 	float py2 = le->sprite.getPosition().y;
