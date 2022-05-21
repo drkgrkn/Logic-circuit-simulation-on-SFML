@@ -7,7 +7,8 @@ Wire::Wire(sf::RenderWindow* w, Pin* p) :
 	type = Entity::entityType::WIRE;
     pins[0] = p;
 	pins[1] = nullptr;
-	vertices[0] = pins[0]->shape.getPosition();
+	vertices[0].x = pins[0]->shape.getPosition().x + 3;
+	vertices[0].y = pins[0]->shape.getPosition().y + 3;
 }
 
 Wire::~Wire()
