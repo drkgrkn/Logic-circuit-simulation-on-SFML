@@ -321,6 +321,7 @@ Entity* CircuitBoard::getClicked(sf::Vector2f mp)
 			if (temp->isInside(mp))
 			{
 				clickedEntity = temp;
+				goto getClickend;
 			}
 			for (int p = 0; p < temp->numPins; p++)
 			{
@@ -332,12 +333,14 @@ Entity* CircuitBoard::getClicked(sf::Vector2f mp)
 						{
 							std::cout << "wire clicked";
 							clickedEntity = temp->pins[p].wires[w];
+							goto getClickend;
 						}
 					}
 				}
 			}
 		}
 	}
+	getClickend:
 	return clickedEntity;
 }
 

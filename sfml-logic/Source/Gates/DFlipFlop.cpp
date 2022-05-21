@@ -10,7 +10,6 @@ DFlipFlop::DFlipFlop(sf::RenderWindow* w, LogicElement* ePtr) :
 	};
 	numPins = 4;
 	dataLength = 500;
-	data = new int[dataLength];
 	dIdx = 0;
 	pinsPos = new sf::Vector2f[4]{ sf::Vector2f(-2,7),
 								sf::Vector2f(-2,20),

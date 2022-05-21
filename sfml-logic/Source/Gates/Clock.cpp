@@ -7,7 +7,6 @@ Clock::Clock(sf::RenderWindow* w, LogicElement* ePtr) :
 	};
 	numPins = 1;
 	dataLength = 500;
-	data = new int[dataLength];
 	dIdx = 0;
 	pinsPos = new sf::Vector2f[1]{ sf::Vector2f(42,14),
 	};

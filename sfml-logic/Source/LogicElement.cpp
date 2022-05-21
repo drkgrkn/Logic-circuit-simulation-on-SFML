@@ -9,7 +9,7 @@ LogicElement::LogicElement(sf::RenderWindow* w, LogicElement* ePtr) :
 	//will be set in higher class (AndGate, OrGate)
 	dIdx = 0;
 	dataLength = 500;
-	data = new int[dataLength];
+	data = new Pin::pinState[dataLength];
 }
 
 LogicElement::~LogicElement()
@@ -22,18 +22,18 @@ void LogicElement::updateData(Pin::pinState ps)
 	if (dIdx >= dataLength)
 	{
 		dataLength += 500;
-		auto arr = new int[dataLength];
+		auto arr = new Pin::pinState[dataLength];
 		std::copy(data, data + dataLength - 500, arr);
 		delete[] data;
 		data = arr;
 	}
 	if (ps == Pin::pinState::HIGH)
 	{
-		data[dIdx++] = 1;
+		data[dIdx++] = Pin::pinState::HIGH;
 	}
 	else
 	{
-		data[dIdx++] = 0;
+		data[dIdx++] = Pin::pinState::LOW;
 	}
 }
 

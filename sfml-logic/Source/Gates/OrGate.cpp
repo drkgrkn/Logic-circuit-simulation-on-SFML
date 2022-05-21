@@ -8,7 +8,6 @@ OrGate::OrGate(sf::RenderWindow* w, LogicElement* ePtr) :
 						Pin(window, Pin::pinType::OUTPUT) };
 	numPins = 3;
 	dataLength = 500;
-	data = new int[dataLength];
 	dIdx = 0;
 	pinsPos = new sf::Vector2f[3]{ sf::Vector2f(-2,5),
 								sf::Vector2f(-2,22),
