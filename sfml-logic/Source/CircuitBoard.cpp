@@ -206,6 +206,30 @@ LogicElement* CircuitBoard::chooseLogic(Object::objectType obj)
 	{
 	case Object::objectType::AndGate:
 		return new AndGate(window, lastPtr);
+
+	case Object::objectType::OrGate:
+		return new OrGate(window, lastPtr);
+
+	case Object::objectType::XorGate:
+		return new XorGate(window, lastPtr);
+
+	case Object::objectType::NotGate:
+		return new NotGate(window, lastPtr);
+
+	case Object::objectType::DFlipFlop:
+		return new DFlipFlop(window, lastPtr);
+
+	case Object::objectType::Logic0:
+		return new Logic0(window, lastPtr);
+
+	case Object::objectType::Logic1:
+		return new Logic1(window, lastPtr);
+
+	case Object::objectType::Clock:
+		return new Clock(window, lastPtr);
+
+	case Object::objectType::LED:
+		return new LED(window, lastPtr);
 	}
 }
 
