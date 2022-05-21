@@ -49,19 +49,26 @@ void LED::setSprite(int index) {
 
 	}
 
-void LED::simulate() {
-
-	if (pins[0].state == Pin::pinState::LOW) {
-
+void LED::simulate()
+{
+	//INPUT UPDATE
+	if (pins[0].connectedTo[0] != nullptr)
+	{
+		pins[0].state = pins[0].connectedTo[0]->state;
+	}
+	else
+	{
 		setSprite(0);
-
+		pins[0].state = Pin::pinState::HIGHZ;
 	}
 
-	if (pins[0].state == Pin::pinState::HIGH) {
-
+	//OUTPUT UPDATE
+	if (pins[0].state == Pin::pinState::HIGH)
+	{
 		setSprite(1);
-
 	}
-	
-
+	if (pins[0].state == Pin::pinState::LOW)
+	{
+		setSprite(0);
+	}
 }
