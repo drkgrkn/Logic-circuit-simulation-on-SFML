@@ -14,6 +14,17 @@ LogicElement::LogicElement(sf::RenderWindow* w, LogicElement* ePtr) :
 
 LogicElement::~LogicElement()
 {
+	for (int p = 0; p < numPins; p++)
+	{
+		for (int w = 0; w < pins[p].MAX_CONNECTIONS; w++)
+		{
+			if (pins[p].wires[w] != nullptr)
+			{
+				std::cout << "Deconstructed ???" << std::endl;
+				delete &pins[p].wires[w];
+			}
+		}
+	}
 	delete[] data;
 }
 
@@ -57,7 +68,7 @@ void LogicElement::draw()
 			{
 				if (pins[p].wires[w] != nullptr)
 				{
-					pins[p].wires[w]->moveRoot(pins[p].shape.getPosition());
+					pins[p].wires[w]->moveTip(&pins[p], pins[p].shape.getPosition());
 				}
 			}
 		}

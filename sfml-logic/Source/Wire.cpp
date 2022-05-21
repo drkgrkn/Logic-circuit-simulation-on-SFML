@@ -28,17 +28,22 @@ void Wire::draw()
 	{
 		vertices[3] = sf::Vector2f(sf::Mouse::getPosition(*window));
 		float x = (vertices[0].x + vertices[3].x) / 2;
-
-		vertices[1] = sf::Vector2f(x, vertices[0].y);
-		vertices[2] = sf::Vector2f(x, vertices[3].y);
 		
 		setBody();
+	}
+	if (selected)
+	{
+		for (int i = 0; i < 5; i++)
+		{
+
+		}
 	}
 
 
 	for (int i = 0; i < 5; i++)
 	{
 		window->draw(body[i]);
+		body[i].setFillColor(sf::Color::Black);
 	}
 }
 
@@ -47,6 +52,11 @@ void Wire::draw()
 
 void Wire::setBody()			// wire seperated into 5 body parts
 {
+	
+	float x = (vertices[0].x + vertices[3].x) / 2;
+	vertices[1] = sf::Vector2f(x, vertices[0].y);
+	vertices[2] = sf::Vector2f(x, vertices[3].y);
+
 	body[0].setPosition(vertices[0]);
 	body[0].setSize(sf::Vector2f(vertices[1].x - vertices[0].x, 4));		// first horizontal line
 	body[0].setFillColor(sf::Color::Black);
@@ -68,9 +78,17 @@ void Wire::setBody()			// wire seperated into 5 body parts
 	body[4].setFillColor(sf::Color::Black);
 }
 
-void Wire::moveRoot(sf::Vector2f v)
+void Wire::moveTip(Pin* p, sf::Vector2f v)
 {
-	vertices[0] = v;
+	if (p == pins[0])
+	{
+		vertices[0] = v;
+	}
+	else if (p == pins[1])
+	{
+		vertices[3] = v;
+	}
+	
 	setBody();
 }
 
@@ -111,4 +129,28 @@ void Wire::embed(Pin* p)
 	pins[1] = p;
 	pins[0]->connect(this, pins[1]);
 	pins[1]->embedWire(this, pins[0]);
+}
+
+void Wire::simulate()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		if (pins[i]->type == Pin::pinType::OUTPUT)
+		{
+			if (pins[i]->state == Pin::pinState::HIGH)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					body[j].setFillColor(sf::Color::Red);
+				}
+			}
+			else if (pins[i]->state == Pin::pinState::LOW)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					body[j].setFillColor(sf::Color::Black);
+				}
+			}
+		}
+	}
 }
