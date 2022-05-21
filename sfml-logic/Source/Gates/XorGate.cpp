@@ -35,3 +35,19 @@ void XorGate::setSprite()
 	selectionIndicator.setOutlineThickness(4);
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
+
+void XorGate::simulate() {
+
+	if ((pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::LOW) || (pins[0].state == Pin::pinState::LOW && pins[1].state == Pin::pinState::HIGH)) {
+
+		pins[2].state = Pin::pinState::HIGH;
+	}
+
+	else {
+
+		pins[2].state = Pin::pinState::LOW;
+	}
+
+
+
+}

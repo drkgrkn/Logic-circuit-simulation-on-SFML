@@ -10,4 +10,5 @@ public:
 	XorGate(sf::RenderWindow* w, LogicElement* ePtr);
 	~XorGate();
 	void setSprite();
+	void simulate();
 };
