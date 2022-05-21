@@ -50,6 +50,8 @@ void CircuitBoard::handleClick(sf::Vector2f mp)
 	if (clickedEntity == selectedEntity)
 	{
 		clickedEntity->handleClick(mp);
+		
+		
 		return;
 	}
 }
@@ -272,6 +274,7 @@ Entity* CircuitBoard::getClicked(sf::Vector2f mp)
 					{
 						if (temp->pins[p].wires[w]->isInside(mp))
 						{
+							std::cout << "wire clicked";
 							clickedEntity = temp->pins[p].wires[w];
 						}
 					}

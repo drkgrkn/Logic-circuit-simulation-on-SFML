@@ -42,6 +42,7 @@ void Entity::place()
     selected = false;
 }
 
-void Entity::simulate()
+void Entity::Simulate()
 {
+
 }

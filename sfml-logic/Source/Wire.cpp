@@ -94,7 +94,27 @@ void Wire::moveTip(Pin* p, sf::Vector2f v)
 
 bool Wire::isInside(sf::Vector2f mp)
 {
-	return false;
+	bool flag;
+
+	for (int i = 0; i < 5; i++) {
+
+
+		float x_size = body[i].getSize().x;
+		float y_size = body[i].getSize().y;
+		float x_pos = body[i].getPosition().x;
+		float y_pos = body[i].getPosition().y;
+
+	 flag = (mp.x <= x_pos + x_size) &&
+			(mp.x >= x_pos) &&
+			(mp.y <= y_pos + y_size) &&
+			(mp.y >= y_pos);
+	 
+	 if (flag) {
+
+		 return flag;
+	 }
+	 }
+	return flag;
 }
 
 void Wire::embed(Pin* p)

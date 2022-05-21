@@ -22,6 +22,8 @@ AndGate::~AndGate()
 	delete[] pins;
 }
 
+
+
 void AndGate::setSprite()
 {
 	sprite.setTexture(*(textures->textures[0]));
@@ -34,4 +36,21 @@ void AndGate::setSprite()
 	selectionIndicator.setFillColor((sf::Color(255, 255, 255, 0)));
 	selectionIndicator.setOutlineThickness(4);
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
+}
+
+void AndGate::Simulate()
+{
+
+	if (pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::HIGH) {
+
+		pins[2].state = Pin::pinState::HIGH;
+
+	}
+
+	else {
+
+		pins[2].state = Pin::pinState::LOW;
+	}
+
+	
 }
