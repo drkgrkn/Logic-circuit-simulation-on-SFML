@@ -110,7 +110,8 @@ void CircuitBoard::deleteLogic()
 		{
 			entities = le->next;
 		}
-		delete e;
+		delete le;
+
 	}
 }
 

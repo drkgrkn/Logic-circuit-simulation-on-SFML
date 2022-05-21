@@ -6,6 +6,10 @@ Entity::Entity(sf::RenderWindow* w) :
     
 }
 
+Entity::~Entity()
+{
+}
+
 bool Entity::isInside(sf::Vector2f mp)
 {
     float x_size = sprite.getTexture()->getSize().x * sprite.getScale().x;
@@ -38,7 +42,7 @@ void Entity::place()
     selected = false;
 }
 
-void Entity::Simulate()
+void Entity::simulate()
 {
 
 }
