@@ -240,6 +240,10 @@ void CircuitBoard::simulate()
 	{
 		length++;
 	}
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		temp->preSimulate();
+	}
 	for (int i = 0; i < length; i++)
 	{
 		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)

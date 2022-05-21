@@ -10,6 +10,7 @@ public:
 	Clock(sf::RenderWindow* w, LogicElement* ePtr);
 	~Clock();
 	void setSprite();
-	void simulate();
+	void simulate() override;
+	void preSimulate() override;
 };
 
