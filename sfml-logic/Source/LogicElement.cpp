@@ -146,4 +146,6 @@ void LogicElement::resetData()
 	delete[] data;
 	dataLength = 500;
 	data = new Pin::pinState[dataLength];
+	for (int i = 0; i < dataLength; i++)
+		data[i] = Pin::pinState::HIGHZ;
 }

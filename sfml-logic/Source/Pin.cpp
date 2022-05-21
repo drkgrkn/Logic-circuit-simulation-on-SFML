@@ -5,7 +5,7 @@ Pin::Pin(sf::RenderWindow* w, Pin::pinType t):
 	MAX_CONNECTIONS((t == Pin::pinType::OUTPUT) ? 5 : 1)
 {
 	window = w;
-	state = pinState::LOW;
+	state = pinState::HIGHZ;
 	type = t;
 
 	numConnections = 0;
