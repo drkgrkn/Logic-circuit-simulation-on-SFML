@@ -8,9 +8,13 @@ class Wire;
 
 class CircuitBoard: public Board
 {
+private:
+	LogicElement* getLast();
+	Entity* getClicked(sf::Vector2f mp);
+	Entity* getSelected();
+	Entity* getGrabbed();
 public:
 	LogicElement* entities;
-	Entity* selected;
 
 	CircuitBoard(sf::RenderWindow* w);
 	void draw() const override;
@@ -24,5 +28,6 @@ public:
 
 	//Wire stuff
 	void deleteWire();
+
 };
 

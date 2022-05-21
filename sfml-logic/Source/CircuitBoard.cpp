@@ -23,33 +23,9 @@ void CircuitBoard::draw() const
 
 void CircuitBoard::handleClick(sf::Vector2f mp)
 {
-	Entity* clickedEntity = nullptr;
-	Entity* selectedEntity = nullptr;
-	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
-	{
-		if (temp->isInside(mp))
-		{
-			clickedEntity = temp;
-		}
-		if (temp->selected)
-		{
-			selectedEntity = temp;
-		}
-		for (int p = 0; p < temp->numPins; p++)
-		{
-			for (int w = 0; w < temp->pins[p].numConnections; w++)
-			{
-				if (temp->pins[p].wires[w]->isInside(mp))
-				{
-					clickedEntity = temp->pins[p].wires[w];
-				}
-				if (temp->pins[p].wires[w]->selected)
-				{
-					selectedEntity = temp->pins[p].wires[w];
-				}
-			}
-		}
-	}
+	Entity* clickedEntity = getClicked(mp);
+	Entity* selectedEntity = getSelected();
+
 	if (clickedEntity == nullptr)
 	{
 		if (selectedEntity != nullptr)
@@ -87,64 +63,50 @@ void CircuitBoard::addLogic(sf::RenderWindow* w, Object::objectType b)
 	}
 	else
 	{
-		for (; temp != nullptr; temp = temp->next)
-		{
-			if (temp->next == nullptr)
-			{
-				//unselect if selected exists
-				for (LogicElement* temp2 = entities; temp2 != nullptr;temp2 = temp2->next)
-				{
-					if (temp2->selected)
-					{
-						temp2->selected = false;
-					}
-				}
-				//add new entity which is selected
-				temp->next = chooseLogic(b);
-				break;
-			}
-		}
+		Entity* selected = getSelected();
+		if (selected != nullptr)
+			selected->selected = false;
+		LogicElement* last = getLast();
+		last->next = chooseLogic(b);
 	}
 }
 
 void CircuitBoard::deleteLogic()
 {
-	LogicElement* e = nullptr;
-	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
-	{
-		if (temp->selected)
-		{
-			e = temp;
-		}
-	}
+	Entity* e = getSelected();
 	if (e == nullptr)
+	{
+		return;
+	}
+	else if (e->type == Entity::entityType::WIRE)
 	{
 		return;
 	}
 	else
 	{
+		LogicElement* le = (LogicElement*)e;
 		bool isLast = false;
 		bool isFirst = false;
-		if (e->prev == nullptr)
+		if (le->prev == nullptr)
 		{
 			isFirst = true;
 		}
-		if (e->next == nullptr)
+		if (le->next == nullptr)
 		{
 			isLast = true;
 		}
 
 		if (!isLast)
 		{
-			e->next->prev = e->prev;
+			le->next->prev = le->prev;
 		}
 		if (!isFirst)
 		{
-			e->prev->next = e->next;
+			le->prev->next = le->next;
 		}
 		else
 		{
-			entities = e->next;
+			entities = le->next;
 		}
 		delete e;
 	}
@@ -249,20 +211,100 @@ LogicElement* CircuitBoard::chooseLogic(Object::objectType obj)
 
 void CircuitBoard::deleteWire()
 {
-	Wire* wire = nullptr;
+	Entity* e = getSelected();
+
+	if (e->type == Entity::entityType::WIRE)
+	{
+		Wire* w = (Wire*)e;
+		delete w;
+	}
+}
+
+Entity* CircuitBoard::getClicked(sf::Vector2f mp)
+{
+	Entity* clickedEntity = nullptr;
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
-		for (int p = 0; p < temp->numPins; p++)
+		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 		{
-			for (int w = 0; p < temp->pins[p].numConnections; w++)
+			if (temp->isInside(mp))
 			{
-				if (temp->pins[p].wires[w]->grabbed)
+				clickedEntity = temp;
+			}
+			for (int p = 0; p < temp->numPins; p++)
+			{
+				for (int w = 0; w < temp->pins[p].numConnections; w++)
 				{
-					wire = temp->pins[p].wires[w];
+					if (temp->pins[p].wires[w]->isInside(mp))
+					{
+						clickedEntity = temp->pins[p].wires[w];
+					}
 				}
 			}
 		}
 	}
+	return clickedEntity;
+}
 
-	delete wire;
+Entity* CircuitBoard::getSelected()
+{
+	Entity* selectedEntity = nullptr;
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+		{
+			if (temp->selected)
+			{
+				selectedEntity = temp;
+			}
+			for (int p = 0; p < temp->numPins; p++)
+			{
+				for (int w = 0; w < temp->pins[p].numConnections; w++)
+				{
+					if (temp->pins[p].wires[w]->selected)
+					{
+						selectedEntity = temp->pins[p].wires[w];
+					}
+				}
+			}
+		}
+	}
+	return selectedEntity;
+}
+
+Entity* CircuitBoard::getGrabbed()
+{
+	Entity* grabbedEntity = nullptr;
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+		{
+			if (temp->grabbed)
+			{
+				grabbedEntity = temp;
+			}
+			for (int p = 0; p < temp->numPins; p++)
+			{
+				for (int w = 0; w < temp->pins[p].numConnections; w++)
+				{
+					if (temp->pins[p].wires[w]->grabbed)
+					{
+						grabbedEntity = temp->pins[p].wires[w];
+					}
+				}
+			}
+		}
+	}
+	return grabbedEntity;
+}
+
+LogicElement* CircuitBoard::getLast()
+{
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		if (temp->next == nullptr)
+		{
+			return temp;
+		}
+	}
 }
