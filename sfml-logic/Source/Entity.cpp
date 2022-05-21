@@ -37,3 +37,8 @@ void Entity::place()
     grabbed = false;
     selected = false;
 }
+
+void Entity::simulate()
+{
+
+}

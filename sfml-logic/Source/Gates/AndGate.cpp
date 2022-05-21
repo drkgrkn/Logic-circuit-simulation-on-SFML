@@ -35,3 +35,8 @@ void AndGate::setSprite()
 	selectionIndicator.setOutlineThickness(4);
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
+
+void AndGate::Simulate()
+{
+	
+}
