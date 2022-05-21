@@ -153,3 +153,11 @@ void LogicElement::reset()
 		pins[p].reset();
 	}
 }
+
+void LogicElement::preSimulate()
+{
+	for (int p = 0; p < numPins; p++)
+	{
+		pins[p].state = Pin::pinState::HIGHZ;
+	}
+}

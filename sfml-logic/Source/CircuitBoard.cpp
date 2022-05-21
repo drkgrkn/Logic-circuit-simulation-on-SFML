@@ -240,10 +240,12 @@ void CircuitBoard::simulate()
 	{
 		length++;
 	}
+	//PRE-SIMULATE
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		temp->preSimulate();
 	}
+	//SIMULATE
 	for (int i = 0; i < length; i++)
 	{
 		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
@@ -251,11 +253,13 @@ void CircuitBoard::simulate()
 			temp->simulate();
 		}
 	}
+	//POST-UPDATE
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		temp->updateData();
 	}
 	//ACTUAL SIMULATION ENDS
+	//WIRES UPDATE FOR 
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		for (int p = 0; p < temp->numPins; p++)

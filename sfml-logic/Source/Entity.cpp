@@ -46,8 +46,3 @@ void Entity::simulate()
 {
 
 }
-
-void Entity::preSimulate()
-{
-
-}

@@ -38,3 +38,8 @@ void Logic1::simulate(){
 
 
 }
+
+void Logic1::preSimulate()
+{
+	pins[0].state = Pin::pinState::HIGH;
+}
