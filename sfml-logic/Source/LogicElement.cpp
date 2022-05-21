@@ -57,7 +57,7 @@ void LogicElement::draw()
 			{
 				if (pins[p].wires[w] != nullptr)
 				{
-					pins[p].wires[w]->moveRoot(pins[p].shape.getPosition());
+					pins[p].wires[w]->moveTip(&pins[p], pins[p].shape.getPosition());
 				}
 			}
 		}
