@@ -3,6 +3,7 @@
 Clock::Clock(sf::RenderWindow* w, LogicElement* ePtr) :
 	LogicElement(w, ePtr)
 {
+	logicType = Object::objectType::Clock;
 	pins = new Pin[1]{ Pin(window, Pin::pinType::OUTPUT),
 	};
 	numPins = 1;

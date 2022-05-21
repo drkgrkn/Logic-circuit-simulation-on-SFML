@@ -3,6 +3,7 @@
 NotGate::NotGate(sf::RenderWindow* w, LogicElement* ePtr) :
 	LogicElement(w, ePtr)
 {
+	logicType = Object::objectType::NotGate;
 	pins = new Pin[2]{ Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::OUTPUT) };
 	numPins = 2;

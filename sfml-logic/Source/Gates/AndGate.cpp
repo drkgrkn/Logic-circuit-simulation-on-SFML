@@ -3,6 +3,7 @@
 AndGate::AndGate(sf::RenderWindow* w, LogicElement* ePtr):
 	LogicElement(w, ePtr)
 {
+	logicType = Object::objectType::AndGate;
 	pins = new Pin[3]{	Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::OUTPUT) };
@@ -12,7 +13,6 @@ AndGate::AndGate(sf::RenderWindow* w, LogicElement* ePtr):
 								sf::Vector2f(-2,22),
 								sf::Vector2f(51,14)
 								};
-	logicType = Object::objectType::AndGate;
 	setSprite();
 }
 

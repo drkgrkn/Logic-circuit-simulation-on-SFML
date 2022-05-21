@@ -3,6 +3,7 @@
 LED::LED(sf::RenderWindow* w, LogicElement* ePtr) :
 	LogicElement(w, ePtr)
 {
+	logicType = Object::objectType::LED;
 	pins = new Pin[1]{ Pin(window, Pin::pinType::INPUT),
 	};
 	numPins = 1;

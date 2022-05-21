@@ -3,6 +3,7 @@
 OrGate::OrGate(sf::RenderWindow* w, LogicElement* ePtr) :
 	LogicElement(w, ePtr)
 {
+	logicType = Object::objectType::OrGate;
 	pins = new Pin[3]{ Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::OUTPUT) };

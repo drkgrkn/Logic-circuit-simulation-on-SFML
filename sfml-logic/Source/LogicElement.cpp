@@ -140,3 +140,10 @@ bool LogicElement::isColliding(Entity* le)
 
 	return collisionX && collisionY;
 }
+
+void LogicElement::resetData()
+{
+	delete[] data;
+	dataLength = 500;
+	data = new Pin::pinState[dataLength];
+}

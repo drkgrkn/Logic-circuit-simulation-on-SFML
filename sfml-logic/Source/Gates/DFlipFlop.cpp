@@ -3,6 +3,7 @@
 DFlipFlop::DFlipFlop(sf::RenderWindow* w, LogicElement* ePtr) :
 	LogicElement(w, ePtr)
 {
+	logicType = Object::objectType::DFlipFlop;
 	pins = new Pin[4]{ Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::INPUT),
 						Pin(window, Pin::pinType::OUTPUT),
