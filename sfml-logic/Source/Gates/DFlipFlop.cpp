@@ -39,11 +39,25 @@ void DFlipFlop::setSprite()
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }
 
-
-
-void DFlipFlop::preSimulate()
+void DFlipFlop::simulate()
 {
-	if (pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::HIGH ) {
+	if (pins[0].connectedTo[0] != nullptr)
+	{
+		pins[0].state = pins[0].connectedTo[0]->state;
+	}
+	else
+	{
+		pins[0].state = Pin::pinState::HIGHZ;
+	}
+	if (pins[1].connectedTo[0] != nullptr)
+	{
+		pins[1].state = pins[1].connectedTo[0]->state;
+	}
+	else
+	{
+		pins[1].state = Pin::pinState::HIGHZ;
+	}
+	if (pins[0].state == Pin::pinState::HIGH && pins[1].state == Pin::pinState::HIGH) {
 
 		pins[2].state = Pin::pinState::HIGH;
 		pins[3].state = Pin::pinState::LOW;
@@ -64,7 +78,7 @@ void DFlipFlop::preSimulate()
 		std::cout << "aaa" << std::endl;
 	}
 
-    else if (pins[0].state == Pin::pinState::HIGHZ || pins[1].state == Pin::pinState::HIGHZ) {
+	else if (pins[0].state == Pin::pinState::HIGHZ || pins[1].state == Pin::pinState::HIGHZ) {
 
 		pins[2].state = Pin::pinState::HIGHZ;
 		pins[3].state = Pin::pinState::HIGHZ;
@@ -74,6 +88,11 @@ void DFlipFlop::preSimulate()
 	else {
 		std::cout << "5555";
 	}
+}
 
 
+
+void DFlipFlop::preSimulate()
+{
+	
 }

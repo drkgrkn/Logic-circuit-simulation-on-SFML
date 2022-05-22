@@ -9,8 +9,8 @@ public:
 	//FUNcs
 	DFlipFlop(sf::RenderWindow* w, LogicElement* ePtr);
 	~DFlipFlop();
-	void setSprite();
+	void setSprite() override;
 	void simulate();
-    void preSimulate();
+    void preSimulate() override;
 
 };
