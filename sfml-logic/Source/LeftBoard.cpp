@@ -10,12 +10,13 @@ LeftBoard::LeftBoard(sf::RenderWindow* w) :
                     {w, Object::objectType::Logic0},
                     {w, Object::objectType::Logic1},
                     {w, Object::objectType::Clock},
-                    {w, Object::objectType::LED}}
+                    {w, Object::objectType::LED},
+                    {w, Object::objectType::Trash}}
 {
 	setBackGround(sf::Vector2f(0, 0),
 		sf::Vector2f(100, 720),
 		sf::Color(155, 155, 155));
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 10; i++)
     {
         float x = buttons[i].sprite.getTexture()->getSize().x / 4;      // align sprites located on the leftboard
         float y = buttons[i].sprite.getTexture()->getSize().y / 4;      // according to their sizes

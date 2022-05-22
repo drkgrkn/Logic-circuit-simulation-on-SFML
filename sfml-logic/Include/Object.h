@@ -19,6 +19,7 @@ public:
 		LED,
 		Play,
 		Stop,
+		Trash,
 		NoButton
 	};
 

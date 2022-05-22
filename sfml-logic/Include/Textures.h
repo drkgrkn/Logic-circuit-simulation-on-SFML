@@ -6,8 +6,7 @@
 static class Textures
 {
 public:
-	sf::Texture* textures[12];
+	sf::Texture* textures[13];
 	Textures();
-
 };
 
