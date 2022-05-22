@@ -28,6 +28,9 @@ void LogicElement::updateData()
 	case (Object::objectType::LED):
 		idx = 0;
 		break;
+	case (Object::objectType::NotGate):
+		idx = 1;
+		break;
 	default:
 		idx = 2;
 		break;
