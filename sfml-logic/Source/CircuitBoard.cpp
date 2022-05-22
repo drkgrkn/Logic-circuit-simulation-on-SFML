@@ -173,7 +173,11 @@ void CircuitBoard::deleteLogic()
 
 void CircuitBoard::handleDelete()
 {
-	deleteLogic();
+	Entity* selected = getSelected();
+	if (selected->type == Entity::entityType::LOGIC)
+		deleteLogic();
+	else if (selected->type == Entity::entityType::WIRE)
+		deleteWire();
 }
 
 void CircuitBoard::handleRelease(sf::Vector2f mp)
