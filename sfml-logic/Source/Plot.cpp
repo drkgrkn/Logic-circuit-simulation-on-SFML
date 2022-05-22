@@ -50,6 +50,8 @@ void Plot::setText()
   just pass the array and it's length, it should work*/
 void Plot::makePlot()
 {
+	std::cout << display_len << std::endl;
+
 	if (hists)
 		delete[] hists;
 	float w = backGround.getSize().x / display_len;
@@ -59,7 +61,6 @@ void Plot::makePlot()
 	hists = new sf::RectangleShape[display_len];
 	for (int i = 0; i < display_len; i++)
 	{
-		std::cout << i << " " << display_len << " " << data << " " << hists << std::endl;
 		hists[i].setFillColor(sf::Color::Green);
 		hists[i].setPosition(px + (i) * w, py + h - 4 * h * (data[i] - 1));
 		hists[i].setSize(sf::Vector2f(w, h * (1 + 4 * data[i])));
@@ -142,6 +143,7 @@ void Plot::plot(Pin::pinState* pData)
 	if (data != nullptr)
 	{
 		delete[] data;
+		data = nullptr;
 	}
 	parseData(pData);
 	makePlot();
@@ -149,6 +151,10 @@ void Plot::plot(Pin::pinState* pData)
 
 void Plot::updatePlot()
 {
+	display_len = 0;
+	for (; dataPtr[display_len] != Pin::pinState::HIGHZ; display_len++)
+	{
+	}
 	parseData(dataPtr);
 	makePlot();
 }
@@ -158,6 +164,7 @@ void Plot::parseData(Pin::pinState* pData)
 	if (data != nullptr)
 	{
 		delete[] data;
+		data = nullptr;
 	}
 	data = new int[display_len];
 	for (int i = 0; i < display_len; i++)
@@ -171,4 +178,23 @@ void Plot::parseData(Pin::pinState* pData)
 			data[i] = 1;
 		}
 	}
+}
+
+void Plot::reset()
+{
+	if (data != nullptr)
+	{
+		delete[] data;
+		data = nullptr;
+	}
+	if (hists != nullptr)
+	{
+		delete[] hists;
+		hists = nullptr;
+	}
+	dataPtr = nullptr;
+	show_plot = false;
+	display_len = 0;
+	time[0].setString(" ");
+	time[1].setString(" ");
 }

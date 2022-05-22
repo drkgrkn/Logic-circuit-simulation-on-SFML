@@ -55,6 +55,7 @@ void TopBoard::handleScroll(sf::Vector2f mp, sf::Event scroll)
 
 void TopBoard::plotData(Pin::pinState* data)
 {
+	plot->show_plot = true;
 	plot->plot(data);
 }
 
@@ -62,4 +63,9 @@ void TopBoard::updatePlot()
 {
 	if (plot->dataPtr != nullptr)
 		plot->updatePlot();
+}
+
+void TopBoard::reset()
+{
+	plot->reset();
 }

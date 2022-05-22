@@ -8,7 +8,8 @@
 class Simulator
 {
 public:
-	bool state;
+	enum class simulationState { PLAYING, PAUSED, INACTIVE};
+	simulationState state;
 	CircuitBoard* circuitBoard;
 	TopBoard* topBoard;
 	LeftBoard* leftBoard;

@@ -145,6 +145,7 @@ bool LogicElement::isColliding(Entity* le)
 void LogicElement::reset()
 {
 	delete[] data;
+	dIdx = 0;
 	dataLength = 500;
 	data = new Pin::pinState[dataLength];
 	for (int i = 0; i < dataLength; i++)

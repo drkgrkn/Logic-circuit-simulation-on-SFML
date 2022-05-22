@@ -19,5 +19,6 @@ public:
 	void handleScroll(sf::Vector2f mp, sf::Event scroll);
 	void plotData(Pin::pinState* data);
 	void updatePlot();
+	void reset();
 };
 

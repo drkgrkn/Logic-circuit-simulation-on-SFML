@@ -37,4 +37,5 @@ public:
 	void plot(Pin::pinState* pData);
 	void updatePlot();
 	void parseData(Pin::pinState* pData);
+	void reset();
 };
