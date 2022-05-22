@@ -173,7 +173,11 @@ void CircuitBoard::deleteLogic()
 
 void CircuitBoard::handleDelete()
 {
-	deleteLogic();
+	Entity* selected = getSelected();
+	if (selected->type == Entity::entityType::LOGIC)
+		deleteLogic();
+	else if (selected->type == Entity::entityType::WIRE)
+		deleteWire();
 }
 
 void CircuitBoard::handleRelease(sf::Vector2f mp)
@@ -240,10 +244,12 @@ void CircuitBoard::simulate()
 	{
 		length++;
 	}
+	//PRE-SIMULATE
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		temp->preSimulate();
 	}
+	//SIMULATE
 	for (int i = 0; i < length; i++)
 	{
 		for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
@@ -251,11 +257,13 @@ void CircuitBoard::simulate()
 			temp->simulate();
 		}
 	}
+	//POST-UPDATE
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		temp->updateData();
 	}
 	//ACTUAL SIMULATION ENDS
+	//WIRES UPDATE FOR 
 	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
 	{
 		for (int p = 0; p < temp->numPins; p++)
@@ -324,6 +332,24 @@ void CircuitBoard::deleteWire()
 	{
 		Wire* w = (Wire*)e;
 		delete w;
+	}
+}
+
+Pin::pinState* CircuitBoard::plot(sf::Vector2f mp)
+{
+	Entity* e = getClicked(mp);
+	if (e == nullptr)
+	{
+		return nullptr;
+	}
+	else if (e->type == Entity::entityType::LOGIC)
+	{
+		LogicElement* le = (LogicElement*)e;
+		return le->data;
+	}
+	else
+	{
+		return nullptr;
 	}
 }
 

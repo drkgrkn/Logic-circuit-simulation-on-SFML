@@ -18,7 +18,7 @@ int main()
 	while (window.isOpen())
 	{
 		//if 1 seconds passed since last time
-		if (time(0) - last_time >= timer && simulator.state)
+		if (time(0) - last_time >= timer && simulator.state != Simulator::simulationState::INACTIVE)
 		{
 			//CHANGE CLOCKS OUTPUT
 			//CALCULATE STATE OF CIRCUIT
@@ -62,7 +62,7 @@ int main()
 				simulator doesn't instantly
 				simulate the first state after
 				pressing play, feels better*/
-				if (!simulator.state)
+				if (simulator.state != Simulator::simulationState::INACTIVE)
 					last_time = time(0);
 
 				sf::Vector2f mp = sf::Vector2f(sf::Mouse::getPosition(window));

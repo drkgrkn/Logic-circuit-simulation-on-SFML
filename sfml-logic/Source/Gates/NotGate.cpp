@@ -51,7 +51,7 @@ void NotGate::simulate() {
 	{
 		pins[1].state = Pin::pinState::HIGHZ;
 	}
-	if (pins[0].state == Pin::pinState::HIGH)
+	else if (pins[0].state == Pin::pinState::HIGH)
 	{
 		pins[1].state = Pin::pinState::LOW;
 	}

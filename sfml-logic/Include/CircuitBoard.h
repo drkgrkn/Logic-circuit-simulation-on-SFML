@@ -36,6 +36,7 @@ public:
 	void reset();
 	//Wire stuff
 	void deleteWire();
+	Pin::pinState* plot(sf::Vector2f mp);
 
 };
 

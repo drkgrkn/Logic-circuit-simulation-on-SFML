@@ -11,4 +11,5 @@ public:
 	~Logic1();
 	void setSprite();
 	void simulate();
+	void preSimulate() override;
 };

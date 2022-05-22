@@ -40,8 +40,6 @@ void Clock::simulate()
 
 void Clock::preSimulate()
 {
-	std::cout << (pins[0].state == Pin::pinState::HIGH) << std::endl;
-
 	if (pins[0].state == Pin::pinState::LOW || pins[0].state == Pin::pinState::HIGHZ) {
 
 		pins[0].state = Pin::pinState::HIGH;

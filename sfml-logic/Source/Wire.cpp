@@ -36,7 +36,7 @@ void Wire::draw()
 	{
 		for (int i = 0; i < 5; i++)
 		{
-
+			body[i].setFillColor(sf::Color::Red);
 		}
 	}
 

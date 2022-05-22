@@ -76,6 +76,7 @@ void LED::simulate()
 void LED::reset()
 {
 	setSprite(0);
+	dIdx = 0;
 	delete[] data;
 	dataLength = 500;
 	data = new Pin::pinState[dataLength];

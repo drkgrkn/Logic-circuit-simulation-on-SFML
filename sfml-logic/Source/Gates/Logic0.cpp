@@ -39,3 +39,8 @@ void Logic0::simulate() {
 	pins[0].state = Pin::pinState::LOW;
 
 }
+
+void Logic0::preSimulate()
+{
+	pins[0].state = Pin::pinState::LOW;
+}

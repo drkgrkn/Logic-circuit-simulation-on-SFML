@@ -2,6 +2,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <array>
+
+#include "Pin.h"
 class Plot
 {
 public:
@@ -14,6 +16,7 @@ public:
 	sf::RectangleShape backGround;
 	sf::RectangleShape* hists;
 	int* data;
+	Pin::pinState* dataPtr;
 	int display_len;
 	bool show_plot;
 	sf::Font font;
@@ -31,4 +34,8 @@ public:
 	void handleScroll(sf::Event scroll);
 	void draw() const;
 	bool isInside(sf::Vector2f mp) const;
+	void plot(Pin::pinState* pData);
+	void updatePlot();
+	void parseData(Pin::pinState* pData);
+	void reset();
 };

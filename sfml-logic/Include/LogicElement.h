@@ -28,5 +28,6 @@ public:
 	void embedWire(sf::Vector2f mp, Wire* wPtr);
 	bool isColliding(Entity* le);
 	void virtual reset();
+	void virtual preSimulate();
 };
 

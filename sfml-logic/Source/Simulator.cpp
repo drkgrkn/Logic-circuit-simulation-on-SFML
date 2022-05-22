@@ -1,7 +1,7 @@
 #include "Simulator.h"
 
 Simulator::Simulator(sf::RenderWindow* w):
-	window(w), state(false)
+	window(w), state(simulationState::INACTIVE)
 {
 	topBoard = new TopBoard(w);
 	leftBoard = new LeftBoard(w);
@@ -31,7 +31,7 @@ void Simulator::draw()
 
 void Simulator::handleClick(sf::Vector2f mp)
 {
-	if (leftBoard->isInside(mp) && state == false)
+	if (leftBoard->isInside(mp) && state == simulationState::INACTIVE)
 	{
 		Object::objectType b = leftBoard->handleClick(mp);
 		if (b != Object::objectType::NoButton)
@@ -44,11 +44,27 @@ void Simulator::handleClick(sf::Vector2f mp)
 		switch (b)
 		{
 		case Object::objectType::Play:
-			state = 1;
+			if (state == simulationState::INACTIVE)
+			{
+				topBoard->plot->show_plot = true;
+				state = simulationState::PLAYING;
+			}
+			else if (state == simulationState::PLAYING)
+			{
+				state = simulationState::PAUSED;
+			}
+			else if (state == simulationState::PAUSED)
+			{
+				state = simulationState::PLAYING;
+			}
 			break;
 		case Object::objectType::Stop:
-			circuitBoard->reset();
-			state = 0;
+			if (state != simulationState::INACTIVE)
+			{
+				topBoard->reset();
+				circuitBoard->reset();
+			}
+			state = simulationState::INACTIVE;
 			break;
 		case Object::objectType::NoButton:
 			break;
@@ -56,13 +72,18 @@ void Simulator::handleClick(sf::Vector2f mp)
 	}
 	else if (circuitBoard->isInside(mp))
 	{
-		if (state == false)
+		if (state == simulationState::INACTIVE)
 		{
 			//move objects
 			circuitBoard->handleClick(mp);
 		}
-		else if (state == true)
+		else
 		{
+			Pin::pinState* data = circuitBoard->plot(mp);
+			if (data != nullptr)
+			{
+				topBoard->plotData(data);
+			}
 			/*Object stores its own history?
 			retrieve it's history
 			feed to plot object calculateGraph()
@@ -78,7 +99,7 @@ void Simulator::handleClick(sf::Vector2f mp)
 
 void Simulator::handleScroll(sf::Vector2f mp, sf::Event scroll)
 {
-	if (topBoard->isInside(mp))
+	if (topBoard->isInside(mp) && topBoard->plot->show_plot)
 	{
 		topBoard->handleScroll(mp, scroll);
 	}
@@ -86,7 +107,7 @@ void Simulator::handleScroll(sf::Vector2f mp, sf::Event scroll)
 
 void Simulator::handleDelete()
 {
-	if (state == 0)
+	if (state == simulationState::INACTIVE)
 	{
 		circuitBoard->handleDelete();
 	}
@@ -103,5 +124,9 @@ void Simulator::handleRelease(sf::Vector2f mp)
 
 void Simulator::simulate()
 {
-	circuitBoard->simulate();
+	if (state == simulationState::PLAYING)
+	{
+		circuitBoard->simulate();
+		topBoard->updatePlot();
+	}
 }
