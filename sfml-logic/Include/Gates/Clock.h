@@ -11,5 +11,6 @@ public:
 	~Clock();
 	void setSprite();
 	void simulate() override;
+	void preSimulate() override;
 };
 
