@@ -32,11 +32,14 @@ Button::Button(sf::RenderWindow* w, Object::objectType bt):
     case Object::objectType::LED:
         sprite.setTexture(*(textures->textures[8]));
         break;
-    case Object::objectType::Play:
+    case Object::objectType::Trash:
         sprite.setTexture(*(textures->textures[10]));
         break;
-    case Object::objectType::Stop:
+    case Object::objectType::Play:
         sprite.setTexture(*(textures->textures[11]));
+        break;
+    case Object::objectType::Stop:
+        sprite.setTexture(*(textures->textures[12]));
         break;
     }
     

@@ -35,7 +35,11 @@ void Simulator::handleClick(sf::Vector2f mp)
 	{
 		Object::objectType b = leftBoard->handleClick(mp);
 		if (b != Object::objectType::NoButton)
+			if (b == Object::objectType::Trash)
+				std::cout << "hi its me again binston from overbatch" << std::endl;
+			else
 			circuitBoard->addLogic(window, b);
+		
 	}
 	else if (topBoard->isInside(mp))
 	{

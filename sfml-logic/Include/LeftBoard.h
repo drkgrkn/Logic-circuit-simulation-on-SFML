@@ -8,7 +8,7 @@
 class LeftBoard: public Board
 {
 public:
-	Button buttons[9];
+	Button buttons[10];
 
 	LeftBoard(sf::RenderWindow* w);
 	void draw() const override;
