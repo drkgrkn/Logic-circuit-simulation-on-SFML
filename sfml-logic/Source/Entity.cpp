@@ -46,3 +46,18 @@ void Entity::simulate()
 {
 
 }
+
+void Entity::select()
+{
+    selected = true;
+}
+
+void Entity::unselect()
+{
+    selected = false;
+}
+
+void Entity::reset()
+{
+    std::cout << "Empty Entity reset?" << std::endl;
+}

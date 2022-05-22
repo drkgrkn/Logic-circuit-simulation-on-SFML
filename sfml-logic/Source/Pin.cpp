@@ -37,7 +37,7 @@ Pin::~Pin()
 void Pin::setShape()
 {
 	shape.setSize(sf::Vector2f(10, 10));
-	shape.setFillColor(sf::Color::Red);
+	shape.setFillColor(sf::Color::Black);
 }
 
 void Pin::setPosition(sf::Vector2f v)
@@ -47,7 +47,6 @@ void Pin::setPosition(sf::Vector2f v)
 
 void Pin::draw()
 {
-	window->draw(shape);
 	for (int idx = 0; idx < MAX_CONNECTIONS; idx++)
 	{
 		if (wires[idx] != nullptr)
@@ -55,6 +54,7 @@ void Pin::draw()
 			wires[idx]->draw();
 		}
 	}
+	window->draw(shape);
 }
 
 bool Pin::isInside(sf::Vector2f mp)
@@ -135,4 +135,8 @@ void Pin::connect(Wire* w,Pin* p)
 void Pin::reset()
 {
 	state = Pin::pinState::HIGHZ;
+	for (int i = 0; i < numConnections; i++)
+	{
+		wires[i]->reset();
+	}
 }

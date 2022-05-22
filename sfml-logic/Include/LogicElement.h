@@ -27,7 +27,7 @@ public:
 	void handleClick(sf::Vector2f mp) override;
 	void embedWire(sf::Vector2f mp, Wire* wPtr);
 	bool isColliding(Entity* le);
-	void virtual reset();
-	void virtual preSimulate();
+	virtual void reset() override;
+	virtual void preSimulate();
 };
 

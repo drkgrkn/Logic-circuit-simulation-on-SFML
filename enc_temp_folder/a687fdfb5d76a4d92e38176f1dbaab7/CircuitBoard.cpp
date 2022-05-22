@@ -435,14 +435,11 @@ Entity* CircuitBoard::getGrabbed()
 			}
 			for (int p = 0; p < temp->numPins; p++)
 			{
-				for (int w = 0; w < temp->pins[p].MAX_CONNECTIONS; w++)
+				for (int w = 0; w < temp->pins[p].numConnections; w++)
 				{
-					if (temp->pins[p].wires[w] != nullptr)
+					if (temp->pins[p].wires[w]->grabbed)
 					{
-						if (temp->pins[p].wires[w]->grabbed)
-						{
-							grabbedEntity = temp->pins[p].wires[w];
-						}
+						grabbedEntity = temp->pins[p].wires[w];
 					}
 				}
 			}
