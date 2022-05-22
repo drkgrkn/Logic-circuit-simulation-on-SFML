@@ -171,6 +171,16 @@ void CircuitBoard::deleteLogic()
 	}
 }
 
+void CircuitBoard::deleteEverything()
+{
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		temp->select();
+	}
+	deleteLogic();
+	entities = nullptr;
+}
+
 void CircuitBoard::handleDelete()
 {
 	Entity* selected = getSelected();
