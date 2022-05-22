@@ -17,6 +17,7 @@ public:
 	sf::RectangleShape* hists;
 	int* data;
 	Pin::pinState* dataPtr;
+	int max_len;
 	int display_len;
 	bool show_plot;
 	sf::Font font;
