@@ -201,7 +201,10 @@
     <Image Include="Assets\NOT.png" />
     <Image Include="Assets\OR.png" />
     <Image Include="Assets\PLAY.png" />
+    <Image Include="Assets\playpause.png" />
+    <Image Include="Assets\stoop.png" />
     <Image Include="Assets\STOP.png" />
+    <Image Include="Assets\TRASH.png" />
     <Image Include="Assets\VDD.png" />
     <Image Include="Assets\XOR.png" />
   </ItemGroup>

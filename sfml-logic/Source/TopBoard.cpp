@@ -12,7 +12,7 @@ TopBoard::TopBoard(sf::RenderWindow* w):
 		sf::Color(155, 155, 155));
 	for (int i = 0; i < 2; i++)
 	{
-		buttons[i].sprite.setPosition(120.f + 80.f * i, 20);
+		buttons[i].sprite.setPosition(110.f + 85.f * i, 13);
 	}
 }
 
