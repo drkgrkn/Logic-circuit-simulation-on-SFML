@@ -31,6 +31,7 @@ public:
 	void handleRelease(sf::Vector2f mp);
 	void addLogic(sf::RenderWindow* w, Object::objectType b);
 	void deleteLogic();
+	void deleteEverything();
 	void simulate();
 	LogicElement* chooseLogic(Object::objectType obj);
 	void reset();
