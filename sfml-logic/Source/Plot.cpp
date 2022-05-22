@@ -100,14 +100,14 @@ void Plot::draw() const
 //Are these functions too far?
 void Plot::increaseDisplayLength()
 {
-	if (display_len < 499)
+	if (display_len < max_len)
 		display_len++;
 	makePlot();
 }
 
 void Plot::decreaseDisplayLength()
 {
-	if (display_len > 10)
+	if (display_len > 1)
 		display_len--;
 	makePlot();
 }
@@ -136,9 +136,11 @@ void Plot::handleScroll(sf::Event scroll)
 void Plot::plot(Pin::pinState* pData)
 {
 	dataPtr = pData;
+	max_len = 0;
 	display_len = 0;
 	for (; pData[display_len] != Pin::pinState::HIGHZ; display_len++)
 	{
+		max_len++;
 	}
 	if (data != nullptr)
 	{
@@ -151,9 +153,11 @@ void Plot::plot(Pin::pinState* pData)
 
 void Plot::updatePlot()
 {
+	max_len = 0;
 	display_len = 0;
 	for (; dataPtr[display_len] != Pin::pinState::HIGHZ; display_len++)
 	{
+		max_len++;
 	}
 	parseData(dataPtr);
 	makePlot();
@@ -194,6 +198,7 @@ void Plot::reset()
 	}
 	dataPtr = nullptr;
 	show_plot = false;
+	max_len = 0;
 	display_len = 0;
 	time[0].setString(" ");
 	time[1].setString(" ");
