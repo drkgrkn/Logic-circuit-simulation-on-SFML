@@ -9,6 +9,10 @@ Wire::Wire(sf::RenderWindow* w, Pin* p) :
 	pins[1] = nullptr;
 	vertices[0].x = pins[0]->shape.getPosition().x + 3;
 	vertices[0].y = pins[0]->shape.getPosition().y + 3;
+	for (int i = 0; i < 5; i++)
+	{
+		body[i].setFillColor(sf::Color::Red);
+	}
 }
 
 Wire::~Wire()
@@ -51,23 +55,23 @@ void Wire::setBody()			// wire seperated into 5 body parts
 
 	body[0].setPosition(vertices[0]);
 	body[0].setSize(sf::Vector2f(vertices[1].x - vertices[0].x, 4));		// first horizontal line
-	body[0].setFillColor(sf::Color::Red);
+	//body[0].setFillColor(sf::Color::Red);
 
 	body[1].setPosition(vertices[1]);
 	body[1].setSize(sf::Vector2f(4, 4));									// first elbow
-	body[1].setFillColor(sf::Color::Red);
+	//body[1].setFillColor(sf::Color::Red);
 
 	body[2].setPosition(vertices[1]);
 	body[2].setSize(sf::Vector2f(4, vertices[2].y - vertices[1].y));		// vertical line
-	body[2].setFillColor(sf::Color::Red);
+	//body[2].setFillColor(sf::Color::Red);
 
 	body[3].setPosition(vertices[2]);
 	body[3].setSize(sf::Vector2f(4, 4));									// second elbow
-	body[3].setFillColor(sf::Color::Red);
+	//body[3].setFillColor(sf::Color::Red);
 
 	body[4].setPosition(vertices[2]);
 	body[4].setSize(sf::Vector2f(vertices[3].x - vertices[2].x, 4));		// second horizontal line
-	body[4].setFillColor(sf::Color::Red);
+	//body[4].setFillColor(sf::Color::Red);
 }
 
 void Wire::moveTip(Pin* p, sf::Vector2f v)
