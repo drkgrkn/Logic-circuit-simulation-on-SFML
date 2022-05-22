@@ -61,7 +61,6 @@ void DFlipFlop::simulate()
 
 		pins[2].state = Pin::pinState::HIGH;
 		pins[3].state = Pin::pinState::LOW;
-		std::cout << "a" << std::endl;
 
 	}
 
@@ -69,24 +68,20 @@ void DFlipFlop::simulate()
 
 		pins[2].state = Pin::pinState::LOW;
 		pins[3].state = Pin::pinState::HIGH;
-		std::cout << "aa" << std::endl;
 	}
 
 	if (pins[1].state == Pin::pinState::LOW && pins[0].state != Pin::pinState::HIGHZ) {
 
 		pins[2].state = Pin::pinState::HIGH;
-		std::cout << "aaa" << std::endl;
 	}
 
 	else if (pins[0].state == Pin::pinState::HIGHZ || pins[1].state == Pin::pinState::HIGHZ) {
 
 		pins[2].state = Pin::pinState::HIGHZ;
 		pins[3].state = Pin::pinState::HIGHZ;
-		std::cout << "aaaa" << std::endl;
 	}
 
 	else {
-		std::cout << "5555";
 	}
 }
 
