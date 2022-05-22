@@ -21,5 +21,6 @@ public:
 	void place();
 	virtual void simulate();
 	virtual void preSimulate();
+	
 };
 

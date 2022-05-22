@@ -35,6 +35,7 @@ void Clock::setSprite()
 
 void Clock::simulate()
 {
+	
 }
 
 void Clock::preSimulate()

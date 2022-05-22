@@ -49,16 +49,16 @@ void NotGate::simulate() {
 	//OUTPUT UPDATE
 	if (pins[0].state == Pin::pinState::HIGHZ)
 	{
-		pins[1].state == Pin::pinState::HIGHZ;
+		pins[1].state = Pin::pinState::HIGHZ;
 	}
 	if (pins[0].state == Pin::pinState::HIGH)
 	{
-		pins[1].state == Pin::pinState::LOW;
+		pins[1].state = Pin::pinState::LOW;
 	}
 
 	else if (pins[0].state == Pin::pinState::LOW)
 	{
-		pins[1].state == Pin::pinState::HIGH;
+		pins[1].state = Pin::pinState::HIGH;
 	}
 
 
