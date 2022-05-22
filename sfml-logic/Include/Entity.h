@@ -20,5 +20,9 @@ public:
 	virtual void handleClick(sf::Vector2f mp);
 	void place();
 	virtual void simulate();
+	virtual void select();
+	virtual void unselect();
+	virtual void reset();
+
 };
 

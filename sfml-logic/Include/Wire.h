@@ -26,5 +26,8 @@ public:
 	bool isInside(sf::Vector2f mp) override;
 	void embed(Pin* p);
 	void simulate() override;
+	void select() override;
+	void unselect() override;
+	void reset() override;
 };
 
