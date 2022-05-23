@@ -9,7 +9,7 @@ public:
 	//FUNcs
 	Logic0(sf::RenderWindow* w, LogicElement* ePtr);
 	~Logic0();
-	void setSprite();
-	void simulate() override;
-	void preSimulate() override;
+	void setSprite();  // Handle the correct sprite and scale it
+	void simulate() override; //  Initialize the output pin (constant LOW)
+	void preSimulate() override;  // (not used for logic 0)
 };
