@@ -2,7 +2,8 @@
 
 Plot::Plot(sf::RenderWindow* w) :
 	window(w), display_len(10),
-	show_plot(false), hists(nullptr)
+	show_plot(false), hists(nullptr),
+	clickedX(nullptr), start(0)
 {
 	setBackGround();
 	setText();
@@ -13,8 +14,12 @@ Plot::Plot(sf::RenderWindow* w) :
 
 Plot::~Plot()
 {
-	delete[] hists;
-	delete[] data;
+	if (hists != nullptr)
+		delete[] hists;
+	if (data != nullptr)
+		delete[] data;
+	if (clickedX != nullptr)
+		delete clickedX;
 }
 
 void Plot::setBackGround()
@@ -62,15 +67,15 @@ void Plot::makePlot()
 	for (int i = 0; i < display_len; i++)
 	{
 		hists[i].setFillColor(sf::Color::Green);
-		hists[i].setPosition(px + (i) * w, py + h - 4 * h * (data[i] - 1));
-		hists[i].setSize(sf::Vector2f(w, h * (1 + 4 * data[i])));
+		hists[i].setPosition(px + (i) * w, py + h - 4 * h * (data[start + i] - 1));
+		hists[i].setSize(sf::Vector2f(w, h * (1 + 4 * data[start + i])));
 	}
 	for (int i = 0; i < 2; i++)
 	{
 		time[i].setFont(font);
 		time[i].setFillColor(sf::Color::Black);
 		time[i].setCharacterSize(18);
-		time[i].setString(std::to_string(0 + i*display_len));
+		time[i].setString(std::to_string(start + i*display_len));
 		time[i].setPosition(sf::Vector2f(px + (i) * w * display_len, py + h * 6));
 	}
 }
@@ -79,6 +84,21 @@ void Plot::deletePlot()
 {
 	delete[] hists;
 	hists = nullptr;
+}
+
+void Plot::movePlot()
+{
+	std::cout << "Hey" << std::endl;
+	float w = backGround.getSize().x / display_len;
+	*clickedX /= w;
+	std::cout << *clickedX << std::endl;
+
+	start += *clickedX;
+	if (start < 0)
+		start = 0;
+	if (start > max_len - display_len)
+		start = max_len - display_len;
+	makePlot();
 }
 
 void Plot::draw() const
@@ -123,6 +143,26 @@ bool Plot::isInside(sf::Vector2f mp) const
 			(mp.x >= x_pos) &&
 			(mp.y <= y_pos + y_size) &&
 			(mp.y >= y_pos);
+}
+
+void Plot::handleClick(sf::Vector2f mp)
+{
+	std::cout << "handleClick" << std::endl;
+	if (clickedX != nullptr)
+		delete clickedX;
+	clickedX = new int;
+	*clickedX = mp.x;
+}
+
+void Plot::handleRelease(sf::Vector2f mp)
+{
+	if (hists != nullptr)
+	{
+		*clickedX = *clickedX - mp.x;
+		movePlot();
+	}
+	delete clickedX;
+	clickedX = nullptr;
 }
 
 void Plot::handleScroll(sf::Event scroll)

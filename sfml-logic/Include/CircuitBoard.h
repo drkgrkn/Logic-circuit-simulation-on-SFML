@@ -30,6 +30,7 @@ public:
 	void handleDelete();
 	void handleRelease(sf::Vector2f mp);
 	void addLogic(sf::RenderWindow* w, Object::objectType b);
+	void unselectAll();
 	void deleteLogic();
 	void deleteEverything();
 	void simulate();
