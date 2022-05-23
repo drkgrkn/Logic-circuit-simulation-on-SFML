@@ -72,7 +72,9 @@ void DFlipFlop::simulate()
 
 	if (pins[1].state == Pin::pinState::LOW && pins[0].state != Pin::pinState::HIGHZ) {
 
-		pins[2].state = Pin::pinState::HIGH;
+		std::cout << "me smile" << std::endl;
+		//pins[2].state = Pin::pinState::HIGH;
+		//pins[3].state = Pin::pinState::LOW;
 	}
 
 	else if (pins[0].state == Pin::pinState::HIGHZ || pins[1].state == Pin::pinState::HIGHZ) {
