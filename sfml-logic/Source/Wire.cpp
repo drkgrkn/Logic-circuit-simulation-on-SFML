@@ -109,7 +109,7 @@ bool Wire::isInside(sf::Vector2f mp) // wire is consisted of 3 main body parts c
 		else if (y_size == 0) {
 			y_size += 4;
 		}
-
+		//:)
 		if (x_size > 0 && y_size > 0) {
 			flag = (mp.x <= x_pos + x_size) && (mp.x >= x_pos) &&
 				(mp.y <= y_pos + y_size) && (mp.y >= y_pos);
