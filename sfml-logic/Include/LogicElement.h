@@ -48,7 +48,7 @@ public:
 	LogicElement(sf::RenderWindow* w, LogicElement* ePtr);
 	~LogicElement();
 	//Pos simulation loop function to update history
-	void updateData();
+	virtual void updateData();
 	//self explanatory funcs
 	virtual void setSprite();
 	void draw() override;

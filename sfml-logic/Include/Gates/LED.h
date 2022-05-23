@@ -13,4 +13,5 @@ public:
 	void setSprite(int); // Handle the correct sprite and scale it (for changing sprite to LEDON and LEDOFF)
 	void simulate();    // Change sprite depends on INPUT pin	
 	void reset() override; //For the reset button of simulation
+	void updateData() override;
 };

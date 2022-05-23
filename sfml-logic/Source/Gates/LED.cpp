@@ -51,6 +51,28 @@ void LED::setSprite(int index) {
 
 void LED::simulate()  
 {
+	
+}
+
+void LED::reset()      //For the reset button of simulation
+{
+	setSprite(0);
+	dIdx = 0;
+	delete[] data;
+	dataLength = 500;
+	data = new Pin::pinState[dataLength];
+	for (int i = 0; i < dataLength; i++)
+	{
+		data[i] = Pin::pinState::HIGHZ;
+	}
+	for (int p = 0; p < numPins; p++)
+	{
+		pins[p].reset();
+	}
+}
+
+void LED::updateData()
+{
 	//INPUT UPDATE
 	if (pins[0].connectedTo[0] != nullptr)
 	{
@@ -72,21 +94,40 @@ void LED::simulate()
 	{
 		setSprite(0);
 	}
-}
-
-void LED::reset()      //For the reset button of simulation
-{
-	setSprite(0);
-	dIdx = 0;
-	delete[] data;
-	dataLength = 500;
-	data = new Pin::pinState[dataLength];
-	for (int i = 0; i < dataLength; i++)
+	int idx = 0;
+	switch (logicType)
 	{
-		data[i] = Pin::pinState::HIGHZ;
+	case (Object::objectType::Logic0):
+	case (Object::objectType::Logic1):
+	case(Object::objectType::Clock):
+	case (Object::objectType::LED):
+		idx = 0;
+		break;
+	case (Object::objectType::NotGate):
+		idx = 1;
+		break;
+	default:
+		idx = 2;
+		break;
 	}
-	for (int p = 0; p < numPins; p++)
+	if (dIdx >= dataLength)
 	{
-		pins[p].reset();
+		dataLength += 500;
+		auto arr = new Pin::pinState[dataLength];
+		std::copy(data, data + dataLength - 500, arr);
+		delete[] data;
+		data = arr;
+	}
+	if (pins[idx].state == Pin::pinState::HIGH)
+	{
+		data[dIdx++] = Pin::pinState::HIGH;
+	}
+	else if (pins[idx].state == Pin::pinState::LOW)
+	{
+		data[dIdx++] = Pin::pinState::LOW;
+	}
+	else
+	{
+		data[dIdx++] = Pin::pinState::HIGHZ;
 	}
 }
