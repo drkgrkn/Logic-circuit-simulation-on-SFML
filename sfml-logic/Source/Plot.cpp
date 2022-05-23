@@ -55,8 +55,6 @@ void Plot::setText()
   just pass the array and it's length, it should work*/
 void Plot::makePlot()
 {
-	std::cout << display_len << std::endl;
-
 	if (hists)
 		delete[] hists;
 	float w = backGround.getSize().x / display_len;
