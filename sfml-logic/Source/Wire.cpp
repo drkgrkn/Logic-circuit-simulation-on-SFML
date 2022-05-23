@@ -88,28 +88,49 @@ void Wire::moveTip(Pin* p, sf::Vector2f v)
 	setBody();
 }
 
-bool Wire::isInside(sf::Vector2f mp)
-{
-	bool flag;
+bool Wire::isInside(sf::Vector2f mp) // wire is consisted of 3 main body parts connecting 4 vertices
+{									 // function checks if mp is inside any of these body parts 
+	bool flag;						 // and returns true if it is
 
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 3; i++) {
 
+		//float x_size = body[i].getSize().x;
+		//float y_size = body[i].getSize().y;
+		//float x_pos = body[i].getPosition().x;
+		//float y_pos = body[i].getPosition().y;
+		float x_size = vertices[i+1].x - vertices[i].x;
+		float y_size = vertices[i+1].y - vertices[i].y;
+		float x_pos = vertices[i].x;
+		float y_pos = vertices[i].y;
 
-		float x_size = body[i].getSize().x;
-		float y_size = body[i].getSize().y;
-		float x_pos = body[i].getPosition().x;
-		float y_pos = body[i].getPosition().y;
+		if (x_size == 0) {
+			x_size += 4;
+		}
+		else if (y_size == 0) {
+			y_size += 4;
+		}
 
-	 flag = (mp.x <= x_pos + x_size) &&
-			(mp.x >= x_pos) &&
-			(mp.y <= y_pos + y_size) &&
-			(mp.y >= y_pos);
-	 
-	 if (flag) {
+		if (x_size > 0 && y_size > 0) {
+			flag = (mp.x <= x_pos + x_size) && (mp.x >= x_pos) &&
+				(mp.y <= y_pos + y_size) && (mp.y >= y_pos);
+		}
+		else if (x_size > 0 && y_size < 0) {
+			flag = (mp.x <= x_pos + x_size) && (mp.x >= x_pos) &&
+				(mp.y >= y_pos + y_size) && (mp.y <= y_pos);
+		}
+		else if (x_size < 0 && y_size > 0) {
+			flag = (mp.x >= x_pos + x_size) && (mp.x <= x_pos) &&
+				(mp.y <= y_pos + y_size) && (mp.y >= y_pos);
+		}
+		else if (x_size < 0 && y_size < 0) {
+			flag = (mp.x >= x_pos + x_size) && (mp.x <= x_pos) &&
+				(mp.y >= y_pos + y_size) && (mp.y <= y_pos);
+		}
 
-		 return flag;
-	 }
-	 }
+		if (flag) {
+			return flag;
+		}
+	}
 	return flag;
 }
 
