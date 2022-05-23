@@ -15,6 +15,8 @@ public:
 	sf::RenderWindow* window;
 	sf::RectangleShape backGround;
 	sf::RectangleShape* hists;
+	int start;
+	int* clickedX;
 	int* data;
 	Pin::pinState* dataPtr;
 	int max_len;
@@ -32,6 +34,9 @@ public:
 	void setText();
 	void makePlot();
 	void deletePlot();
+	void movePlot();
+	void handleClick(sf::Vector2f mp);
+	void handleRelease(sf::Vector2f mp);
 	void handleScroll(sf::Event scroll);
 	void draw() const;
 	bool isInside(sf::Vector2f mp) const;

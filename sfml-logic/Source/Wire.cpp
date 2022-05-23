@@ -9,6 +9,10 @@ Wire::Wire(sf::RenderWindow* w, Pin* p) :
 	pins[1] = nullptr;
 	vertices[0].x = pins[0]->shape.getPosition().x + 3;
 	vertices[0].y = pins[0]->shape.getPosition().y + 3;
+	for (int i = 0; i < 5; i++)
+	{
+		body[i].setFillColor(sf::Color::Red);
+	}
 }
 
 Wire::~Wire()
@@ -51,23 +55,23 @@ void Wire::setBody()			// wire seperated into 5 body parts
 
 	body[0].setPosition(vertices[0]);
 	body[0].setSize(sf::Vector2f(vertices[1].x - vertices[0].x, 4));		// first horizontal line
-	body[0].setFillColor(sf::Color::Red);
+	//body[0].setFillColor(sf::Color::Red);
 
 	body[1].setPosition(vertices[1]);
 	body[1].setSize(sf::Vector2f(4, 4));									// first elbow
-	body[1].setFillColor(sf::Color::Red);
+	//body[1].setFillColor(sf::Color::Red);
 
 	body[2].setPosition(vertices[1]);
 	body[2].setSize(sf::Vector2f(4, vertices[2].y - vertices[1].y));		// vertical line
-	body[2].setFillColor(sf::Color::Red);
+	//body[2].setFillColor(sf::Color::Red);
 
 	body[3].setPosition(vertices[2]);
 	body[3].setSize(sf::Vector2f(4, 4));									// second elbow
-	body[3].setFillColor(sf::Color::Red);
+	//body[3].setFillColor(sf::Color::Red);
 
 	body[4].setPosition(vertices[2]);
 	body[4].setSize(sf::Vector2f(vertices[3].x - vertices[2].x, 4));		// second horizontal line
-	body[4].setFillColor(sf::Color::Red);
+	//body[4].setFillColor(sf::Color::Red);
 }
 
 void Wire::moveTip(Pin* p, sf::Vector2f v)
@@ -84,28 +88,49 @@ void Wire::moveTip(Pin* p, sf::Vector2f v)
 	setBody();
 }
 
-bool Wire::isInside(sf::Vector2f mp)
-{
-	bool flag;
+bool Wire::isInside(sf::Vector2f mp) // wire is consisted of 3 main body parts connecting 4 vertices
+{									 // function checks if mp is inside any of these body parts 
+	bool flag;						 // and returns true if it is
 
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 3; i++) {
 
+		//float x_size = body[i].getSize().x;
+		//float y_size = body[i].getSize().y;
+		//float x_pos = body[i].getPosition().x;
+		//float y_pos = body[i].getPosition().y;
+		float x_size = vertices[i+1].x - vertices[i].x;
+		float y_size = vertices[i+1].y - vertices[i].y;
+		float x_pos = vertices[i].x;
+		float y_pos = vertices[i].y;
 
-		float x_size = body[i].getSize().x;
-		float y_size = body[i].getSize().y;
-		float x_pos = body[i].getPosition().x;
-		float y_pos = body[i].getPosition().y;
+		if (x_size == 0) {
+			x_size += 4;
+		}
+		else if (y_size == 0) {
+			y_size += 4;
+		}
+		//:)
+		if (x_size > 0 && y_size > 0) {
+			flag = (mp.x <= x_pos + x_size) && (mp.x >= x_pos) &&
+				(mp.y <= y_pos + y_size) && (mp.y >= y_pos);
+		}
+		else if (x_size > 0 && y_size < 0) {
+			flag = (mp.x <= x_pos + x_size) && (mp.x >= x_pos) &&
+				(mp.y >= y_pos + y_size) && (mp.y <= y_pos);
+		}
+		else if (x_size < 0 && y_size > 0) {
+			flag = (mp.x >= x_pos + x_size) && (mp.x <= x_pos) &&
+				(mp.y <= y_pos + y_size) && (mp.y >= y_pos);
+		}
+		else if (x_size < 0 && y_size < 0) {
+			flag = (mp.x >= x_pos + x_size) && (mp.x <= x_pos) &&
+				(mp.y >= y_pos + y_size) && (mp.y <= y_pos);
+		}
 
-	 flag = (mp.x <= x_pos + x_size) &&
-			(mp.x >= x_pos) &&
-			(mp.y <= y_pos + y_size) &&
-			(mp.y >= y_pos);
-	 
-	 if (flag) {
-
-		 return flag;
-	 }
-	 }
+		if (flag) {
+			return flag;
+		}
+	}
 	return flag;
 }
 

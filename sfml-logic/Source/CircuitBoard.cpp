@@ -73,6 +73,13 @@ void CircuitBoard::addLogic(sf::RenderWindow* w, Object::objectType b)
 	}
 }
 
+void CircuitBoard::unselectAll()
+{
+	Entity* selected = getSelected();
+	if (selected != nullptr)
+		selected->unselect();
+}
+
 void CircuitBoard::deleteLogic()
 {
 	Entity* e = getSelected();

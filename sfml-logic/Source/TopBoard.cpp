@@ -34,6 +34,11 @@ void TopBoard::draw() const
 Object::objectType TopBoard::handleClick(sf::Vector2f mp) const
 {
 	Object::objectType bt = Object::objectType::NoButton;
+	if (plot->isInside(mp))
+	{
+		plot->handleClick(mp);
+		return bt;
+	}
 	for (const auto b : buttons)
 	{
 		if (b.isClicked(mp))
@@ -43,6 +48,11 @@ Object::objectType TopBoard::handleClick(sf::Vector2f mp) const
 		}
 	}
 	return bt;
+}
+
+void TopBoard::handleRelease(sf::Vector2f mp)
+{
+	plot->handleRelease(mp);
 }
 
 void TopBoard::handleScroll(sf::Vector2f mp, sf::Event scroll)

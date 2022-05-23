@@ -51,6 +51,7 @@ void Simulator::handleClick(sf::Vector2f mp)
 			if (state == simulationState::INACTIVE)
 			{
 				topBoard->plot->show_plot = true;
+				circuitBoard->unselectAll();
 				state = simulationState::PLAYING;
 			}
 			else if (state == simulationState::PLAYING)
@@ -123,6 +124,8 @@ void Simulator::handleDelete()
 
 void Simulator::handleRelease(sf::Vector2f mp)
 {
+	if (topBoard->plot->clickedX != nullptr)
+		topBoard->handleRelease( mp);
 	circuitBoard->handleRelease(mp);
 }
 
