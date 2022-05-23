@@ -8,11 +8,10 @@ class Object
 {
 public:
 	/*
-	Maybe this could have been inside just
-	Button class but early on we thought
-	LogicElement class would have taken advantage
-	of this enumeration too
-	That's why it's here
+		This becomes usefull
+		for button signaling it was
+		clicked to it's owner object
+		and when identifying LogicElements
 	*/
 	enum class objectType {
 		AndGate,
