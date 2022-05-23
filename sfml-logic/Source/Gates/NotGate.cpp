@@ -37,13 +37,13 @@ void NotGate::setSprite()
 void NotGate::simulate() {
 
 	//INPUT UPDATE
-	if (pins[0].connectedTo[0] != nullptr)
+	if (pins[0].connectedTo[0] == nullptr)
 	{
-		pins[0].state = pins[0].connectedTo[0]->state;
+		pins[0].state = Pin::pinState::HIGHZ;
 	}
 	else
 	{
-		pins[0].state = Pin::pinState::HIGHZ;
+		pins[0].state = pins[0].connectedTo[0]->state;
 	}
 
 	//OUTPUT UPDATE
