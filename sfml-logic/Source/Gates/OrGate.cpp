@@ -1,6 +1,6 @@
 #include "Gates/OrGate.h"
 
-OrGate::OrGate(sf::RenderWindow* w, LogicElement* ePtr) :
+OrGate::OrGate(sf::RenderWindow* w, LogicElement* ePtr) ://Constructor of OrGate which initializes number of pins, types and position of the pins relative to OrGate sprite
 	LogicElement(w, ePtr)
 {
 	logicType = Object::objectType::OrGate;
@@ -17,7 +17,7 @@ OrGate::OrGate(sf::RenderWindow* w, LogicElement* ePtr) :
 	setSprite();
 }
 
-OrGate::~OrGate()
+OrGate::~OrGate() //Delete OrGate object and pins
 {
 	delete[] pins;
 }
@@ -27,11 +27,11 @@ void OrGate::setSprite()
 	sprite.setTexture(*(textures->textures[1]));
 	sprite.scale(0.6f, 0.6f);
 
-	float x_size = sprite.getTexture()->getSize().x * sprite.getScale().x;
+	float x_size = sprite.getTexture()->getSize().x * sprite.getScale().x;  // Resize OrGate sprite to 0.6 times by itself
 	float y_size = sprite.getTexture()->getSize().y * sprite.getScale().y;
 
 	selectionIndicator.setOutlineColor(sf::Color::Red);
-	selectionIndicator.setFillColor((sf::Color(255, 255, 255, 0)));
+	selectionIndicator.setFillColor((sf::Color(255, 255, 255, 0)));  //Initiate the selection box proporties
 	selectionIndicator.setOutlineThickness(4);
 	selectionIndicator.setSize(sf::Vector2f(x_size, y_size));
 }

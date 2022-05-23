@@ -9,7 +9,7 @@ public:
 	//FUNcs
 	AndGate(sf::RenderWindow* w, LogicElement* ePtr);
 	~AndGate();
-	void setSprite();
-	void simulate() override;
+	void setSprite();  // Handle the correct sprite and scale it
+	void simulate() override; //  Determine the next state of the output pin 
 };
 
