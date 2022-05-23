@@ -15,7 +15,7 @@ Wire::Wire(sf::RenderWindow* w, Pin* p) :
 	}
 }
 
-Wire::~Wire()
+Wire::~Wire()						// call the method to unembed wire from both pins of the wire
 {
 	if (pins[0] != nullptr)
 	{
@@ -27,17 +27,17 @@ Wire::~Wire()
 	}
 }
 
-void Wire::draw()
+void Wire::draw()				// draw wire
 {
-	if (grabbed)
+	if (grabbed)				// while in grabbed state last vertice representing tip of wire follows mouse pointer
 	{
 		vertices[3] = sf::Vector2f(sf::Mouse::getPosition(*window));
-		float x = (vertices[0].x + vertices[3].x) / 2;
+		//float x = (vertices[0].x + vertices[3].x) / 2;
 		
-		setBody();
+		setBody();				// set how the wire body looks
 	}
 	
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 5; i++)		// draw all wire body parts
 	{
 		window->draw(body[i]);
 	}
@@ -55,34 +55,31 @@ void Wire::setBody()			// wire seperated into 5 body parts
 
 	body[0].setPosition(vertices[0]);
 	body[0].setSize(sf::Vector2f(vertices[1].x - vertices[0].x, 4));		// first horizontal line
-	//body[0].setFillColor(sf::Color::Red);
 
 	body[1].setPosition(vertices[1]);
 	body[1].setSize(sf::Vector2f(4, 4));									// first elbow
-	//body[1].setFillColor(sf::Color::Red);
 
 	body[2].setPosition(vertices[1]);
 	body[2].setSize(sf::Vector2f(4, vertices[2].y - vertices[1].y));		// vertical line
-	//body[2].setFillColor(sf::Color::Red);
 
 	body[3].setPosition(vertices[2]);
 	body[3].setSize(sf::Vector2f(4, 4));									// second elbow
-	//body[3].setFillColor(sf::Color::Red);
 
 	body[4].setPosition(vertices[2]);
 	body[4].setSize(sf::Vector2f(vertices[3].x - vertices[2].x, 4));		// second horizontal line
-	//body[4].setFillColor(sf::Color::Red);
 }
 
-void Wire::moveTip(Pin* p, sf::Vector2f v)
+void Wire::moveTip(Pin* p, sf::Vector2f v)		// moves tip of wire to the middle of pin when logic element moves
 {
 	if (p == pins[0])
 	{
-		vertices[0] = v;
+		vertices[0].x = v.x+3;
+		vertices[0].y = v.y+3;
 	}
 	else if (p == pins[1])
 	{
-		vertices[3] = v;
+		vertices[3].x = v.x+3;
+		vertices[3].y = v.y+3;
 	}
 	
 	setBody();
@@ -134,9 +131,9 @@ bool Wire::isInside(sf::Vector2f mp) // wire is consisted of 3 main body parts c
 	return flag;
 }
 
-void Wire::embed(Pin* p)
+void Wire::embed(Pin* p)	// creates a new wire and embeds it to pin
 {
-	if (p->type == pins[0]->type || p->numConnections == p->MAX_CONNECTIONS)
+	if (p->type == pins[0]->type || p->numConnections == p->MAX_CONNECTIONS)	// dont connect if max_connections reached or pins same type
 	{
 		delete this;
 		return;
@@ -148,7 +145,7 @@ void Wire::embed(Pin* p)
 	pins[1]->embedWire(this, pins[0]);
 }
 
-void Wire::simulate()
+void Wire::simulate()					// paints the color of the wire according to state during simulation
 {
 	for (int i = 0; i < 2; i++)
 	{
@@ -172,7 +169,7 @@ void Wire::simulate()
 	}
 }
 
-void Wire::select()
+void Wire::select()						// select the wire and set it red
 {
 	selected = true;
 	for (int i = 0; i < 5; i++)
@@ -181,7 +178,7 @@ void Wire::select()
 	}
 }
 
-void Wire::unselect()
+void Wire::unselect()					// select the wire and set it black
 {
 	selected = false;
 	for (int i = 0; i < 5; i++)
@@ -190,7 +187,7 @@ void Wire::unselect()
 	}
 }
 
-void Wire::reset()
+void Wire::reset()						// reset wire 
 {
 	for (int i = 0; i < 5; i++)
 	{

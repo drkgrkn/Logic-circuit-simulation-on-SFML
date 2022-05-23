@@ -34,7 +34,7 @@ Pin::~Pin()
 	delete[] connectedTo;
 }
 
-void Pin::setShape()
+void Pin::setShape()		// shape of pin
 {
 	shape.setSize(sf::Vector2f(10, 10));
 	shape.setFillColor(sf::Color::Black);
@@ -45,7 +45,7 @@ void Pin::setPosition(sf::Vector2f v)
 	shape.setPosition(v);
 }
 
-void Pin::draw()
+void Pin::draw()		// call wire->draw for all wires connected to pin
 {
 	for (int idx = 0; idx < MAX_CONNECTIONS; idx++)
 	{
@@ -54,7 +54,7 @@ void Pin::draw()
 			wires[idx]->draw();
 		}
 	}
-	window->draw(shape);
+	window->draw(shape); // draw pin after wire to have it on top
 }
 
 bool Pin::isInside(sf::Vector2f mp)
@@ -70,7 +70,7 @@ bool Pin::isInside(sf::Vector2f mp)
 		(mp.y >= y_pos);
 }
 
-void Pin::handleClick()
+void Pin::handleClick()			// add wire when clicked an isinside
 {
 	if (numConnections == MAX_CONNECTIONS)
 	{
@@ -92,7 +92,7 @@ void Pin::handleClick()
 	}
 }
 
-void Pin::embedWire(Wire* w, Pin* p)
+void Pin::embedWire(Wire* w, Pin* p)	// establish connection between pin and wire
 {
 	for (int idx = 0; idx < MAX_CONNECTIONS; idx++)
 	{
@@ -106,7 +106,7 @@ void Pin::embedWire(Wire* w, Pin* p)
 	}
 }
 
-void Pin::unembedWire(Wire* w)
+void Pin::unembedWire(Wire* w)		// sever connection between pin and wire
 {
 	for (int idx = 0; idx < MAX_CONNECTIONS; idx++)
 	{
@@ -120,7 +120,7 @@ void Pin::unembedWire(Wire* w)
 	}
 }
 
-void Pin::connect(Wire* w,Pin* p)
+void Pin::connect(Wire* w,Pin* p)					// connect wire to pin
 {
 	for (int idx = 0; idx < numConnections; idx++)
 	{
@@ -132,7 +132,7 @@ void Pin::connect(Wire* w,Pin* p)
 	}
 }
 
-void Pin::reset()
+void Pin::reset()								// reset after simulation
 {
 	state = Pin::pinState::HIGHZ;
 	for (int i = 0; i < numConnections; i++)
