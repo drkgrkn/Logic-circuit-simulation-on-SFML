@@ -78,6 +78,10 @@ void CircuitBoard::unselectAll()
 	Entity* selected = getSelected();
 	if (selected != nullptr)
 		selected->unselect();
+	for (LogicElement* temp = entities; temp != nullptr; temp = temp->next)
+	{
+		temp->initialize();
+	}
 }
 
 void CircuitBoard::deleteLogic()

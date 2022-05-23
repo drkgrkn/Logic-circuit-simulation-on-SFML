@@ -39,22 +39,23 @@ void OrGate::setSprite()
 void OrGate::simulate() {
 
 	//INPUT UPDATE
-	if (pins[0].connectedTo[0] != nullptr)
-	{
-		pins[0].state = pins[0].connectedTo[0]->state;
-	}
-	else
+	if (pins[0].connectedTo[0] == nullptr)
 	{
 		pins[0].state = Pin::pinState::HIGHZ;
 	}
-	if (pins[1].connectedTo[0] != nullptr)
-	{
-		pins[1].state = pins[1].connectedTo[0]->state;
-	}
 	else
+	{
+		pins[0].state = pins[0].connectedTo[0]->state;
+	}
+	if (pins[1].connectedTo[0] == nullptr)
 	{
 		pins[1].state = Pin::pinState::HIGHZ;
 	}
+	else
+	{
+		pins[1].state = pins[1].connectedTo[0]->state;
+	}
+
 
 	//OUTPUT UPDATE
 	if (pins[0].state == Pin::pinState::HIGHZ || pins[1].state == Pin::pinState::HIGHZ)

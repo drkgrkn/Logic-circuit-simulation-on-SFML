@@ -163,6 +163,14 @@ void LogicElement::preSimulate()
 {
 	for (int p = 0; p < numPins; p++)
 	{
-		pins[p].state = Pin::pinState::HIGHZ;
+		//pins[p].state = Pin::pinState::LOW;
+	}
+}
+
+void LogicElement::initialize()
+{
+	for (int p = 0; p < numPins; p++)
+	{
+		pins[p].state = Pin::pinState::LOW;
 	}
 }

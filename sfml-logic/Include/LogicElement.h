@@ -61,5 +61,7 @@ public:
 	virtual void reset() override;
 	//pre simulation loop function to prepare LE
 	virtual void preSimulate();
+	//func to run once before the simulation
+	virtual void initialize();
 };
 
