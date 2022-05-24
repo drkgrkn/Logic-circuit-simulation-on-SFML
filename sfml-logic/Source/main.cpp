@@ -10,6 +10,7 @@ const int timer = 1;
 
 int main()
 {
+	//initialization of the global texture loader
 	Textures  textures = Textures();
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Logic Simulator", sf::Style::Close);
 	Object::textures = &textures;
